@@ -1,0 +1,10 @@
+.myCustomFrame_CSK_Module_DigitalIOManager {
+  border-style: solid;
+  border-width: 1px;
+  border-color: grey;
+  margin: 6px;
+}
+
+.myCustomPlaceholder10pxHeight_CSK_Module_DigitalIOManager {
+  min-height: 10px;
+}
