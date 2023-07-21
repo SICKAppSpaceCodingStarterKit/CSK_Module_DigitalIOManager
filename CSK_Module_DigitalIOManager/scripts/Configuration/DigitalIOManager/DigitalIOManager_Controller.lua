@@ -514,14 +514,22 @@ end
 Script.serveFunction("CSK_DigitalIOManager.setDelayForLink", setDelayForLink)
 
 local function selectForwardInputToEventPair(selection)
-  _G.logger:info(nameOfModule .. ": Select input to forward via event: " .. tostring(selection))
-  selectedForwardEventPair = setSelection(selection, '"FromInput":"')
+  if digitalIOManager_Model.parameters.forwardEvent[selection] then
+    selectedForwardEventPair = selection
+  else
+    selectedForwardEventPair = setSelection(selection, '"FromInput":"')
+  end
+  _G.logger:info(nameOfModule .. ": Select input to forward via event: " .. tostring(selectedForwardEventPair))
 end
 Script.serveFunction("CSK_DigitalIOManager.selectForwardInputToEventPair", selectForwardInputToEventPair)
 
 local function selectOutputToSetByEventPair(selection)
-  _G.logger:info(nameOfModule .. ": Select output to set by event: " .. tostring(selection))
-  selectedTriggerEventPair = setSelection(selection, '"SetOutput":"')
+  if digitalIOManager_Model.parameters.triggerEvent[selection] then
+    selectedTriggerEventPair = selection
+  else
+    selectedTriggerEventPair = setSelection(selection, '"SetOutput":"')
+  end
+  _G.logger:info(nameOfModule .. ": Select output to set by event: " .. tostring(selectedTriggerEventPair))
 end
 Script.serveFunction("CSK_DigitalIOManager.selectOutputToSetByEventPair", selectOutputToSetByEventPair)
 
