@@ -339,12 +339,12 @@ INFO: As this events will be created dynamically, there is no auto completion wi
                     <desc>Add event to listen to and to trigger digital output.</desc>
                 </function>
                 <function name="selectForwardInputToEventPair">
-                    <desc>Select event pair (e.g. in UI table).</desc>
-                    <param desc="Selected pair" multiplicity="1" name="selection" type="string"/>
+                    <desc>Select Input2Event-pair.</desc>
+                    <param desc=" Input2Event-pair to select (via UI selection or port identifier like 'S1DI1')." multiplicity="1" name="selection" type="string"/>
                 </function>
                 <function name="selectOutputToSetByEventPair">
-                    <desc>Select output interface to set for trigger event (see "addTriggerEvent").</desc>
-                    <param desc="Interface to select." multiplicity="1" name="selection" type="string"/>
+                    <desc>Select Event2Trigger-pair.</desc>
+                    <param desc="Event2Trigger-pair to select (via UI selection or port identifier like 'S1DO1')." multiplicity="1" name="selection" type="string"/>
                 </function>
                 <function name="removeTriggerEvent">
                     <desc>Remove event to trigger digital output.</desc>
@@ -382,7 +382,7 @@ INFO: As this events will be created dynamically, there is no auto completion wi
             </serves>
         </crown>
         <meta key="author">SICK AG</meta>
-        <meta key="version">3.8.0</meta>
+        <meta key="version">3.8.1</meta>
         <meta key="priority">low</meta>
         <meta key="copy-protected">false</meta>
         <meta key="read-protected">false</meta>

@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## Release 3.8.1
+
+### Bugfix
+- "selectForwardInputToEventPair" only reacts on UI selection
+- "selectOutputToSetByEventPair" only reacts on UI selection
+
 ## Release 3.8.0
 
 ### Improvements
