@@ -87,7 +87,6 @@ local function main()
 
   ]]
   ----------------------------------------------------------------------------------------
-
   CSK_DigitalIOManager.pageCalled() -- Update UI
 
 end

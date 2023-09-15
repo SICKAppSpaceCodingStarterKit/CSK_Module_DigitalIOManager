@@ -119,6 +119,7 @@ local function initialize()
   _G.logger:info(nameOfModule .. ': Initialize digital IO ports.')
   digitalIOManager_Model.parameters.active = {} -- Status if port is active to process
   digitalIOManager_Model.parameters.mode = {} -- Port is used by 'SCRIPT', 'FLOW' or 'BLOCKED'
+  digitalIOManager_Model.parameters.sensorStatus = {} -- Status of sensor's measurement
 
   digitalIOManager_Model.parameters.inDebounceValue = {} -- List of Input DebounceValues for the ports
   digitalIOManager_Model.parameters.inDebounceMode = {} -- List of Input DebounceMode for the ports
@@ -140,6 +141,7 @@ local function initialize()
     digitalIOManager_Model.parameters.inputLogic[id] = 'ACTIVE_HIGH' -- 'ACTIVE_HIGH', 'ACTIVE_LOW'
 
     digitalIOManager_Model.parameters.mode[id] = 'SCRIPT' -- 'SCRIPT', 'FLOW'
+    digitalIOManager_Model.parameters.sensorStatus[id] = false -- true, false
   end
 
   for i=1, #digitalIOManager_Model.digitalOutputs do
@@ -190,12 +192,15 @@ local function setupAll()
   for i=1, #digitalIOManager_Model.digitalInputs do
     local id = digitalIOManager_Model.digitalInputs[i]
     if digitalIOManager_Model.parameters.active[id] == true and digitalIOManager_Model.parameters.mode[id] == 'SCRIPT' then
-
       digitalIOManager_Model.handles[id] = Connector.DigitalIn.create(digitalIOManager_Model.digitalInputs[i])
       if digitalIOManager_Model.handles[id] then
         digitalIOManager_Model.handles[id]:setDebounceMode(digitalIOManager_Model.parameters.inDebounceMode[id])
         digitalIOManager_Model.handles[id]:setDebounceValue(digitalIOManager_Model.parameters.inDebounceValue[id])
         digitalIOManager_Model.handles[id]:setLogic(digitalIOManager_Model.parameters.inputLogic[id])
+        Connector.DigitalIn.register(digitalIOManager_Model.handles[id], "OnChange", function(state) 
+        digitalIOManager_Model.parameters.sensorStatus[id]= state end)
+        Connector.DigitalIn.register(digitalIOManager_Model.handles[id], "OnChange", CSK_DigitalIOManager.pageCalled)
+
         if digitalIOManager_Model.parameters.forwardEvent[id] then
           Connector.DigitalIn.register(digitalIOManager_Model.handles[id], "OnChange", digitalIOManager_Model.forwardFunctions[id])
         end
@@ -266,6 +271,10 @@ local function setupAll()
 end
 digitalIOManager_Model.setupAll = setupAll
 
+-- Function to call on change for sensor measurement
+function handleStateChange(status)
+
+end
 -- Initialize and setup digital IO setup
 if digitalIOManager_Model.moduleActive then
   initialize()

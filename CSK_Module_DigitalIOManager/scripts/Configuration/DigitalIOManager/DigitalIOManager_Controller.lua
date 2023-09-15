@@ -170,7 +170,7 @@ local function handleOnExpiredTmrDigitalIOManager()
 
   Script.notifyEvent("DigitalIOManager_OnNewStatusModuleIsActive", digitalIOManager_Model.moduleActive)
 
-  Script.notifyEvent("DigitalIOManager_OnNewInputPortTable", digitalIOManager_Model.helperFuncs.createJsonList('input', digitalIOManager_Model.parameters.inDebounceMode, digitalIOManager_Model.parameters.active, digitalIOManager_Model.parameters.inDebounceMode, digitalIOManager_Model.parameters.inDebounceValue, digitalIOManager_Model.parameters.inputLogic, nil, digitalIOManager_Model.parameters.mode))
+  Script.notifyEvent("DigitalIOManager_OnNewInputPortTable", digitalIOManager_Model.helperFuncs.createJsonList('input', digitalIOManager_Model.parameters.inDebounceMode, digitalIOManager_Model.parameters.active, digitalIOManager_Model.parameters.inDebounceMode, digitalIOManager_Model.parameters.inDebounceValue, digitalIOManager_Model.parameters.inputLogic, nil, digitalIOManager_Model.parameters.mode, digitalIOManager_Model.parameters.sensorStatus))
   Script.notifyEvent("DigitalIOManager_OnNewOutputPortTable", digitalIOManager_Model.helperFuncs.createJsonList('output', digitalIOManager_Model.parameters.outActivationMode, digitalIOManager_Model.parameters.active, digitalIOManager_Model.parameters.outActivationMode, digitalIOManager_Model.parameters.outActivationValue, digitalIOManager_Model.parameters.outputLogic, digitalIOManager_Model.parameters.outputMode, digitalIOManager_Model.parameters.mode))
 
   Script.notifyEvent("DigitalIOManager_OnNewInputPortList", digitalIOManager_Model.helperFuncs.createStringListBySimpleTable(digitalIOManager_Model.digitalInputs))
@@ -190,6 +190,7 @@ local function handleOnExpiredTmrDigitalIOManager()
     Script.notifyEvent("DigitalIOManager_OnNewDebounceMode", digitalIOManager_Model.parameters.inDebounceMode[selectedInputInterface])
     Script.notifyEvent("DigitalIOManager_OnNewDebounceValue", digitalIOManager_Model.parameters.inDebounceValue[selectedInputInterface])
     Script.notifyEvent("DigitalIOManager_OnNewInputLogic", digitalIOManager_Model.parameters.inputLogic[selectedInputInterface])
+
   end
   if selectedOutputInterface ~= '' then
     Script.notifyEvent("DigitalIOManager_OnNewActiveStatusOutput", digitalIOManager_Model.parameters.active[selectedOutputInterface])
