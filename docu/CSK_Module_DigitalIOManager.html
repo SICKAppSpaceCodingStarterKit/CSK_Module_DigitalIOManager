@@ -2977,7 +2977,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="paragraph">
 <p>Example for dynamically created events to forward incoming input signals if used within a link (see "addLink").<br>
 "ENUM" is replaced by DigitalInPort ENUM (e.g. "CSK_DigitalIOManager.OnNewFlowInputStateS1DI1").<br>
-This event will be created during module runtime if a signal link is used. So for uses of this event it is necessary to first check if this event is already available.<br>
+This event will be created during runtime if a signal link is used. So for users of this event it is necessary to check first if this event is already available to be able to register to it.<br>
 INFO: As this events will be created dynamically, there is no auto completion within AppStudio available for these events.</p>
 </div>
 </div>
@@ -4762,7 +4762,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div id="footer">
 <div id="footer-text">
 Version 3.9.0<br>
-Last updated 2023-12-01 12:28:48 +0100
+Last updated 2023-12-01 12:55:33 +0100
 </div>
 </div>
 <script type="text/javascript">
