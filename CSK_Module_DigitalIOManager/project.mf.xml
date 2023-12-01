@@ -43,6 +43,7 @@ To remove this Input2Event-pair, you need to select this pair via "selectForward
 It is possible to link different ports with each other (like a wire inside of a flow). This will be handled as a cFlow. +
 For this you need to configure the ports you want to link via "setInputForLink" / "setOutputForLink". Additionally you can set a delay via "setDelayForLink". +
 To activate the predefined link you need to call "CSK_DigitalIOManager.addLink()". +
+The input signal will be forwarded via 'OnNewFlowInputStateENUM'-event as well (e.g. to use in other scripts, see docu of this event). +
 To remove this link, you need to select this pair via "selectLink" and then to call "removeLink". +</desc>
             <enum name="ActivationMode" trait="released">
                 <desc>Digital output activation mode.</desc>
@@ -232,6 +233,12 @@ INFO: As this events will be created dynamically, there is no auto completion wi
                     <desc>Notify name of persistent data parameter.</desc>
                     <param desc="Parameter name" multiplicity="1" name="name" type="string"/>
                 </event>
+                <event name="OnNewFlowInputStateENUM">
+                    <desc>Example for dynamically created events to forward incoming input signals if used within a link (see "addLink"). +
+"ENUM" is replaced by DigitalInPort ENUM (e.g. "CSK_DigitalIOManager.OnNewFlowInputStateS1DI1"). +
+This event will be created during module runtime if a signal link is used. So for uses of this event it is necessary to first check if this event is already available. +
+INFO: As this events will be created dynamically, there is no auto completion within AppStudio available for these events.</desc>
+                </event>
                 <function name="setParameterName">
                     <desc>Function to set the name of the parameters if saved/loaded via the CSK_PersistentData module.</desc>
                     <param desc="Name of the parameter" multiplicity="1" name="name" type="string"/>
@@ -382,7 +389,7 @@ INFO: As this events will be created dynamically, there is no auto completion wi
             </serves>
         </crown>
         <meta key="author">SICK AG</meta>
-        <meta key="version">3.8.1</meta>
+        <meta key="version">3.9.0</meta>
         <meta key="priority">low</meta>
         <meta key="copy-protected">false</meta>
         <meta key="read-protected">false</meta>

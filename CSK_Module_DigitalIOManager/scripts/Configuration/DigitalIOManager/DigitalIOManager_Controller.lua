@@ -40,6 +40,7 @@ local digitalIOManager_Model
 -- Only to prevent WARNING messages, but these are only examples/placeholders for dynamically created events/functions
 ----------------------------------------------------------------
 Script.serveEvent("CSK_DigitalIOManager.OnNewInputStateENUM", "DigitalIOManager_.OnNewInputStateENUM")
+Script.serveEvent("CSK_DigitalIOManager.OnNewFlowInputStateENUM", "DigitalIOManager_.OnNewFlowInputStateENUM")
 ----------------------------------------------------------------
 
 -- Real events

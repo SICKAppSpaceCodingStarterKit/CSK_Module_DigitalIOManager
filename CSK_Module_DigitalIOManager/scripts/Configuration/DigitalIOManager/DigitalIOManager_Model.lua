@@ -237,6 +237,11 @@ local function setupAll()
         digitalIOManager_Model.flow:setInitialParameter('DigitalIn'..input, 'DebounceValue', digitalIOManager_Model.parameters.inDebounceValue[input])
       end
 
+      if not digitalIOManager_Model.flow:hasBlock('DigitalInEvent'..input) then
+        digitalIOManager_Model.flow:addConsumerBlock('DigitalInEvent'..input, 'Engine.Event.notify')
+        digitalIOManager_Model.flow:setInitialParameter('DigitalInEvent'..input, 'EventName', "CSK_DigitalIOManager.OnNewFlowInputState" .. input)
+      end
+
       if not digitalIOManager_Model.flow:hasBlock('DigitalOut'..output) then
         digitalIOManager_Model.flow:addConsumerBlock('DigitalOut'..output, 'Connector.DigitalOut.set')
         digitalIOManager_Model.flow:setCreationParameter('DigitalOut'..output, digitalIOManager_Model.parameters.links[i].output)
@@ -248,11 +253,13 @@ local function setupAll()
 
       if digitalIOManager_Model.parameters.links[i].delay == 0 then
         digitalIOManager_Model.flow:addLink('DigitalIn'..input..':newState', 'DigitalOut'..output..':newState')
+        digitalIOManager_Model.flow:addLink('DigitalIn'..input..':newState', 'DigitalInEvent'..input..':signal')
       else
         digitalIOManager_Model.flow:addBlock('Delay'..input..output, 'DigitalLogic.Delay.delay')
         digitalIOManager_Model.flow:setInitialParameter('Delay'..input..output, 'DelayTime', digitalIOManager_Model.parameters.links[i].delay)
 
         digitalIOManager_Model.flow:addLink('DigitalIn'..input..':newState', 'Delay'..input..output..':signal')
+        digitalIOManager_Model.flow:addLink('DigitalIn'..input..':newState', 'DigitalInEvent'..input..':signal')
         digitalIOManager_Model.flow:addLink('Delay'..input..output..':delayedSignal', 'DigitalOut'..output..':newState')
       end
     else
