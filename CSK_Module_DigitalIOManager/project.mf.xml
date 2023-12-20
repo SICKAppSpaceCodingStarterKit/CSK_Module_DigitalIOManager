@@ -236,8 +236,12 @@ INFO: As this events will be created dynamically, there is no auto completion wi
                 <event name="OnNewFlowInputStateENUM">
                     <desc>Example for dynamically created events to forward incoming input signals if used within a link (see "addLink"). +
 "ENUM" is replaced by DigitalInPort ENUM (e.g. "CSK_DigitalIOManager.OnNewFlowInputStateS1DI1"). +
-This event will be created during module runtime if a signal link is used. So for uses of this event it is necessary to first check if this event is already available. +
+This event will be created during runtime if a signal link is used. So for users of this event it is necessary to check first if this event is already available to be able to register to it. +
 INFO: As this events will be created dynamically, there is no auto completion within AppStudio available for these events.</desc>
+                </event>
+                <event name="OnNewStatusTrackInputSignalStatus">
+                    <desc>Notify if status of input signals should be tracked for UI.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
                 </event>
                 <function name="setParameterName">
                     <desc>Function to set the name of the parameters if saved/loaded via the CSK_PersistentData module.</desc>
@@ -385,6 +389,10 @@ INFO: As this events will be created dynamically, there is no auto completion wi
                     <desc>Function to block a sensor port so it can be used by other applications.</desc>
                     <param desc="Port" multiplicity="1" name="port" type="string"/>
                     <return desc="Success" multiplicity="1" name="success" type="bool"/>
+                </function>
+                <function name="setInputTracking">
+                    <desc>Function to set if input signals should be tracked to show status in UI.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
                 </function>
             </serves>
         </crown>

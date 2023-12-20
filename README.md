@@ -2,7 +2,7 @@
 
 Module to setup digital IO connectors of the device.  
 
-![](https://github.com/SICKAppSpaceCodingStarterKit/CSK_Module_DigitalIOManager/blob/main/docu/media/UI_Screenshot.png)
+![](./docu/media/UI_Screenshot.png)
 
 ## How to Run
 
@@ -13,9 +13,10 @@ For further information regarding the internal used functions / events check out
 ## Information
 
 Tested on  
-
-1. SIM1012        - Firmware 2.2.0
-2. SICK AppEngine - Firmware 1.3.2
+|Device|Firmware|Module version
+|--|--|--|
+|SIM1012|V2.3.0|V3.9.0|
+|SICK AppEngine|V1.3.2|V3.8.1|
 
 This module is part of the SICK AppSpace Coding Starter Kit developing approach.  
 It is programmed in an object oriented way. Some of these modules use kind of "classes" in Lua to make it possible to reuse code / classes in other projects.  

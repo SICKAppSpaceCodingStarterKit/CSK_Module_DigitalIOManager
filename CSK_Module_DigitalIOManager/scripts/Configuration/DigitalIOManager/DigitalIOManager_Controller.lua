@@ -52,6 +52,8 @@ Script.serveEvent("CSK_DigitalIOManager.OnShowInternalMessages", "DigitalIOManag
 Script.serveEvent("CSK_DigitalIOManager.OnNewMessageType", "DigitalIOManager_OnNewMessageType")
 Script.serveEvent("CSK_DigitalIOManager.OnNewInternalMessage", "DigitalIOManager_OnNewInternalMessage")
 
+Script.serveEvent('CSK_DigitalIOManager.OnNewStatusTrackInputSignalStatus', 'DigitalIOManager_OnNewStatusTrackInputSignalStatus')
+
 Script.serveEvent("CSK_DigitalIOManager.OnNewOutputPortTable", "DigitalIOManager_OnNewOutputPortTable")
 Script.serveEvent("CSK_DigitalIOManager.OnNewInputPortTable", "DigitalIOManager_OnNewInputPortTable")
 
@@ -171,7 +173,9 @@ local function handleOnExpiredTmrDigitalIOManager()
 
   Script.notifyEvent("DigitalIOManager_OnNewStatusModuleIsActive", digitalIOManager_Model.moduleActive)
 
-  Script.notifyEvent("DigitalIOManager_OnNewInputPortTable", digitalIOManager_Model.helperFuncs.createJsonList('input', digitalIOManager_Model.parameters.inDebounceMode, digitalIOManager_Model.parameters.active, digitalIOManager_Model.parameters.inDebounceMode, digitalIOManager_Model.parameters.inDebounceValue, digitalIOManager_Model.parameters.inputLogic, nil, digitalIOManager_Model.parameters.mode))
+  Script.notifyEvent("DigitalIOManager_OnNewStatusTrackInputSignalStatus", digitalIOManager_Model.trackStatus)
+
+  Script.notifyEvent("DigitalIOManager_OnNewInputPortTable", digitalIOManager_Model.helperFuncs.createJsonList('input', digitalIOManager_Model.parameters.inDebounceMode, digitalIOManager_Model.parameters.active, digitalIOManager_Model.parameters.inDebounceMode, digitalIOManager_Model.parameters.inDebounceValue, digitalIOManager_Model.parameters.inputLogic, nil, digitalIOManager_Model.parameters.mode, digitalIOManager_Model.sensorStatus))
   Script.notifyEvent("DigitalIOManager_OnNewOutputPortTable", digitalIOManager_Model.helperFuncs.createJsonList('output', digitalIOManager_Model.parameters.outActivationMode, digitalIOManager_Model.parameters.active, digitalIOManager_Model.parameters.outActivationMode, digitalIOManager_Model.parameters.outActivationValue, digitalIOManager_Model.parameters.outputLogic, digitalIOManager_Model.parameters.outputMode, digitalIOManager_Model.parameters.mode))
 
   Script.notifyEvent("DigitalIOManager_OnNewInputPortList", digitalIOManager_Model.helperFuncs.createStringListBySimpleTable(digitalIOManager_Model.digitalInputs))
@@ -660,6 +664,17 @@ local function freeSensorPort(port)
   end
 end
 Script.serveFunction('CSK_DigitalIOManager.freeSensorPort', freeSensorPort)
+
+local function setInputTracking(status)
+  digitalIOManager_Model.trackStatus = status
+  if not status then
+    for key, value in pairs(digitalIOManager_Model.sensorStatus) do
+      digitalIOManager_Model.sensorStatus[key] = '-'
+    end
+  end
+  activateNewSetup()
+end
+Script.serveFunction('CSK_DigitalIOManager.setInputTracking', setInputTracking)
 
 -- *****************************************************************
 -- Following function can be adapted for CSK_PersistentData module usage

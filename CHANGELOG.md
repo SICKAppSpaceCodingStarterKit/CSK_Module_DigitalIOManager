@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 ## Release 3.9.0
 
+### New features
+- Optional track and show status of input signals to e.g. show them in UI
+
 ### Improvements
 - Status of the input signal of signal links (running via cFlow) is now provided additional via 'OnNewFlowInputState[ENUM]'-event.
 
