@@ -105,6 +105,22 @@
 										</crown-binding>
 									</davinci-drop-down>
 								</layout-column>
+								<layout-column id="ColumnLayout35" style="align-items: stretch">
+									<davinci-value-display id="VD_Status" value="Show status">
+									</davinci-value-display>
+									<layout-row id="RowLayout19" style="align-items: center">
+										<davinci-toggle-switch id="TS_TrackStatus">
+											<crown-edpws-binding property="checked"
+												name="CSK_DigitalIOManager/OnNewStatusTrackInputSignalStatus"
+												update-on-resume>
+											</crown-edpws-binding>
+											<crown-binding event="change"
+												name="CSK_DigitalIOManager/setInputTracking"
+												path="param/args/status" auto-commit>
+											</crown-binding>
+										</davinci-toggle-switch>
+									</layout-row>
+								</layout-column>
 							</layout-row>
 							<curie-table id="DT_Inputs" selectable select-mode="highlight_row">
 								<curie-table-column id="DigitalInput" header="DigitalInput">
@@ -118,6 +134,8 @@
 								<curie-table-column id="InputLogic" header="InputLogic">
 								</curie-table-column>
 								<curie-table-column id="ModeInput" header="Mode">
+								</curie-table-column>
+								<curie-table-column id="SensorStatus" header="Status">
 								</curie-table-column>
 								<crown-edpws-binding property="data"
 									name="CSK_DigitalIOManager/OnNewInputPortTable" update-on-resume>

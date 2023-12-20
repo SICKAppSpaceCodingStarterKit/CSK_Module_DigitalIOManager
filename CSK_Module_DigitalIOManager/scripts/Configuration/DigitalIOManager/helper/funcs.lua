@@ -26,8 +26,9 @@ funcs.json = require('Configuration/DigitalIOManager/helper/Json')
 ---@param contentE string State of 'InputLogic' or 'OutputLogic'
 ---@param contentF string State of 'OutputMode'
 ---@param contentG string State of 'ModeInput' or 'ModeOutput'
+---@param contentH string 'SensorStatus' of sensors measurement
 ---@return string jsonstring JSON string
-local function createJsonList(portType, contentA, contentB, contentC, contentD, contentE, contentF, contentG)
+local function createJsonList(portType, contentA, contentB, contentC, contentD, contentE, contentF, contentG, contentH)
   local orderedTable = {}
   local connectorList = {}
 
@@ -39,7 +40,7 @@ local function createJsonList(portType, contentA, contentB, contentC, contentD, 
 
     for _, value in ipairs(orderedTable) do
       if portType == 'input' then
-        table.insert(connectorList, {DigitalInput = value, InputActive = contentB[value], DebounceMode = contentC[value], DebounceValue = contentD[value], InputLogic = contentE[value], ModeInput = contentG[value]})
+        table.insert(connectorList, {DigitalInput = value, InputActive = contentB[value], DebounceMode = contentC[value], DebounceValue = contentD[value], InputLogic = contentE[value], ModeInput = contentG[value], SensorStatus = contentH[value]})
       elseif portType == 'output' then
         table.insert(connectorList, {DigitalOutput = value, OutputActive = contentB[value], ActivationMode = contentC[value], ActivationValue = contentD[value], OutputLogic = contentE[value], OutputMode = contentF[value], ModeOutput = contentG[value]})
       elseif portType == 'links' then
@@ -58,7 +59,7 @@ local function createJsonList(portType, contentA, contentB, contentC, contentD, 
 
   if #connectorList == 0 then
     if portType == 'input' then
-      connectorList = {{DigitalInput = '-', InputActive = '-', DebounceMode = '-', DebounceValue = '-', InputLogic = '-', ModeInput = '-'},}
+      connectorList = {{DigitalInput = '-', InputActive = '-', DebounceMode = '-', DebounceValue = '-', InputLogic = '-', ModeInput = '-', SensorStatus = '-'},}
     elseif portType == 'output' then
       connectorList = {{DigitalOutput = '-', OutputActive = '-', ActivationMode = '-', ActivationValue = '-', OutputLogic = '-', OutputMode = '-', ModeOutput = '-'},}
     elseif portType == 'links' then
