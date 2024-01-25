@@ -489,6 +489,10 @@ local function removeLink()
     local input = digitalIOManager_Model.parameters.links[tonumber(selectedLink)].input
     local output = digitalIOManager_Model.parameters.links[tonumber(selectedLink)].output
 
+    table.remove(digitalIOManager_Model.parameters.links, tonumber(selectedLink))
+    activateNewSetup()
+
+    -- Check if input/output port is still used in cFlow or is available for SCRIPT again
     if not digitalIOManager_Model.flow:hasBlock('DigitalIn'..input) then
       digitalIOManager_Model.parameters.mode[input] = 'SCRIPT'
       digitalIOManager_Model.parameters.active[input] = false
@@ -498,9 +502,8 @@ local function removeLink()
       digitalIOManager_Model.parameters.mode[output] = 'SCRIPT'
       digitalIOManager_Model.parameters.active[output] = false
     end
-
-    table.remove(digitalIOManager_Model.parameters.links, tonumber(selectedLink))
     activateNewSetup()
+
   else
     _G.logger:warning(nameOfModule .. ": No link to remove.")
   end

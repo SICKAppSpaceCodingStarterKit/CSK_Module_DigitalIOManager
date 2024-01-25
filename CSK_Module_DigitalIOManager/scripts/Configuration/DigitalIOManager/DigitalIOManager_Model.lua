@@ -54,6 +54,7 @@ digitalIOManager_Model.sensorStatus = {} -- Status of sensor's measurement
 
 digitalIOManager_Model.forwardFunctions = {} -- List of functions to be used to forward incoming trigger via DigitalIn as events
 digitalIOManager_Model.triggerFunctions = {} -- List of functions to be used to forward incoming events to trigger DigitalOut
+digitalIOManager_Model.trackingFunctions = {} -- List of functions to be used to track input states of signal links
 
 -- Create parameters / instances for this module
 digitalIOManager_Model.parameters = {}
@@ -65,6 +66,14 @@ digitalIOManager_Model.parameters.links = {} -- .input/.output/.delay
 local function forwardInputToEvent(status, source)
   _G.logger:info(nameOfModule .. ': Notify event ' .. tostring(digitalIOManager_Model.parameters.forwardEvent[source]) .. ' .. with status: ' .. tostring(status))
   Script.notifyEvent(digitalIOManager_Model.parameters.forwardEvent[source], status)
+end
+
+--- Function to track and notify input states of signal links
+---@param status boolean Status of input port to track
+---@param source string Name of input port
+local function trackInputState(status, source)
+  digitalIOManager_Model.sensorStatus[source]= status
+  Script.notifyEvent("DigitalIOManager_OnNewInputPortTable", digitalIOManager_Model.helperFuncs.createJsonList('input', digitalIOManager_Model.parameters.inDebounceMode, digitalIOManager_Model.parameters.active, digitalIOManager_Model.parameters.inDebounceMode, digitalIOManager_Model.parameters.inDebounceValue, digitalIOManager_Model.parameters.inputLogic, nil, digitalIOManager_Model.parameters.mode, digitalIOManager_Model.sensorStatus))
 end
 
 --- Function to set DigitalOutputs if received related event
@@ -91,12 +100,17 @@ if digitalIOManager_Model.moduleActive then
     Script.serveEvent(eventName, eventName, 'bool')
   end
 
-  -- Create functions to forward incoming trigger via DigitalInput as event
+  -- Create functions to forward incoming trigger via DigitalInput as event and to track input states of signal links
   for _, value in pairs(digitalIOManager_Model.digitalInputs) do
     local function addSourcePort(status)
       forwardInputToEvent(status,value)
     end
     digitalIOManager_Model.forwardFunctions[value] = addSourcePort
+
+    local function trackInput(status)
+      trackInputState(status,value)
+    end
+    digitalIOManager_Model.trackingFunctions[value] = trackInput
   end
 
   -- Create functions to set DigitalOutputs if received related event
@@ -203,11 +217,7 @@ local function setupAll()
 
         -- Optionally track state of input signals to e.g. show them on UI
         if digitalIOManager_Model.trackStatus then
-          Connector.DigitalIn.register(digitalIOManager_Model.handles[id], "OnChange",
-          function(state)
-            digitalIOManager_Model.sensorStatus[id]= state
-            Script.notifyEvent("DigitalIOManager_OnNewInputPortTable", digitalIOManager_Model.helperFuncs.createJsonList('input', digitalIOManager_Model.parameters.inDebounceMode, digitalIOManager_Model.parameters.active, digitalIOManager_Model.parameters.inDebounceMode, digitalIOManager_Model.parameters.inDebounceValue, digitalIOManager_Model.parameters.inputLogic, nil, digitalIOManager_Model.parameters.mode, digitalIOManager_Model.sensorStatus))
-          end)
+          Connector.DigitalIn.register(digitalIOManager_Model.handles[id], "OnChange", digitalIOManager_Model.trackingFunctions[id])
         end
 
         if digitalIOManager_Model.parameters.forwardEvent[id] then
@@ -254,6 +264,13 @@ local function setupAll()
       if not digitalIOManager_Model.flow:hasBlock('DigitalInEvent'..input) then
         digitalIOManager_Model.flow:addConsumerBlock('DigitalInEvent'..input, 'Engine.Event.notify')
         digitalIOManager_Model.flow:setInitialParameter('DigitalInEvent'..input, 'EventName', "CSK_DigitalIOManager.OnNewFlowInputState" .. input)
+
+        -- Optionally track input state of signal links to e.g. show them on UI
+        if digitalIOManager_Model.trackStatus then
+          Script.register("CSK_DigitalIOManager.OnNewFlowInputState" .. input, digitalIOManager_Model.trackingFunctions[input])
+        else
+          Script.deregister("CSK_DigitalIOManager.OnNewFlowInputState" .. input, digitalIOManager_Model.trackingFunctions[input])
+        end
       end
 
       if not digitalIOManager_Model.flow:hasBlock('DigitalOut'..output) then

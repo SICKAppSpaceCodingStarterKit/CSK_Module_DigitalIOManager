@@ -9,6 +9,9 @@ All notable changes to this project will be documented in this file.
 ### Improvements
 - Status of the input signal of signal links (running via cFlow) is now provided additional via 'OnNewFlowInputState[ENUM]'-event.
 
+### Bugfix
+- Removed signal links were not set to SCRIPT mode
+
 ## Release 3.8.1
 
 ### Bugfix
