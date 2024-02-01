@@ -5,6 +5,10 @@
   margin: 6px;
 }
 
+.myCustomBorderLeft_CSK_Module_DigitalIOManager {
+  border-left: 1px solid grey;
+}
+
 .myCustomPlaceholder10pxHeight_CSK_Module_DigitalIOManager {
   min-height: 10px;
 }

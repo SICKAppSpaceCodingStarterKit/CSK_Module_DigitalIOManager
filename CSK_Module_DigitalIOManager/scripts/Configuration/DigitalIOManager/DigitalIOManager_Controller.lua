@@ -291,7 +291,7 @@ end
 ---@param interfaceA string Interface 1
 ---@param interfaceB string Interface 2
 local function checkConfig(interfaceA, interfaceB)
-  -- Check for other Connector if pin is configureable
+  -- Check for other Connector if pin is configurable
   local pin = string.sub(interfaceA, #interfaceA)
   local port = string.sub(interfaceA, 2, 2)
   local portType = string.sub(interfaceA, 4, 4)
@@ -321,8 +321,8 @@ local function checkConfig(interfaceA, interfaceB)
 end
 
 local function setActiveStatusInput(status)
-  -- Check for other Connector if pin is configureable
-  if checkConfig(selectedInputInterface) == false or digitalIOManager_Model.parameters.mode[selectedInputInterface] == 'BLOCKED'then
+  -- Check for other Connector if pin is configurable
+  if checkConfig(selectedInputInterface) == false or digitalIOManager_Model.parameters.mode[selectedInputInterface] == 'BLOCKED' then
 
     _G.logger:warning(nameOfModule .. ": Port config error. Not possible to use same port in flow and script.")
     status = false
@@ -492,7 +492,7 @@ local function removeLink()
     table.remove(digitalIOManager_Model.parameters.links, tonumber(selectedLink))
     activateNewSetup()
 
-    -- Check if input/output port is still used in cFlow or is available for SCRIPT again
+    -- Check if input / output port is still used in cFlow or is available for SCRIPT again
     if not digitalIOManager_Model.flow:hasBlock('DigitalIn'..input) then
       digitalIOManager_Model.parameters.mode[input] = 'SCRIPT'
       digitalIOManager_Model.parameters.active[input] = false
@@ -568,7 +568,7 @@ local function addForwardEvent()
 
     activateNewSetup()
   else
-    _G.logger:warning(nameOfModule .. ": No correct config of ports to add event...")
+    _G.logger:warning(nameOfModule .. ": No correct config of ports to add event ...")
   end
 end
 Script.serveFunction("CSK_DigitalIOManager.addForwardEvent", addForwardEvent)
@@ -579,7 +579,7 @@ local function addTriggerEvent()
     digitalIOManager_Model.parameters.triggerEvent[selectedOutputToTrigger] = triggerEvent
     activateNewSetup()
   else
-    _G.logger:warning(nameOfModule .. ": No correct config of ports to add event...")
+    _G.logger:warning(nameOfModule .. ": No correct config of ports to add event ...")
   end
 end
 Script.serveFunction("CSK_DigitalIOManager.addTriggerEvent", addTriggerEvent)
@@ -639,20 +639,20 @@ end
 Script.serveFunction("CSK_DigitalIOManager.setOutputToTrigger", setOutputToTrigger)
 
 local function blockSensorPort(port)
-  _G.logger:info(nameOfModule .. ": Block port ".. port .. " to use in other app.")
+  _G.logger:info(nameOfModule .. ": Block port " .. port .. " to use in other app.")
   if digitalIOManager_Model.parameters.mode[port] then
     digitalIOManager_Model.parameters.mode[port] = 'BLOCKED'
     activateNewSetup()
     return true
   else
-    _G.logger:info(nameOfModule .. ": Port ".. port .. " is not available.")
+    _G.logger:info(nameOfModule .. ": Port " .. port .. " is not available.")
     return false
   end
 end
 Script.serveFunction('CSK_DigitalIOManager.blockSensorPort', blockSensorPort)
 
 local function freeSensorPort(port)
-  _G.logger:info(nameOfModule .. ": Free port ".. port .. " to use in other app.")
+  _G.logger:info(nameOfModule .. ": Free port " .. port .. " to use in other app.")
   if digitalIOManager_Model.parameters.mode[port] then
     if digitalIOManager_Model.parameters.mode[port] == 'BLOCKED' then
       digitalIOManager_Model.parameters.mode[port] = 'SCRIPT'
@@ -719,7 +719,7 @@ Script.serveFunction("CSK_DigitalIOManager.loadParameters", loadParameters)
 
 local function setLoadOnReboot(status)
   digitalIOManager_Model.parameterLoadOnReboot = status
-  _G.logger:info(nameOfModule .. ": Set new status to load setting on reboot: " .. tostring(status))
+  _G.logger:info(nameOfModule .. ": Set new status to load settings on reboot: " .. tostring(status))
 end
 Script.serveFunction("CSK_DigitalIOManager.setLoadOnReboot", setLoadOnReboot)
 

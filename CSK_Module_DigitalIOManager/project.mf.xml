@@ -7,56 +7,56 @@
         </crown>
         <crown name="CSK_DigitalIOManager">
             <trait>released</trait>
-            <desc>Module to manage DigitalIO configurations and to provide features like signal forwarding (realized in dynamical created cFlow), signal &lt; - &gt; event forwarding and setting output states. +
-Other modules can access this features / settings.
+            <desc>Module to manage DigitalIO configurations and to provide features like signal forwarding (realized in dynamically created cFlow), signal &lt; - &gt; event forwarding and setting output states. +
+Other modules can access these features / settings.
 For most features it is needed to preconfigure some values and then to activate this setup. +
 {empty} +
 Typically the features of this module are used like this (check also main script of this module): +
 {empty} +
 **1) Setup of the ports** +
-First select the port you want to setup with "selectOutputInterface" or "selectInputInterface" by its ENUM, e.g. with "CSK_DigitalIOManager.selectOutputInterface('S1DO1')". +
-Now you can setup the port configuration with functions like "setActivationMode/setActivationValue/setDebounceMode/setInputLogic/setOutputLogic/setOutputMode/...". +
-IMPORTANT: To activate the predefined setup of the port you need to call "setActiveStatusInput/setActiveStatusOutput", e.g. "CSK_DigitalIOManager.setActiveStatusOutput(true)". +
+At first, select the port you want to setup with "selectOutputInterface" or "selectInputInterface" by its ENUM, e.g. with 'CSK_DigitalIOManager.selectOutputInterface( "S1DO1" )'. +
+Now, you can setup the port configuration with functions like "setActivationMode" / "setActivationValue" / "setDebounceMode" / "setInputLogic" / "setOutputLogic" / "setOutputMode" / ... +
+IMPORTANT: To activate the predefined setup of the port, you need to call "setActiveStatusInput" / "setActiveStatusOutput", e.g. 'CSK_DigitalIOManager.setActiveStatusOutput( true )'. +
 {empty} +
 **2) Set digital output** +
-Via "setOutput" you can set the status of the latest selected output port. (Same like "Connector.DigitalOut.set") +
+Via "setOutput", you can set the status of the latest selected output port. (Same like 'Connector.DigitalOut.set( ... )') +
 {empty} +
 **3) Get digital input** +
-Via "getInputState" you can get the status of the latest selected input port. (Same like "Connector.DigitalIn.get") +
+Via "getInputState", you can get the status of the latest selected input port. (Same like 'Connector.DigitalIn.get( ... )') +
 {empty} +
 **4) Trigger digital output by event** +
-It is possible to set a digital output by notifiying an event. For this, you need to use "setTriggerEvent" to predefine the event to listen to (e.g. "	CSK_DigitalIOManager.setTriggerEvent('CrownName.OnNewResult')). The event needs to provide a bool value as first parameter to define the status to set. +
-Additionally it is necessary to define what port should be set by the "setOutputToTrigger" function, e.g. by "CSK_DigitalIOManager.setOutputToTrigger('S1DO1')". +
-This will become active by calling "CSK_DigitalIOManager.addTriggerEvent()". +
-If the event will raise, the digital output will be set by the forwarded bool value of the event. It will use the configuration of the port setup. +
-That means for example, if the output port is configured with OutputMode = "PUSH_PULL", Logic = "ACTIVE_HIGH", ActivationMode = "TIME_MS", ActivationValue = "100" and the event is notified with "true", the output port will be active for 100ms. +
-(INFO: If configured time is not "0" (keep signal), internally it will call automatically "Connector.DigitalOut.set(status)" followed by "Connector.DigitalOut.set(not status)", so it is not needed to call the event twice to reset the status...). +
-To remove this Event2Trigger-pair, you need to select this pair via "selectOutputToSetByEventPair" and then to call "removeTriggerEvent". +
+It is possible to set a digital output signal by notifiying an event. For this, you need to use "setTriggerEvent" to predefine the event to listen to (e.g. 'CSK_DigitalIOManager.setTriggerEvent( "CrownName.OnNewResult" )'). The event needs to provide a bool value as first parameter to define the status to set. +
+Additionally, it is necessary to define which port should be set by the function "setOutputToTrigger", e.g. by 'CSK_DigitalIOManager.setOutputToTrigger( "S1DO1" )'. +
+This will become active by calling 'CSK_DigitalIOManager.addTriggerEvent()'. +
+If the event will raise, the digital output signal will be set by the forwarded bool value of the event. It will use the configuration of the port setup. +
+That means for example, if the output port is configured with OutputMode = "PUSH_PULL", Logic = "ACTIVE_HIGH", ActivationMode = "TIME_MS", ActivationValue = "100", and the event is notified with "true", the output port will be active for 100ms. +
+(INFO: If configured time is not "0" (keep signal), internally it will call automatically 'Connector.DigitalOut.set( status )' followed by 'Connector.DigitalOut.set( not status )', so it is not necessary to call the event twice to reset the status ...). +
+To remove this "Event2Trigger"-pair, you need to select this pair via "selectOutputToSetByEventPair" and then to call "removeTriggerEvent". +
 {empty} +
 **5) Forward digital input signals via event** +
-It is possible to forward the status of the digital input signals to register on this by other modules (check docu of "CSK_DigitalIOManager.OnNewInputStateENUM"-event). +
-For this you need to select the specific port via "setInputToForward", e.g. "CSK_DigitalIOManager/setInputToForward('S2DI1)". +
-By calling then "addForwardEvent" it will forward new states of this port in the event like "CSK_DigitalIOManager.OnNewInputStateS2DI1". +
-To remove this Input2Event-pair, you need to select this pair via "selectForwardInputToEventPair" and then to call "removeForwardEvent". +
+It is possible to forward the status of the digital input signal to register on this by other modules (check docu of 'CSK_DigitalIOManager.OnNewInputStateENUM'-event). +
+For this, you need to select the specific port via "setInputToForward", e.g. 'CSK_DigitalIOManager.setInputToForward( "S2DI1" )'. +
+By calling then "addForwardEvent", it will forward new states of this port in the event like 'CSK_DigitalIOManager.OnNewInputStateS2DI1'. +
+To remove this "Input2Event"-pair, you need to select this pair via "selectForwardInputToEventPair" and then call "removeForwardEvent". +
 {empty} +
 **6) Link different ports** +
 It is possible to link different ports with each other (like a wire inside of a flow). This will be handled as a cFlow. +
-For this you need to configure the ports you want to link via "setInputForLink" / "setOutputForLink". Additionally you can set a delay via "setDelayForLink". +
-To activate the predefined link you need to call "CSK_DigitalIOManager.addLink()". +
-The input signal will be forwarded via 'OnNewFlowInputStateENUM'-event as well (e.g. to use in other scripts, see docu of this event). +
-To remove this link, you need to select this pair via "selectLink" and then to call "removeLink". +</desc>
+For this, you need to configure the ports you want to link via "setInputForLink" / "setOutputForLink". Additionally, you can set a delay via "setDelayForLink". +
+To activate the predefined link, you need to call 'CSK_DigitalIOManager.addLink()'. +
+The input signal will be as well forwarded via the 'CSK_DigitalIOManager.OnNewFlowInputStateENUM'-event (e.g. to use in other scripts, see docu of this event). +
+To remove this link, you need to select this link via "selectLink" and then to call "removeLink". +</desc>
             <enum name="ActivationMode" trait="released">
                 <desc>Digital output activation mode.</desc>
-                <item desc="Time based with milliseconds value." name="TIME_MS">TIME_MS</item>
-                <item desc="Increment based with ticks as value." name="INCREMENT_TICK">INCREMENT_TICK</item>
+                <item desc="The activation value will be based on time in milliseconds." name="TIME_MS">TIME_MS</item>
+                <item desc="The activation value will be based on increments in ticks." name="INCREMENT_TICK">INCREMENT_TICK</item>
             </enum>
             <enum name="DebounceMode" trait="released">
                 <desc>Digital input debounce mode.</desc>
-                <item desc="Time based with milliseconds value." name="TIME_MS">TIME_MS</item>
-                <item desc="Increment based with ticks as value." name="INCREMENT_TICK">INCREMENT_TICK</item>
+                <item desc="The debounce value will be based on time in milliseconds." name="TIME_MS">TIME_MS</item>
+                <item desc="The debounce value will be based on increments in ticks." name="INCREMENT_TICK">INCREMENT_TICK</item>
             </enum>
             <enum name="SignalLogic" trait="released">
-                <desc>Signal logic of digital input or output.</desc>
+                <desc>Signal logic of digital input / output signal.</desc>
                 <item desc="Active high signal logic is used." name="ACTIVE_HIGH">ACTIVE_HIGH</item>
                 <item desc="Active low signal logic is used." name="ACTIVE_LOW">ACTIVE_LOW</item>
             </enum>
@@ -68,7 +68,7 @@ To remove this link, you need to select this pair via "selectLink" and then to c
             </enum>
             <serves>
                 <event name="OnNewStatusLoadParameterOnReboot">
-                    <desc>Notify status if parameters should be loaded on app/device boot up.</desc>
+                    <desc>Notify status if parameters should be loaded on app / device boot up.</desc>
                     <param desc="Status" multiplicity="1" name="status" type="bool"/>
                 </event>
                 <event name="OnPersistentDataModuleAvailable">
@@ -80,55 +80,55 @@ To remove this link, you need to select this pair via "selectLink" and then to c
                 </event>
                 <event name="OnNewOutputPortTable">
                     <desc>Notify list of available output interfaces and the according settings (used for the UI table).</desc>
-                    <param desc="List (Json)" multiplicity="1" name="jsonList" type="string"/>
+                    <param desc="List (JSON)" multiplicity="1" name="jsonList" type="string"/>
                 </event>
                 <event name="OnNewInputPortTable">
                     <desc>Notify list of available input interfaces and the according settings (used for the UI table).</desc>
-                    <param desc="List (Json)" multiplicity="1" name="inputList" type="string"/>
+                    <param desc="List (JSON)" multiplicity="1" name="inputList" type="string"/>
                 </event>
                 <event name="OnNewActiveStatusInput">
-                    <desc>Notify activation status of currently selected port.</desc>
+                    <desc>Notify activation status of currently selected input port.</desc>
                     <param desc="Status" multiplicity="1" name="status" type="bool"/>
                 </event>
                 <event name="OnNewDebounceMode">
-                    <desc>Notify debounce mode of currently selected port.</desc>
-                    <param desc="Mode" multiplicity="1" name="mode" type="string"/>
+                    <desc>Notify debounce mode of currently selected input port.</desc>
+                    <param desc="Debounce mode" multiplicity="1" name="mode" type="string"/>
                 </event>
                 <event name="OnNewDebounceValue">
-                    <desc>Notify debounce value of currently selected port.</desc>
-                    <param desc="Value" multiplicity="1" name="value" type="int"/>
+                    <desc>Notify debounce value of currently selected input port in milliseconds / ticks.</desc>
+                    <param desc="Debounce value" multiplicity="1" name="value" type="int"/>
                 </event>
                 <event name="OnNewInputLogic">
-                    <desc>Notify logic of currently selected port.</desc>
-                    <param desc="Logic" multiplicity="1" name="logic" type="string"/>
+                    <desc>Notify signal logic of currently selected input port.</desc>
+                    <param desc="Signal logic" multiplicity="1" name="logic" type="string"/>
                 </event>
                 <event name="OnNewActiveStatusOutput">
-                    <desc>Notify activation status of currently selected port.</desc>
+                    <desc>Notify activation status of currently selected output port.</desc>
                     <param desc="Status" multiplicity="1" name="status" type="bool"/>
                 </event>
                 <event name="OnNewActivationMode">
-                    <desc>Notify activation mode of currently selected port.</desc>
-                    <param desc="Mode" multiplicity="1" name="mode" type="string"/>
+                    <desc>Notify activation mode of currently selected output port.</desc>
+                    <param desc="Activation mode" multiplicity="1" name="mode" type="string"/>
                 </event>
                 <event name="OnNewActivationValue">
-                    <desc>Notify activation value of currently selected port.</desc>
-                    <param desc="Value" multiplicity="1" name="value" type="int"/>
+                    <desc>Notify activation value of currently selected output port in milliseconds / ticks.</desc>
+                    <param desc="Activation value" multiplicity="1" name="value" type="int"/>
                 </event>
                 <event name="OnNewOutputLogic">
-                    <desc>Notify logic of currently selected port.</desc>
-                    <param desc="Logic" multiplicity="1" name="logic" type="string"/>
+                    <desc>Notify signal logic of currently selected output port.</desc>
+                    <param desc="Signal logic" multiplicity="1" name="logic" type="string"/>
                 </event>
                 <event name="OnNewOutputMode">
-                    <desc>Notify output mode of currently selected port.</desc>
-                    <param desc="Mode" multiplicity="1" name="mode" type="string"/>
+                    <desc>Notify output mode of currently selected output port.</desc>
+                    <param desc="Output mode" multiplicity="1" name="mode" type="string"/>
                 </event>
                 <event name="OnNewInputSelection">
                     <desc>Notify currently selected input interface.</desc>
-                    <param desc="Selected interface" multiplicity="1" name="selection" type="string"/>
+                    <param desc="Currently selected input interface." multiplicity="1" name="selection" type="string"/>
                 </event>
                 <event name="OnNewOutputSelection">
                     <desc>Notify currently selected output interface.</desc>
-                    <param desc="Currently selected interface." multiplicity="1" name="selection" type="string"/>
+                    <param desc="Currently selected output interface." multiplicity="1" name="selection" type="string"/>
                 </event>
                 <event name="OnNewLinkSelected">
                     <desc>Notify selected link in UI table list.</desc>
@@ -136,23 +136,23 @@ To remove this link, you need to select this pair via "selectLink" and then to c
                 </event>
                 <event name="OnNewInputPortList">
                     <desc>Notify list of available input interfaces.</desc>
-                    <param desc="List (Json)" multiplicity="1" name="list" type="string"/>
+                    <param desc="List (JSON)" multiplicity="1" name="list" type="string"/>
                 </event>
                 <event name="OnNewOutputPortList">
                     <desc>Notify list of available output interfaces.</desc>
-                    <param desc="List (Json)" multiplicity="1" name="list" type="string"/>
+                    <param desc="List (JSON)" multiplicity="1" name="list" type="string"/>
                 </event>
                 <event name="OnNewInputForLinkSelected">
                     <desc>Notify currently selected input interface to use for new links (see "addLink").</desc>
-                    <param desc="Name of selected interface." multiplicity="1" name="selection" type="string"/>
+                    <param desc="Name of selected input interface." multiplicity="1" name="selection" type="string"/>
                 </event>
                 <event name="OnNewOutputForLinkSelected">
                     <desc>Notify currently selected output interface to use for new links (see "addLink").</desc>
-                    <param desc="Currently selected interface." multiplicity="1" name="selection" type="string"/>
+                    <param desc="Name of selected output interface." multiplicity="1" name="selection" type="string"/>
                 </event>
                 <event name="OnNewLinkList">
                     <desc>Notify list of currently active links (cFlow) (e.g. for UI table).</desc>
-                    <param desc="List (Json)" multiplicity="1" name="list" type="string"/>
+                    <param desc="List (JSON)" multiplicity="1" name="list" type="string"/>
                 </event>
                 <event name="OnNewMessageType">
                     <desc>Notify current message type of UI callout.</desc>
@@ -168,44 +168,44 @@ To remove this link, you need to select this pair via "selectLink" and then to c
                 </event>
                 <event name="OnNewForwardTriggerList">
                     <desc>Notify list of configured input interfaces and their related events to call.</desc>
-                    <param desc="List (Json)" multiplicity="1" name="list" type="string"/>
+                    <param desc="List (JSON)" multiplicity="1" name="list" type="string"/>
                 </event>
                 <event name="OnNewSetOutputByEventList">
-                    <desc>Notify list of triggerEvents (triggerEvent names + related outputs to set) for e.g. table in UI.</desc>
-                    <param desc="List (Json)" multiplicity="1" name="list" type="string"/>
+                    <desc>Notify list of triggerEvents (triggerEvent names + related digital output signals to be set), e.g. for table in UI.</desc>
+                    <param desc="List (JSON)" multiplicity="1" name="list" type="string"/>
                 </event>
                 <event name="OnNewForwardEvent">
-                    <desc>Notify currently eventname to use for forwarding input signals (currently not used, default eventnames are used like "OnNewInputState[portName]").</desc>
-                    <param desc="Eventname" multiplicity="1" name="parametername" type="string"/>
+                    <desc>Notify current event name to use for forwarding a digital input signal (currently not used, default eventnames are used like 'CSK_DigitalIOManager.OnNewInputState[portName]').</desc>
+                    <param desc="Event name" multiplicity="1" name="parametername" type="string"/>
                 </event>
                 <event name="OnNewTriggerEvent">
-                    <desc>Notify currently eventname to be set for listening to set related output interface (see "addTriggerEvent").</desc>
-                    <param desc="Eventname to wait for as trigger" multiplicity="1" name="event" type="string"/>
+                    <desc>Notify current eventname to be set for listening to set related output interface (see "addTriggerEvent").</desc>
+                    <param desc="Event name to wait for as trigger" multiplicity="1" name="event" type="string"/>
                 </event>
                 <event name="OnNewInputToForward">
                     <desc>Notify selected input port to forward "OnChange" status via event.</desc>
                     <param desc="Port of signal to forward" multiplicity="1" name="port" type="string"/>
                 </event>
                 <event name="OnNewOutputToTrigger">
-                    <desc>Notify currently preselected output interface to use (set) for a triggerEvent (see "addTriggerEvent").</desc>
+                    <desc>Notify currently preselected output interface to use (set) for a trigger event (see "addTriggerEvent").</desc>
                     <param desc="Interface" multiplicity="1" name="port" type="string"/>
                 </event>
                 <event name="OnNewLinkDelay">
-                    <desc>Notify delay time of currently selected link.</desc>
-                    <param desc="Delay" multiplicity="1" name="delay" type="int"/>
+                    <desc>Notify delay time of currently selected link in milliseconds.</desc>
+                    <param desc="Delay time in [ms]." multiplicity="1" name="delay" type="int"/>
                 </event>
                 <event name="OnNewInputStateENUM">
-                    <desc>Example for dynamically created events to forward incoming input signals if configured (see "addForwardEvent"). +
-"ENUM" is replaced by DigitalInPort ENUM (e.g. "CSK_DigitalIOManager.OnNewInputStateS1DI1"). +
-INFO: As this events will be created dynamically, there is no auto completion within AppStudio available for these events.</desc>
-                    <param desc="New state of the input signal" multiplicity="1" name="newState" type="bool"/>
+                    <desc>Example for dynamically created event to forward an incoming digital input signal if configured (see "addForwardEvent"). +
+"ENUM" is replaced by DigitalInPort ENUM (e.g. 'CSK_DigitalIOManager.OnNewInputStateS1DI1'). +
+INFO: As this event will be created dynamically, there is no auto completion within SICK AppStudio available for such an event.</desc>
+                    <param desc="New state of input signal." multiplicity="1" name="newState" type="bool"/>
                 </event>
                 <event name="OnNewInputToForwardDataInfo">
-                    <desc>Notify dataInfo text of selected input port to forward "OnChange" status via event.</desc>
+                    <desc>Notify data information text of selected input port to forward "OnChange" status via event.</desc>
                     <param desc="DataInfo text" multiplicity="1" name="info" type="string"/>
                 </event>
                 <event name="OnNewEventList">
-                    <desc>Notify lists of configured forward events and related dataInfoTexts (see addForwardEvent).</desc>
+                    <desc>Notify lists of configured forward events and related data information texts (see "addForwardEvent").</desc>
                     <param desc="List of configured events" multiplicity="*" name="events" type="string"/>
                     <param desc="List of configured dataInfo texts." multiplicity="*" name="infoTexts" type="string"/>
                 </event>
@@ -234,18 +234,18 @@ INFO: As this events will be created dynamically, there is no auto completion wi
                     <param desc="Parameter name" multiplicity="1" name="name" type="string"/>
                 </event>
                 <event name="OnNewFlowInputStateENUM">
-                    <desc>Example for dynamically created events to forward incoming input signals if used within a link (see "addLink"). +
-"ENUM" is replaced by DigitalInPort ENUM (e.g. "CSK_DigitalIOManager.OnNewFlowInputStateS1DI1"). +
-This event will be created during runtime if a signal link is used. So for users of this event it is necessary to check first if this event is already available to be able to register to it. +
-INFO: As this events will be created dynamically, there is no auto completion within AppStudio available for these events.</desc>
+                    <desc>Example for dynamically created event to forward an incoming digital input signal if used within a link (see "addLink"). +
+"ENUM" is replaced by DigitalInPort ENUM (e.g. 'CSK_DigitalIOManager.OnNewFlowInputStateS1DI1'). +
+This event will be created during runtime if a signal link is used. So for users of this event, it is necessary to check first if this event is already available to be able to register to it. +
+INFO: As this event will be created dynamically, there is no auto completion within SICK AppStudio available for such an event.</desc>
                 </event>
                 <event name="OnNewStatusTrackInputSignalStatus">
-                    <desc>Notify if status of input signals should be tracked for UI.</desc>
+                    <desc>Notify if status of digital input signals should be tracked for UI.</desc>
                     <param desc="Status" multiplicity="1" name="status" type="bool"/>
                 </event>
                 <function name="setParameterName">
                     <desc>Function to set the name of the parameters if saved/loaded via the CSK_PersistentData module.</desc>
-                    <param desc="Name of the parameter" multiplicity="1" name="name" type="string"/>
+                    <param desc="Name of the parameter." multiplicity="1" name="name" type="string"/>
                 </function>
                 <function name="sendParameters">
                     <desc>Send parameters to CSK_PersistentData module if possible to save them.</desc>
@@ -254,8 +254,8 @@ INFO: As this events will be created dynamically, there is no auto completion wi
                     <desc>Load parameters for this module from the CSK_PersistentData module if possible and use them.</desc>
                 </function>
                 <function name="setLoadOnReboot">
-                    <desc>Configure if this module should load its saved parameters at app/device boot up</desc>
-                    <param desc="Set status" multiplicity="1" name="status" type="bool"/>
+                    <desc>Configure if this module should load its saved parameters at app / device boot up</desc>
+                    <param desc="Status to set." multiplicity="1" name="status" type="bool"/>
                 </function>
                 <function name="pageCalled">
                     <desc>Function to register "OnResume" of the module UI (only as helper function).</desc>
@@ -263,122 +263,122 @@ INFO: As this events will be created dynamically, there is no auto completion wi
                 </function>
                 <function name="selectOutputInterface">
                     <desc>Select output interface to configure settings (e.g. in UI table).</desc>
-                    <param desc="Interface to select" multiplicity="1" name="selection" type="string"/>
+                    <param desc="Output interface to select" multiplicity="1" name="selection" type="string"/>
                 </function>
                 <function name="selectInputInterface">
                     <desc>Select input interface to configure settings (e.g. in UI table).</desc>
-                    <param desc="Interface to select" multiplicity="1" name="selection" type="string"/>
+                    <param desc="Input interface to select" multiplicity="1" name="selection" type="string"/>
                 </function>
                 <function name="setActiveStatusInput">
                     <desc>Set if selected input interface should be active.</desc>
-                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                    <param desc="Input active status to set." multiplicity="1" name="status" type="bool"/>
                 </function>
                 <function name="setDebounceMode">
                     <desc>Set debounce mode of selected input interface.</desc>
-                    <param desc="Mode" multiplicity="1" name="mode" ref="CSK_DigitalIOManager.DebounceMode" type="enum"/>
+                    <param desc="Input debounce mode to set." multiplicity="1" name="mode" ref="CSK_DigitalIOManager.DebounceMode" type="enum"/>
                 </function>
                 <function name="setDebounceValue">
-                    <desc>Set debounce value of selected input interface.</desc>
-                    <param desc="Value" multiplicity="1" name="value" type="int"/>
+                    <desc>Set debounce value of selected input interface in milliseconds / ticks.</desc>
+                    <param desc="Input debounce value to set." multiplicity="1" name="value" type="int"/>
                 </function>
                 <function name="setInputLogic">
-                    <desc>Set input logic of selected input interface.</desc>
-                    <param desc="Logic" multiplicity="1" name="logic" ref="CSK_DigitalIOManager.SignalLogic" type="enum"/>
+                    <desc>Set signal logic of selected input interface.</desc>
+                    <param desc="Input signal logic to set." multiplicity="1" name="logic" ref="CSK_DigitalIOManager.SignalLogic" type="enum"/>
                 </function>
                 <function name="setActiveStatusOutput">
                     <desc>Set if selected output interface should be active.</desc>
-                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                    <param desc="Output active status to set." multiplicity="1" name="status" type="bool"/>
                 </function>
                 <function name="setActivationMode">
                     <desc>Set activation mode of selected output interface.</desc>
-                    <param desc="Mode to set" multiplicity="1" name="mode" ref="CSK_DigitalIOManager.ActivationMode" type="enum"/>
+                    <param desc="Output activation mode to set." multiplicity="1" name="mode" ref="CSK_DigitalIOManager.ActivationMode" type="enum"/>
                 </function>
                 <function name="setActivationValue">
-                    <desc>Set activation value of selected output interface.</desc>
-                    <param desc="Value to use" multiplicity="1" name="value" type="int"/>
+                    <desc>Set activation value of selected output interface in milliseconds / ticks.</desc>
+                    <param desc="Output activation value to set." multiplicity="1" name="value" type="int"/>
                 </function>
                 <function name="setOutputLogic">
-                    <desc>Set output logic of selected output interface.</desc>
-                    <param desc="Logic" multiplicity="1" name="logic" ref="CSK_DigitalIOManager.SignalLogic" type="enum"/>
+                    <desc>Set signal logic of selected output interface.</desc>
+                    <param desc="Output signal logic to set." multiplicity="1" name="logic" ref="CSK_DigitalIOManager.SignalLogic" type="enum"/>
                 </function>
                 <function name="setOutputMode">
                     <desc>Set output mode of selected output interface.</desc>
-                    <param desc="Mode" multiplicity="1" name="mode" ref="CSK_DigitalIOManager.PortOutputMode" type="enum"/>
+                    <param desc="Output mode to set." multiplicity="1" name="mode" ref="CSK_DigitalIOManager.PortOutputMode" type="enum"/>
                 </function>
                 <function name="setInputForLink">
                     <desc>Preset input interface to use for new link (see "addLink").</desc>
-                    <param desc="Interface to use" multiplicity="1" name="port" type="string"/>
+                    <param desc="Input interface to set." multiplicity="1" name="port" type="string"/>
                 </function>
                 <function name="setOutputForLink">
                     <desc>Set output interface to forward as event (see "addForwardEvent").</desc>
-                    <param desc="Interface to use" multiplicity="1" name="port" type="string"/>
+                    <param desc="Output interface to set." multiplicity="1" name="port" type="string"/>
                 </function>
                 <function name="selectLink">
                     <desc>Select link (e.g. in UI table).</desc>
                     <param desc="Selected link" multiplicity="1" name="selection" type="string"/>
                 </function>
                 <function name="addLink">
-                    <desc>Add link (via cFlow) from preset digital input to output.</desc>
+                    <desc>Add link (via cFlow) from preset digital input signal to digital output signal.</desc>
                 </function>
                 <function name="removeLink">
                     <desc>Remove preselected link (from cFlow).</desc>
                 </function>
                 <function name="setDelayForLink">
                     <desc>Set optional delay for link in cFlow.</desc>
-                    <param desc="Delay time in [ms]" multiplicity="1" name="value" type="int"/>
+                    <param desc="Delay time in [ms] to set." multiplicity="1" name="value" type="int"/>
                 </function>
                 <function name="setInputToForward">
                     <desc>Set input interface to forward as event (see "addForwardEvent").</desc>
-                    <param desc="Interface to use" multiplicity="1" name="port" type="string"/>
+                    <param desc="Input interface to set." multiplicity="1" name="port" type="string"/>
                 </function>
                 <function name="setOutputToTrigger">
                     <desc>Preset output interface to set if registered triggerEvent (see "addTriggerEvent").</desc>
-                    <param desc="Interface to use" multiplicity="1" name="port" type="string"/>
+                    <param desc="Output interface to set." multiplicity="1" name="port" type="string"/>
                 </function>
                 <function name="setForwardEvent">
-                    <desc>Preset event to notify if registering input signal (currently no used, as default event are used, like "OnNewInputState[portName]").</desc>
-                    <param desc="Eventname to notify" multiplicity="1" name="event" type="string"/>
+                    <desc>Preset event name to notify if registering a digital input signal (currently not used, event names are used by default, like 'CSK_DigitalIOManager.OnNewInputState[portName]').</desc>
+                    <param desc="Forward event name to set." multiplicity="1" name="event" type="string"/>
                 </function>
                 <function name="setTriggerEvent">
-                    <desc>Preset eventname to listen to (see "addTriggerEvent").</desc>
-                    <param desc="Eventname" multiplicity="1" name="event" type="string"/>
+                    <desc>Preset event name to listen to (see "addTriggerEvent").</desc>
+                    <param desc="Trigger event name to set." multiplicity="1" name="event" type="string"/>
                 </function>
                 <function name="addForwardEvent">
-                    <desc>Add event to forward incoming digital input signals.</desc>
+                    <desc>Add event to forward an incoming digital input signal.</desc>
                 </function>
                 <function name="addTriggerEvent">
-                    <desc>Add event to listen to and to trigger digital output.</desc>
+                    <desc>Add event to listen to and to trigger a digital output signal.</desc>
                 </function>
                 <function name="selectForwardInputToEventPair">
                     <desc>Select Input2Event-pair.</desc>
-                    <param desc=" Input2Event-pair to select (via UI selection or port identifier like 'S1DI1')." multiplicity="1" name="selection" type="string"/>
+                    <param desc="'Input2Event'-pair to select (via UI selection or port identifier like 'S1DI1')." multiplicity="1" name="selection" type="string"/>
                 </function>
                 <function name="selectOutputToSetByEventPair">
                     <desc>Select Event2Trigger-pair.</desc>
-                    <param desc="Event2Trigger-pair to select (via UI selection or port identifier like 'S1DO1')." multiplicity="1" name="selection" type="string"/>
+                    <param desc="'Event2Trigger'-pair to select (via UI selection or port identifier like 'S1DO1')." multiplicity="1" name="selection" type="string"/>
                 </function>
                 <function name="removeTriggerEvent">
-                    <desc>Remove event to trigger digital output.</desc>
+                    <desc>Remove event to trigger a digital output signal.</desc>
                 </function>
                 <function name="removeForwardEvent">
-                    <desc>Remove event to forward incoming digital input signals.</desc>
+                    <desc>Remove event to forward an incoming digital input signal.</desc>
                 </function>
                 <function name="setOutput">
-                    <desc>Set state of currently selected output port.</desc>
-                    <param desc="State to set." multiplicity="1" name="newState" type="bool"/>
+                    <desc>Set status of currently selected output port.</desc>
+                    <param desc="Status to set." multiplicity="1" name="newState" type="bool"/>
                 </function>
                 <function name="getInputState">
-                    <desc>Get currently state of preselected input interface.</desc>
-                    <return desc="Current state" multiplicity="?" name="state" type="bool"/>
+                    <desc>Get current status of preselected input interface.</desc>
+                    <return desc="Current status." multiplicity="?" name="state" type="bool"/>
                 </function>
                 <function name="setInputToForwardDataInfo">
-                    <desc>Set dataInfo text of selected input interface to forward "OnChange" status as event (see "addForwardEvent").</desc>
-                    <param desc="DataInfo text." multiplicity="1" name="info" type="string"/>
+                    <desc>Set data information text of selected input interface to forward "OnChange" status as event (see "addForwardEvent").</desc>
+                    <param desc="DataInfo text to set." multiplicity="1" name="info" type="string"/>
                 </function>
                 <function name="getForwardEventList">
-                    <desc>Return lists of configured forward events and related dataInfoTexts (see addForwardEvent).</desc>
+                    <desc>Return lists of configured forward events and related data information texts (see "addForwardEvent").</desc>
                     <return desc="List of configured events." multiplicity="*" name="eventList" type="string"/>
-                    <return desc="List of configured dataInfo texts." multiplicity="*" name="infoTexts" type="string"/>
+                    <return desc="List of configured DataInfo texts." multiplicity="*" name="infoTexts" type="string"/>
                 </function>
                 <function name="freeSensorPort">
                     <desc>Function to free a blocked sensor port to be available again for this module.</desc>
@@ -386,13 +386,14 @@ INFO: As this events will be created dynamically, there is no auto completion wi
                     <return desc="Success" multiplicity="1" name="success" type="bool"/>
                 </function>
                 <function name="blockSensorPort">
-                    <desc>Function to block a sensor port so it can be used by other applications.</desc>
+                    <desc>Function to block a sensor port so that it can be used by other applications.</desc>
                     <param desc="Port" multiplicity="1" name="port" type="string"/>
                     <return desc="Success" multiplicity="1" name="success" type="bool"/>
                 </function>
                 <function name="setInputTracking">
-                    <desc>Function to set if input signals should be tracked to show status in UI.</desc>
-                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                    <desc>Function to set if digital input signals should be tracked to show their states in UI. +
+INFO: Recommended to leave it switched off, if not essentially required!</desc>
+                    <param desc="Status to set." multiplicity="1" name="status" type="bool"/>
                 </function>
             </serves>
         </crown>

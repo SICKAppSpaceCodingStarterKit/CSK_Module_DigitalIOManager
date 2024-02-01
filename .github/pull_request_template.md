@@ -22,7 +22,7 @@
 - [ ] All relevant infos are logged via the SharedLogger 'ModuleLogger'
 - [ ] Module supports persistent data feature based on 'CSK_Module_PersistentData'
 - [ ] Module supports user management based on 'CSK_Module_UserManagement'
-- [ ] No open "ToDos" within the code or at least clearly explained comments why they exist...
+- [ ] No open "ToDos" within the code or at least clearly explained comments why they exist ...
 - [ ] "Version" key in app manifest was updated following semantic versioning (and use '0.x.y' for test / experimental modules which are not yet ready to be officially released)
 - [ ] Meaningful IDs used for UI elements
 - [ ] Module was tested on an AppSpace device (at least on SICK AppEngine) with no error message

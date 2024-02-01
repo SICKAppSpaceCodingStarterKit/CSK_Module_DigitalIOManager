@@ -53,7 +53,7 @@ _G.digitalIOManager_Model = require('Configuration/DigitalIOManager/DigitalIOMan
 local function main()
 
   ----------------------------------------------------------------------------------------
-  -- INFO: Please check if module will eventually load inital configuration triggered via
+  -- INFO: Please check if module will eventually load initial configuration triggered via
   --       event CSK_PersistentData.OnInitialDataLoaded
   --       (see internal variable _G.digitalIOManager_Model.parameterLoadOnReboot)
   --       If so, the app will trigger the "OnDataLoadedOnReboot" event if ready after loading parameters

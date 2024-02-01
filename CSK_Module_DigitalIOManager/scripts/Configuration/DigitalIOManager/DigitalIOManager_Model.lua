@@ -27,17 +27,17 @@ digitalIOManager_Model.moduleActive = true
 -- check if needed CROWN is available on device
 if Connector == nil then
   digitalIOManager_Model.moduleActive = false
-  _G.logger:warning(nameOfModule .. ': CROWN is not available. Module is not supported...')
+  _G.logger:warning(nameOfModule .. ': CROWN is not available. Module is not supported ...')
 else
   if Connector.DigitalIn == nil then
     digitalIOManager_Model.moduleActive = false
-    _G.logger:warning(nameOfModule .. ': CROWN is not available. Module is not supported...')
+    _G.logger:warning(nameOfModule .. ': CROWN is not available. Module is not supported ...')
   end
 end
 
 -- Load script to communicate with the DigitalIOManager_Model interface and give access
 -- to the DigitalIOManager_Model object.
--- Check / edit this script to see/edit functions which communicate with the UI
+-- Check / edit this script to see / edit functions which communicate with the UI
 local setDigitalIOManager_ModelHandle = require('Configuration/DigitalIOManager/DigitalIOManager_Controller')
 setDigitalIOManager_ModelHandle(digitalIOManager_Model)
 
@@ -58,7 +58,7 @@ digitalIOManager_Model.trackingFunctions = {} -- List of functions to be used to
 
 -- Create parameters / instances for this module
 digitalIOManager_Model.parameters = {}
-digitalIOManager_Model.parameters.links = {} -- .input/.output/.delay
+digitalIOManager_Model.parameters.links = {} -- .input / .output / .delay
 
 --- Functions to forward incoming trigger via DigitalInput as event
 ---@param status boolean Status of port to forward
@@ -294,7 +294,7 @@ local function setupAll()
         digitalIOManager_Model.flow:addLink('Delay'..input..output..':delayedSignal', 'DigitalOut'..output..':newState')
       end
     else
-      _G.logger:info(nameOfModule .. ': Problem with configured links...')
+      _G.logger:info(nameOfModule .. ': Problem with configured links ...')
     end
 
   end
@@ -304,7 +304,7 @@ local function setupAll()
 end
 digitalIOManager_Model.setupAll = setupAll
 
--- Initialize and setup digital IO setup
+-- Initialize and setup digital IO configuration
 if digitalIOManager_Model.moduleActive then
   initialize()
   setupAll()
