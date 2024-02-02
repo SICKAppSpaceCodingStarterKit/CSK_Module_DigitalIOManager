@@ -25,9 +25,7 @@ local selectedOutputForLink = ''
 local selectedInputToForward = ''
 local inputToForwardDataInfo = ''
 local selectedOutputToTrigger = ''
-local forwardEvent = ''
 local triggerEvent = ''
-local forwardEventDataInfo = ''
 local selectedForwardEventPair = ''
 local selectedTriggerEventPair = ''
 
@@ -321,21 +319,27 @@ local function checkConfig(interfaceA, interfaceB)
 end
 
 local function setActiveStatusInput(status)
-  -- Check for other Connector if pin is configurable
-  if checkConfig(selectedInputInterface) == false or digitalIOManager_Model.parameters.mode[selectedInputInterface] == 'BLOCKED' then
-
-    _G.logger:warning(nameOfModule .. ": Port config error. Not possible to use same port in flow and script.")
-    status = false
-    Script.notifyEvent('DigitalIOManager_OnShowInternalMessages', 'true')
-    Script.notifyEvent('DigitalIOManager_OnNewMessageType', 'warning')
-    Script.notifyEvent('DigitalIOManager_OnNewInternalMessage', 'Port currently in other configuration')
+  -- Check if port is already in FLOW mode
+  if digitalIOManager_Model.parameters.mode[selectedInputInterface] == 'FLOW' then
+    _G.logger:info(nameOfModule .. ": Port is used in FLOW mode. Will not change active status.")
+    Script.notifyEvent("DigitalIOManager_OnNewActiveStatusInput", digitalIOManager_Model.parameters.active[selectedInputInterface])
   else
-    Script.notifyEvent('DigitalIOManager_OnShowInternalMessages', 'false')
-  end
+    -- Check for other Connector if pin is configurable
+    if checkConfig(selectedInputInterface) == false or digitalIOManager_Model.parameters.mode[selectedInputInterface] == 'BLOCKED' then
 
-  _G.logger:info(nameOfModule .. ": Set active status to " .. tostring(status))
-  digitalIOManager_Model.parameters.active[selectedInputInterface] = status
-  activateNewSetup()
+      _G.logger:warning(nameOfModule .. ": Port config error. Not possible to use same port in flow and script.")
+      status = false
+      Script.notifyEvent('DigitalIOManager_OnShowInternalMessages', 'true')
+      Script.notifyEvent('DigitalIOManager_OnNewMessageType', 'warning')
+      Script.notifyEvent('DigitalIOManager_OnNewInternalMessage', 'Port currently in other configuration')
+    else
+      Script.notifyEvent('DigitalIOManager_OnShowInternalMessages', 'false')
+    end
+
+    _G.logger:info(nameOfModule .. ": Set active status to " .. tostring(status))
+    digitalIOManager_Model.parameters.active[selectedInputInterface] = status
+    activateNewSetup()
+  end
 end
 Script.serveFunction("CSK_DigitalIOManager.setActiveStatusInput", setActiveStatusInput)
 
@@ -369,19 +373,26 @@ Script.serveFunction("CSK_DigitalIOManager.getInputState", getInputState)
 ------------------------------------
 
 local function setActiveStatusOutput(status)
-  if checkConfig(selectedOutputInterface) == false or digitalIOManager_Model.parameters.mode[selectedInputInterface] == 'BLOCKED' then
-    _G.logger:warning(nameOfModule .. ": Port config error. Not possible to use same port in flow and script.")
-    status = false
-    Script.notifyEvent('DigitalIOManager_OnShowInternalMessages', 'true')
-    Script.notifyEvent('DigitalIOManager_OnNewMessageType', 'warning')
-    Script.notifyEvent('DigitalIOManager_OnNewInternalMessage', 'Port currently in other configuration')
+  if digitalIOManager_Model.parameters.mode[selectedOutputInterface] == 'FLOW' then
+    _G.logger:info(nameOfModule .. ": Port is used in FLOW mode. Will not change active status.")
+    Script.notifyEvent("DigitalIOManager_OnNewActiveStatusOutput", digitalIOManager_Model.parameters.active[selectedOutputInterface])
   else
-    Script.notifyEvent('DigitalIOManager_OnShowInternalMessages', 'false')
-  end
 
-  _G.logger:info(nameOfModule .. ": Set active status to " .. tostring(status))
-  digitalIOManager_Model.parameters.active[selectedOutputInterface] = status
-  activateNewSetup()
+    -- Check for other Connector if pin is configurable
+    if checkConfig(selectedOutputInterface) == false or digitalIOManager_Model.parameters.mode[selectedOutputInterface] == 'BLOCKED' then
+      _G.logger:warning(nameOfModule .. ": Port config error. Not possible to use same port in flow and script.")
+      status = false
+      Script.notifyEvent('DigitalIOManager_OnShowInternalMessages', 'true')
+      Script.notifyEvent('DigitalIOManager_OnNewMessageType', 'warning')
+      Script.notifyEvent('DigitalIOManager_OnNewInternalMessage', 'Port currently in other configuration')
+    else
+      Script.notifyEvent('DigitalIOManager_OnShowInternalMessages', 'false')
+    end
+
+    _G.logger:info(nameOfModule .. ": Set active status to " .. tostring(status))
+    digitalIOManager_Model.parameters.active[selectedOutputInterface] = status
+    activateNewSetup()
+  end
 end
 Script.serveFunction("CSK_DigitalIOManager.setActiveStatusOutput", setActiveStatusOutput)
 
@@ -607,12 +618,6 @@ local function removeForwardEvent()
   end
 end
 Script.serveFunction("CSK_DigitalIOManager.removeForwardEvent", removeForwardEvent)
-
--- Not used. Will be set automatically by ENUM
-local function setForwardEvent(event)
-  --forwardEvent = event
-end
-Script.serveFunction("CSK_DigitalIOManager.setForwardEvent", setForwardEvent)
 
 local function setTriggerEvent(event)
   _G.logger:info(nameOfModule .. ": Set trigger event to: " .. tostring(event))

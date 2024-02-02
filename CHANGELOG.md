@@ -9,9 +9,12 @@ All notable changes to this project will be documented in this file.
 ### Improvements
 - Status of the input signal of signal links (running via cFlow) is now provided additionally via event 'OnNewFlowInputState[ENUM]'.
 - Show sample screenshot in UI if module is not supported
+- Prevent to set active states of ports used within "SignalLinks" (cFlows)
 
 ### Bugfix
 - Removed signal links were not set to SCRIPT mode
+- Removed unused function "setForwardEvent"
+- Checked mode of input port instead of output port within "setActiveStatusOutput"
 
 ## Release 3.8.1
 

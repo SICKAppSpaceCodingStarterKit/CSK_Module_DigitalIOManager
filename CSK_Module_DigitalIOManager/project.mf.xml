@@ -335,10 +335,6 @@ INFO: As this event will be created dynamically, there is no auto completion wit
                     <desc>Preset output interface to set if registered triggerEvent (see "addTriggerEvent").</desc>
                     <param desc="Output interface to set." multiplicity="1" name="port" type="string"/>
                 </function>
-                <function name="setForwardEvent">
-                    <desc>Preset event name to notify if registering a digital input signal (currently not used, event names are used by default, like 'CSK_DigitalIOManager.OnNewInputState[portName]').</desc>
-                    <param desc="Forward event name to set." multiplicity="1" name="event" type="string"/>
-                </function>
                 <function name="setTriggerEvent">
                     <desc>Preset event name to listen to (see "addTriggerEvent").</desc>
                     <param desc="Trigger event name to set." multiplicity="1" name="event" type="string"/>

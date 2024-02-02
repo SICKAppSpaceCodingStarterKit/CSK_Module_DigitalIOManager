@@ -10,6 +10,11 @@ The app includes a GUI to setup available digital input / output interfaces and 
 It is also possible to setup events to listen to (e.g. listen to an event and trigger a digital output signal if notified) and other apps can register to internal events to receive 'OnChange' events.  
 For further information regarding the internal used functions / events, please check out the [documentation](https://raw.githack.com/SICKAppSpaceCodingStarterKit/CSK_Module_DigitalIOManager/main/docu/CSK_Module_DigitalIOManager.html) in the folder "docu".  
 
+## Known issues
+
+By creating a "Signal link" (running in cFlow) an existing "true" state of the input port will directly be forwarded to the configured output port once without any delay.  
+Only after that single trigger it will consider a configured delay.
+
 ## Information
 
 Tested on  

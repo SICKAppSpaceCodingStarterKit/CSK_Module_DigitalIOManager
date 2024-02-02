@@ -72,7 +72,7 @@ end
 ---@param status boolean Status of input port to track
 ---@param source string Name of input port
 local function trackInputState(status, source)
-  digitalIOManager_Model.sensorStatus[source]= status
+  digitalIOManager_Model.sensorStatus[source]= tostring(status)
   Script.notifyEvent("DigitalIOManager_OnNewInputPortTable", digitalIOManager_Model.helperFuncs.createJsonList('input', digitalIOManager_Model.parameters.inDebounceMode, digitalIOManager_Model.parameters.active, digitalIOManager_Model.parameters.inDebounceMode, digitalIOManager_Model.parameters.inDebounceValue, digitalIOManager_Model.parameters.inputLogic, nil, digitalIOManager_Model.parameters.mode, digitalIOManager_Model.sensorStatus))
 end
 
@@ -225,6 +225,7 @@ local function setupAll()
         end
       end
     end
+    digitalIOManager_Model.sensorStatus[id] = '-'
   end
 
   for i=1, #digitalIOManager_Model.digitalOutputs do
@@ -268,6 +269,7 @@ local function setupAll()
         -- Optionally track input state of signal links to e.g. show them on UI
         if digitalIOManager_Model.trackStatus then
           Script.register("CSK_DigitalIOManager.OnNewFlowInputState" .. input, digitalIOManager_Model.trackingFunctions[input])
+          digitalIOManager_Model.sensorStatus[input] = 'false'
         else
           Script.deregister("CSK_DigitalIOManager.OnNewFlowInputState" .. input, digitalIOManager_Model.trackingFunctions[input])
         end
