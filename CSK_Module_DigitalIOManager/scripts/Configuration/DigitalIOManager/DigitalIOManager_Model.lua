@@ -27,17 +27,17 @@ digitalIOManager_Model.moduleActive = true
 -- check if needed CROWN is available on device
 if Connector == nil then
   digitalIOManager_Model.moduleActive = false
-  _G.logger:warning(nameOfModule .. ': CROWN is not available. Module is not supported...')
+  _G.logger:warning(nameOfModule .. ': CROWN is not available. Module is not supported ...')
 else
   if Connector.DigitalIn == nil then
     digitalIOManager_Model.moduleActive = false
-    _G.logger:warning(nameOfModule .. ': CROWN is not available. Module is not supported...')
+    _G.logger:warning(nameOfModule .. ': CROWN is not available. Module is not supported ...')
   end
 end
 
 -- Load script to communicate with the DigitalIOManager_Model interface and give access
 -- to the DigitalIOManager_Model object.
--- Check / edit this script to see/edit functions which communicate with the UI
+-- Check / edit this script to see / edit functions which communicate with the UI
 local setDigitalIOManager_ModelHandle = require('Configuration/DigitalIOManager/DigitalIOManager_Controller')
 setDigitalIOManager_ModelHandle(digitalIOManager_Model)
 
@@ -45,17 +45,20 @@ setDigitalIOManager_ModelHandle(digitalIOManager_Model)
 digitalIOManager_Model.helperFuncs = require('Configuration/DigitalIOManager/helper/funcs')
 
 digitalIOManager_Model.initialized = false -- Status if app initialized already the interfaces after boot up
+digitalIOManager_Model.trackStatus = false -- Status if app should track current status of input ports
 digitalIOManager_Model.handles = {} -- Handles of DigitalIO interfaces
 digitalIOManager_Model.portState = {} -- States of the DigitalIO interfaces
 digitalIOManager_Model.digitalInputs = {} -- List of available input interfaces
 digitalIOManager_Model.digitalOutputs = {} -- List of available input interfaces
+digitalIOManager_Model.sensorStatus = {} -- Status of sensor's measurement
 
 digitalIOManager_Model.forwardFunctions = {} -- List of functions to be used to forward incoming trigger via DigitalIn as events
 digitalIOManager_Model.triggerFunctions = {} -- List of functions to be used to forward incoming events to trigger DigitalOut
+digitalIOManager_Model.trackingFunctions = {} -- List of functions to be used to track input states of signal links
 
 -- Create parameters / instances for this module
 digitalIOManager_Model.parameters = {}
-digitalIOManager_Model.parameters.links = {} -- .input/.output/.delay
+digitalIOManager_Model.parameters.links = {} -- .input / .output / .delay
 
 --- Functions to forward incoming trigger via DigitalInput as event
 ---@param status boolean Status of port to forward
@@ -63,6 +66,14 @@ digitalIOManager_Model.parameters.links = {} -- .input/.output/.delay
 local function forwardInputToEvent(status, source)
   _G.logger:info(nameOfModule .. ': Notify event ' .. tostring(digitalIOManager_Model.parameters.forwardEvent[source]) .. ' .. with status: ' .. tostring(status))
   Script.notifyEvent(digitalIOManager_Model.parameters.forwardEvent[source], status)
+end
+
+--- Function to track and notify input states of signal links
+---@param status boolean Status of input port to track
+---@param source string Name of input port
+local function trackInputState(status, source)
+  digitalIOManager_Model.sensorStatus[source]= tostring(status)
+  Script.notifyEvent("DigitalIOManager_OnNewInputPortTable", digitalIOManager_Model.helperFuncs.createJsonList('input', digitalIOManager_Model.parameters.inDebounceMode, digitalIOManager_Model.parameters.active, digitalIOManager_Model.parameters.inDebounceMode, digitalIOManager_Model.parameters.inDebounceValue, digitalIOManager_Model.parameters.inputLogic, nil, digitalIOManager_Model.parameters.mode, digitalIOManager_Model.sensorStatus))
 end
 
 --- Function to set DigitalOutputs if received related event
@@ -89,12 +100,17 @@ if digitalIOManager_Model.moduleActive then
     Script.serveEvent(eventName, eventName, 'bool')
   end
 
-  -- Create functions to forward incoming trigger via DigitalInput as event
+  -- Create functions to forward incoming trigger via DigitalInput as event and to track input states of signal links
   for _, value in pairs(digitalIOManager_Model.digitalInputs) do
     local function addSourcePort(status)
       forwardInputToEvent(status,value)
     end
     digitalIOManager_Model.forwardFunctions[value] = addSourcePort
+
+    local function trackInput(status)
+      trackInputState(status,value)
+    end
+    digitalIOManager_Model.trackingFunctions[value] = trackInput
   end
 
   -- Create functions to set DigitalOutputs if received related event
@@ -119,6 +135,7 @@ local function initialize()
   _G.logger:info(nameOfModule .. ': Initialize digital IO ports.')
   digitalIOManager_Model.parameters.active = {} -- Status if port is active to process
   digitalIOManager_Model.parameters.mode = {} -- Port is used by 'SCRIPT', 'FLOW' or 'BLOCKED'
+  digitalIOManager_Model.sensorStatus = {} -- Status of sensor's measurement
 
   digitalIOManager_Model.parameters.inDebounceValue = {} -- List of Input DebounceValues for the ports
   digitalIOManager_Model.parameters.inDebounceMode = {} -- List of Input DebounceMode for the ports
@@ -140,6 +157,7 @@ local function initialize()
     digitalIOManager_Model.parameters.inputLogic[id] = 'ACTIVE_HIGH' -- 'ACTIVE_HIGH', 'ACTIVE_LOW'
 
     digitalIOManager_Model.parameters.mode[id] = 'SCRIPT' -- 'SCRIPT', 'FLOW'
+    digitalIOManager_Model.sensorStatus[id] = '-' -- '-','true', 'false'
   end
 
   for i=1, #digitalIOManager_Model.digitalOutputs do
@@ -196,11 +214,18 @@ local function setupAll()
         digitalIOManager_Model.handles[id]:setDebounceMode(digitalIOManager_Model.parameters.inDebounceMode[id])
         digitalIOManager_Model.handles[id]:setDebounceValue(digitalIOManager_Model.parameters.inDebounceValue[id])
         digitalIOManager_Model.handles[id]:setLogic(digitalIOManager_Model.parameters.inputLogic[id])
+
+        -- Optionally track state of input signals to e.g. show them on UI
+        if digitalIOManager_Model.trackStatus then
+          Connector.DigitalIn.register(digitalIOManager_Model.handles[id], "OnChange", digitalIOManager_Model.trackingFunctions[id])
+        end
+
         if digitalIOManager_Model.parameters.forwardEvent[id] then
           Connector.DigitalIn.register(digitalIOManager_Model.handles[id], "OnChange", digitalIOManager_Model.forwardFunctions[id])
         end
       end
     end
+    digitalIOManager_Model.sensorStatus[id] = '-'
   end
 
   for i=1, #digitalIOManager_Model.digitalOutputs do
@@ -237,6 +262,19 @@ local function setupAll()
         digitalIOManager_Model.flow:setInitialParameter('DigitalIn'..input, 'DebounceValue', digitalIOManager_Model.parameters.inDebounceValue[input])
       end
 
+      if not digitalIOManager_Model.flow:hasBlock('DigitalInEvent'..input) then
+        digitalIOManager_Model.flow:addConsumerBlock('DigitalInEvent'..input, 'Engine.Event.notify')
+        digitalIOManager_Model.flow:setInitialParameter('DigitalInEvent'..input, 'EventName', "CSK_DigitalIOManager.OnNewFlowInputState" .. input)
+
+        -- Optionally track input state of signal links to e.g. show them on UI
+        if digitalIOManager_Model.trackStatus then
+          Script.register("CSK_DigitalIOManager.OnNewFlowInputState" .. input, digitalIOManager_Model.trackingFunctions[input])
+          digitalIOManager_Model.sensorStatus[input] = 'false'
+        else
+          Script.deregister("CSK_DigitalIOManager.OnNewFlowInputState" .. input, digitalIOManager_Model.trackingFunctions[input])
+        end
+      end
+
       if not digitalIOManager_Model.flow:hasBlock('DigitalOut'..output) then
         digitalIOManager_Model.flow:addConsumerBlock('DigitalOut'..output, 'Connector.DigitalOut.set')
         digitalIOManager_Model.flow:setCreationParameter('DigitalOut'..output, digitalIOManager_Model.parameters.links[i].output)
@@ -248,15 +286,17 @@ local function setupAll()
 
       if digitalIOManager_Model.parameters.links[i].delay == 0 then
         digitalIOManager_Model.flow:addLink('DigitalIn'..input..':newState', 'DigitalOut'..output..':newState')
+        digitalIOManager_Model.flow:addLink('DigitalIn'..input..':newState', 'DigitalInEvent'..input..':signal')
       else
         digitalIOManager_Model.flow:addBlock('Delay'..input..output, 'DigitalLogic.Delay.delay')
         digitalIOManager_Model.flow:setInitialParameter('Delay'..input..output, 'DelayTime', digitalIOManager_Model.parameters.links[i].delay)
 
         digitalIOManager_Model.flow:addLink('DigitalIn'..input..':newState', 'Delay'..input..output..':signal')
+        digitalIOManager_Model.flow:addLink('DigitalIn'..input..':newState', 'DigitalInEvent'..input..':signal')
         digitalIOManager_Model.flow:addLink('Delay'..input..output..':delayedSignal', 'DigitalOut'..output..':newState')
       end
     else
-      _G.logger:info(nameOfModule .. ': Problem with configured links...')
+      _G.logger:info(nameOfModule .. ': Problem with configured links ...')
     end
 
   end
@@ -266,7 +306,7 @@ local function setupAll()
 end
 digitalIOManager_Model.setupAll = setupAll
 
--- Initialize and setup digital IO setup
+-- Initialize and setup digital IO configuration
 if digitalIOManager_Model.moduleActive then
   initialize()
   setupAll()

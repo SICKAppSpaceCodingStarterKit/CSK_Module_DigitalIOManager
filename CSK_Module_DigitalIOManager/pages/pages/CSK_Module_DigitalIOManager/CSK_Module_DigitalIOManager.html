@@ -1,643 +1,665 @@
 <layout-row id="RowLayout1">
 	<layout-column id="ColumnLayout33" style="align-items: stretch">
 		<stacked-view id="SV_FeatureSupport">
+			<stacked-pane id="SP_Supported" value="true">
+        		<stacked-view id="SV_Login">
+        			<stacked-pane id="SP_LoggedIn" value="true">
+		        		<layout-column id="ColumnLayout16" style="align-items: stretch">
+				        	<layout-row id="RowLayout6" style="justify-content: space-between">
+						        <layout-column id="ColumnLayout1"
+        							class="myCustomFrame_CSK_Module_DigitalIOManager"
+		        					style="align-items: stretch">
+				        			<layout-row id="RowLayout4" style="align-items: stretch">
+						        		<layout-column id="ColumnLayout9"
+								        	style="align-items: stretch; justify-content: space-between">
+        									<davinci-value-display id="VD_InputSelected" value=""
+		        								label="Selected Input">
+				        					</davinci-value-display>
+						        			<layout-row id="RowLayout18" style="align-items: center">
+								        		<davinci-value-display id="VD_InputSelected2" value="">
+										        	<crown-edpws-binding property="label"
+												        name="CSK_DigitalIOManager/OnNewInputSelection" update-on-resume>
+        											</crown-edpws-binding>
+		        								</davinci-value-display>
+				        					</layout-row>
+						        		</layout-column>
+								        <layout-column id="ColumnLayout5"
+        									style="align-items: center; justify-content: space-between">
+		        							<davinci-value-display id="VD_InputActive" value="Active">
+				        					</davinci-value-display>
+						        			<layout-row id="RowLayout15" style="align-items: center">
+								        		<davinci-toggle-switch id="TS_InputActivate">
+										        	<crown-edpws-binding property="checked"
+												        name="CSK_DigitalIOManager/OnNewActiveStatusInput"
+        												update-on-resume>
+		        									</crown-edpws-binding>
+				        							<crown-binding event="change"
+						        						name="CSK_DigitalIOManager/setActiveStatusInput"
+								        				path="param/args/status" auto-commit>
+										        	</crown-binding>
+        										</davinci-toggle-switch>
+		        							</layout-row>
+				        				</layout-column>
+						        		<layout-column id="ColumnLayout8" style="align-items: stretch">
+								        	<davinci-value-display id="VD_InputDebounceMode" value="DebounceMode">
+									        </davinci-value-display>
+        									<davinci-drop-down id="DD_InputDebounceMode">
+		        								<davinci-option id="Option1" value="TIME_MS">
+				        							<span>TIME_MS</span>
+						        				</davinci-option>
+								        		<davinci-option id="Option2" value="INCREMENT_TICK">
+										        	<span>INCREMENT_TICK</span>
+										        </davinci-option>
+        										<crown-edpws-binding property="value"
+		        									name="CSK_DigitalIOManager/OnNewDebounceMode" update-on-resume>
+				        						</crown-edpws-binding>
+						        				<crown-binding event="change"
+								        			name="CSK_DigitalIOManager/setDebounceMode" path="param/args/mode"
+										        	auto-commit>
+										        </crown-binding>
+        									</davinci-drop-down>
+		        						</layout-column>
+				        				<layout-column id="ColumnLayout7" style="align-items: stretch">
+						        			<davinci-value-display id="VD_InputDebounceValue"
+								        		value="DebounceValue">
+									        </davinci-value-display>
+        									<davinci-numeric-field id="NF__InputDebounceValue" type="outline"
+		        								min="0" max="1000" ticks="1" group-separator=","
+				        						decimal-separator="." format-pattern="0">
+						        				<crown-edpws-binding property="value"
+								        			name="CSK_DigitalIOManager/OnNewDebounceValue" update-on-resume>
+										        </crown-edpws-binding>
+        										<crown-binding event="change"
+		        									name="CSK_DigitalIOManager/setDebounceValue"
+				        							path="param/args/value" auto-commit>
+						        				</crown-binding>
+								        	</davinci-numeric-field>
+								        </layout-column>
+        								<layout-column id="ColumnLayout6" style="align-items: stretch">
+		        							<davinci-value-display id="VD_InputLogic" value="Logic">
+				        					</davinci-value-display>
+						        			<davinci-drop-down id="DD_InputLogic">
+								        		<davinci-option id="Option5" value="ACTIVE_HIGH">
+										        	<span>ACTIVE_HIGH</span>
+										        </davinci-option>
+        										<davinci-option id="Option4" value="ACTIVE_LOW">
+		        									<span>ACTIVE_LOW</span>
+				        						</davinci-option>
+						        				<crown-edpws-binding property="value"
+								        			name="CSK_DigitalIOManager/OnNewInputLogic" update-on-resume>
+										        </crown-edpws-binding>
+        										<crown-binding event="change"
+		        									name="CSK_DigitalIOManager/setInputLogic" path="param/args/logic"
+				        							auto-commit>
+						        				</crown-binding>
+								        	</davinci-drop-down>
+								        </layout-column>
+        								<layout-column id="ColumnLayout35" style="align-items: center; justify-content: space-between" class="myCustomBorderLeft_CSK_Module_DigitalIOManager">
+		        							<davinci-value-display id="VD_Status" value="Show all states" title="INFO: Recommended to not use, if not essentially required!">
+				        					</davinci-value-display>
+						        			<layout-row id="RowLayout19" style="align-items: center">
+								        		<davinci-toggle-switch id="TS_TrackStatus" title="INFO: Recommended to leave it switched off, if not essentially required!">
+										        	<crown-edpws-binding property="checked"
+												        name="CSK_DigitalIOManager/OnNewStatusTrackInputSignalStatus"
+        												update-on-resume>
+		        									</crown-edpws-binding>
+				        							<crown-binding event="change"
+						        						name="CSK_DigitalIOManager/setInputTracking"
+								        				path="param/args/status" auto-commit>
+										        	</crown-binding>
+										        </davinci-toggle-switch>
+        									</layout-row>
+		        						</layout-column>
+				        			</layout-row>
+						        	<curie-table id="DT_Inputs" selectable select-mode="highlight_row">
+								        <curie-table-column id="DigitalInput" header="DigitalInput">
+        								</curie-table-column>
+		        						<curie-table-column id="InputActive" header="Active">
+				        				</curie-table-column>
+						        		<curie-table-column id="DebounceMode" header="DebounceMode">
+								        </curie-table-column>
+        								<curie-table-column id="DebounceValue" header="DebounceValue">
+		        						</curie-table-column>
+				        				<curie-table-column id="InputLogic" header="InputLogic">
+						        		</curie-table-column>
+								        <curie-table-column id="ModeInput" header="Mode">
+        								</curie-table-column>
+		        						<curie-table-column id="SensorStatus" header="Status">
+				        				</curie-table-column>
+						        		<crown-edpws-binding property="data"
+								        	name="CSK_DigitalIOManager/OnNewInputPortTable" update-on-resume>
+								        </crown-edpws-binding>
+        								<crown-binding event="row-selected"
+		        							name="CSK_DigitalIOManager/selectInputInterface"
+				        					path="param/args/selection" auto-commit>
+						        		</crown-binding>
+							        </curie-table>
+        						</layout-column>
+		        				<layout-column id="ColumnLayout2"
+				        			class="myCustomFrame_CSK_Module_DigitalIOManager"
+						        	style="align-items: stretch">
+							        <layout-row id="RowLayout5" style="align-items: stretch">
+        								<layout-column id="ColumnLayout10"
+		        							style="align-items: stretch; justify-content: space-between">
+				        					<davinci-value-display id="VD_OutputSelected" value=""
+						        				label="Selected Output">
+								        	</davinci-value-display>
+									        <layout-row id="RowLayout17" style="align-items: center">
+        										<davinci-value-display id="VD_OutputSelected2" value="">
+		        									<crown-edpws-binding property="label"
+				        								name="CSK_DigitalIOManager/OnNewOutputSelection" update-on-resume>
+						        					</crown-edpws-binding>
+								        		</davinci-value-display>
+									        </layout-row>
+        								</layout-column>
+		        						<layout-column id="ColumnLayout11"
+				        					style="align-items: center; justify-content: space-between">
+						        			<davinci-value-display id="VD_OutputActive" value="Active">
+								        	</davinci-value-display>
+									        <layout-row id="RowLayout16" style="align-items: center">
+        										<davinci-toggle-switch id="TS_OutputActive">
+		        									<crown-edpws-binding property="checked"
+				        								name="CSK_DigitalIOManager/OnNewActiveStatusOutput"
+						        						update-on-resume>
+								        			</crown-edpws-binding>
+										        	<crown-binding event="change"
+												        name="CSK_DigitalIOManager/setActiveStatusOutput"
+        												path="param/args/status" auto-commit>
+		        									</crown-binding>
+				        						</davinci-toggle-switch>
+						        			</layout-row>
+								        </layout-column>
+        								<layout-column id="ColumnLayout12" style="align-items: stretch">
+		        							<davinci-value-display id="VD_OutputActivationMode"
+				        						value="ActivationMode">
+						        			</davinci-value-display>
+								        	<davinci-drop-down id="DD_OutputActivationMode">
+										        <davinci-option id="Option6" value="TIME_MS">
+        											<span>TIME_MS</span>
+		        								</davinci-option>
+				        						<davinci-option id="Option7" value="INCREMENT_TICK">
+						        					<span>INCREMENT_TICK</span>
+								        		</davinci-option>
+										        <crown-edpws-binding property="value"
+        											name="CSK_DigitalIOManager/OnNewActivationMode" update-on-resume>
+		        								</crown-edpws-binding>
+				        						<crown-binding event="change"
+						        					name="CSK_DigitalIOManager/setActivationMode"
+								        			path="param/args/mode" auto-commit>
+										        </crown-binding>
+        									</davinci-drop-down>
+		        						</layout-column>
+				        				<layout-column id="ColumnLayout13" style="align-items: stretch">
+						        			<davinci-value-display id="VD_OutputActivationValue"
+								        		value="ActivationValue">
+									        </davinci-value-display>
+        									<davinci-numeric-field id="NF_OutputActivationValue" type="outline"
+		        								min="0" max="1000" ticks="1" group-separator=","
+				        						decimal-separator="." format-pattern="0">
+						        				<crown-edpws-binding property="value"
+								        			name="CSK_DigitalIOManager/OnNewActivationValue" update-on-resume>
+										        </crown-edpws-binding>
+        										<crown-binding event="change"
+		        									name="CSK_DigitalIOManager/setActivationValue"
+				        							path="param/args/value" auto-commit>
+						        				</crown-binding>
+								        	</davinci-numeric-field>
+        								</layout-column>
+		        						<layout-column id="ColumnLayout14" style="align-items: stretch">
+				        					<davinci-value-display id="VD_OutputLogic" value="Logic">
+						        			</davinci-value-display>
+								        	<davinci-drop-down id="DD_OutputLogic">
+										        <davinci-option id="Option9" value="ACTIVE_HIGH">
+        											<span>ACTIVE_HIGH</span>
+		        								</davinci-option>
+				        						<davinci-option id="Option10" value="ACTIVE_LOW">
+						        					<span>ACTIVE_LOW</span>
+								        		</davinci-option>
+										        <crown-edpws-binding property="value"
+        											name="CSK_DigitalIOManager/OnNewOutputLogic" update-on-resume>
+		        								</crown-edpws-binding>
+				        						<crown-binding event="change"
+						        					name="CSK_DigitalIOManager/setOutputLogic" path="param/args/logic"
+								        			auto-commit>
+										        </crown-binding>
+        									</davinci-drop-down>
+		        						</layout-column>
+				        				<layout-column id="ColumnLayout15" style="align-items: stretch">
+						        			<davinci-value-display id="VD_OutputMode" value="OutputMode">
+								        	</davinci-value-display>
+									        <davinci-drop-down id="DD_OutputMode">
+        										<davinci-option id="Option11" value="PUSH_PULL">
+		        									<span>PUSH_PULL</span>
+				        						</davinci-option>
+						        				<davinci-option id="Option12" value="HIGH_SIDE">
+								        			<span>HIGH_SIDE</span>
+										        </davinci-option>
+        										<davinci-option id="Option13" value="LOW_SIDE">
+		        									<span>LOW_SIDE</span>
+				        						</davinci-option>
+						        				<crown-edpws-binding property="value"
+								        			name="CSK_DigitalIOManager/OnNewOutputMode" update-on-resume>
+										        </crown-edpws-binding>
+        										<crown-binding event="change"
+		        									name="CSK_DigitalIOManager/setOutputMode" path="param/args/mode"
+				        							auto-commit>
+						        				</crown-binding>
+								        	</davinci-drop-down>
+								        </layout-column>
+        							</layout-row>
+		        					<curie-table id="DT_Outputs" selectable select-mode="highlight_row">
+				        				<curie-table-column id="DigitalOutput" header="DigitalOutput">
+						        		</curie-table-column>
+								        <curie-table-column id="OutputActive" header="Active">
+        								</curie-table-column>
+		        						<curie-table-column id="ActivationMode" header="ActivationMode">
+				        				</curie-table-column>
+						        		<curie-table-column id="ActivationValue" header="ActivationValue">
+								        </curie-table-column>
+        								<curie-table-column id="OutputLogic" header="OutputLogic">
+		        						</curie-table-column>
+				        				<curie-table-column id="OutputMode" header="OutputMode">
+						        		</curie-table-column>
+								        <curie-table-column id="ModeOutput" header="Mode">
+        								</curie-table-column>
+		        						<crown-edpws-binding property="data"
+				        					name="CSK_DigitalIOManager/OnNewOutputPortTable" update-on-resume>
+						        		</crown-edpws-binding>
+								        <crown-binding event="row-selected"
+        									name="CSK_DigitalIOManager/selectOutputInterface"
+		        							path="param/args/selection" auto-commit>
+				        				</crown-binding>
+						        	</curie-table>
+						        </layout-column>
+        					</layout-row>
+		        			<stacked-view id="SV_DynamicInternalMessages">
+				        		<stacked-pane id="SP_ShowMessage" value="true">
+						        	<layout-column id="ColumnLayout20" style="align-items: stretch">
+								        <curie-callout id="DC_InternalMessages">
+        									<crown-edpws-binding property="value"
+		        								name="CSK_DigitalIOManager/OnNewInternalMessage" update-on-resume>
+				        					</crown-edpws-binding>
+						        			<crown-edpws-binding property="type"
+								        		name="CSK_DigitalIOManager/OnNewMessageType" update-on-resume>
+									        </crown-edpws-binding>
+        								</curie-callout>
+		        					</layout-column>
+				        		</stacked-pane>
+						        <stacked-pane id="SP_Empty2" value="false">
+        						</stacked-pane>
+		        				<crown-edpws-binding property="value"
+				        			name="CSK_DigitalIOManager/OnShowInternalMessages"
+						        	update-on-resume>
+						        </crown-edpws-binding>
+        					</stacked-view>
+		        			<layout-row id="RowLayout7">
+				        		<layout-column id="ColumnLayout17" style="align-items: stretch">
+						        	<layout-row id="RowLayout10">
+								        <layout-column id="ColumnLayout24"
+									        class="myCustomFrame_CSK_Module_DigitalIOManager"
+        									style="align-items: stretch">
+		        							<davinci-value-display id="VD_SignalLinks"
+				        						value="INFO: Forward incoming signals from input to output port with optional delay. Will be processed as cFlow in FPGA."
+						        				label="Signal links">
+								        	</davinci-value-display>
+									        <layout-row id="Placeholder"
+        										class="myCustomPlaceholder10pxHeight_CSK_Module_DigitalIOManager">
+		        							</layout-row>
+				        					<layout-row id="RowLayout8">
+						        				<layout-column id="ColumnLayout18" style="align-items: stretch">
+								        			<davinci-value-display id="VD_LinkInput" value="Input">
+										        	</davinci-value-display>
+											        <davinci-drop-down id="DD_LinkInput">
+        												<crown-edpws-binding property="data"
+		        											name="CSK_DigitalIOManager/OnNewInputPortList" update-on-resume
+				        									converter="convertToList">
+						        						</crown-edpws-binding>
+								        				<crown-binding event="change"
+										        			name="CSK_DigitalIOManager/setInputForLink" path="param/args/port"
+												        	auto-commit>
+												        </crown-binding>
+        												<crown-edpws-binding property="value"
+		        											name="CSK_DigitalIOManager/OnNewInputForLinkSelected"
+				        									update-on-resume>
+						        						</crown-edpws-binding>
+								        			</davinci-drop-down>
+										        </layout-column>
+        										<layout-column id="ColumnLayout21" style="align-items: stretch">
+		        									<davinci-value-display id="VD_LinkOutput" value="Output">
+				        							</davinci-value-display>
+						        					<davinci-drop-down id="DD_LinkOutput">
+								        				<crown-edpws-binding property="data"
+										        			name="CSK_DigitalIOManager/OnNewOutputPortList" update-on-resume
+												        	converter="convertToList">
+        												</crown-edpws-binding>
+		        										<crown-edpws-binding property="value"
+				        									name="CSK_DigitalIOManager/OnNewOutputForLinkSelected"
+						        							update-on-resume>
+								        				</crown-edpws-binding>
+										        		<crown-binding event="change"
+												        	name="CSK_DigitalIOManager/setOutputForLink"
+													        path="param/args/port" auto-commit>
+        												</crown-binding>
+		        									</davinci-drop-down>
+				        						</layout-column>
+						        				<layout-column id="ColumnLayout19" style="align-items: stretch">
+								        			<davinci-value-display id="VD_LinkDelay" value="Delay [ms]">
+										        	</davinci-value-display>
+											        <davinci-numeric-field id="NF_LinkDelay" type="outline" min="0"
+        												max="5000" ticks="1" group-separator="," decimal-separator="."
+		        										format-pattern="0">
+				        								<crown-binding event="change"
+						        							name="CSK_DigitalIOManager/setDelayForLink"
+								        					path="param/args/value" auto-commit>
+										        		</crown-binding>
+												        <crown-edpws-binding property="value"
+        													name="CSK_DigitalIOManager/OnNewLinkDelay" update-on-resume>
+		        										</crown-edpws-binding>
+				        							</davinci-numeric-field>
+						        				</layout-column>
+								        	</layout-row>
+									        <layout-row id="RowLayout9">
+        										<layout-column id="ColumnLayout22" style="align-items: stretch">
+		        									<davinci-button id="B_AddSignalLink" type="primary"
+				        								icon-position="append">
+						        						<span>ADD</span>
+								        				<crown-binding event="submit" name="CSK_DigitalIOManager/addLink"
+										        			auto-commit>
+												        </crown-binding>
+        											</davinci-button>
+		        								</layout-column>
+				        						<layout-column id="ColumnLayout23" style="align-items: stretch">
+						        					<davinci-button id="B_DeleteSignalLink" type="primary"
+								        				icon-position="append">
+										        		<span>DELETE</span>
+												        <crown-binding event="submit" name="CSK_DigitalIOManager/removeLink"
+        													auto-commit>
+		        										</crown-binding>
+				        							</davinci-button>
+						        				</layout-column>
+								        	</layout-row>
+									        <curie-table id="DT_SignalLinks" selectable
+        										select-mode="highlight_row">
+		        								<curie-table-column id="LinkNo" header="LinkNo">
+				        						</curie-table-column>
+						        				<curie-table-column id="Input" header="Input">
+								        		</curie-table-column>
+										        <curie-table-column id="Output" header="Output">
+        										</curie-table-column>
+		        								<curie-table-column id="Delay" header="Delay">
+				        						</curie-table-column>
+						        				<crown-edpws-binding property="data"
+								        			name="CSK_DigitalIOManager/OnNewLinkList" update-on-resume>
+										        </crown-edpws-binding>
+        										<crown-binding event="row-selected"
+		        									name="CSK_DigitalIOManager/selectLink" path="param/args/selection"
+				        							auto-commit>
+						        				</crown-binding>
+								        	</curie-table>
+								        </layout-column>
+        								<layout-column id="ColumnLayout25" style="align-items: stretch">
+		        						</layout-column>
+				        			</layout-row>
+						        	<layout-row id="RowLayout11" style="justify-content: space-between">
+								        <layout-column id="ColumnLayout26"
+        									class="myCustomFrame_CSK_Module_DigitalIOManager"
+		        							style="align-items: stretch">
+				        					<davinci-value-display id="VD_InputSignalEvent"
+						        				label="InputSignal -> Event"
+								        		value="INFO: If there is a change of the input state, forward this within an event to be used e.g. by other modules. DataInfo can be used as description what this signal is for. Event name will be generated automatically."
+										        style="height: 60px">
+        									</davinci-value-display>
+		        							<layout-row id="RowLayout12" style="justify-content: space-between">
+				        						<layout-column id="ColumnLayout28" style="align-items: stretch">
+						        					<davinci-drop-down id="DD_InputToForward">
+								        				<crown-binding event="change"
+										        			name="CSK_DigitalIOManager/setInputToForward"
+												        	path="param/args/port" auto-commit>
+												        </crown-binding>
+        												<crown-edpws-binding property="data"
+		        											name="CSK_DigitalIOManager/OnNewInputPortList" update-on-resume
+				        									converter="convertToList">
+						        						</crown-edpws-binding>
+								        				<crown-edpws-binding property="value"
+										        			name="CSK_DigitalIOManager/OnNewInputToForward" update-on-resume>
+												        </crown-edpws-binding>
+        											</davinci-drop-down>
+		        									<davinci-button id="B_AddInputForwardEvent" type="primary"
+				        								icon-position="append">
+						        						<span>Set Event</span>
+								        				<crown-binding event="submit"
+										        			name="CSK_DigitalIOManager/addForwardEvent" auto-commit>
+												        </crown-binding>
+        											</davinci-button>
+		        								</layout-column>
+				        						<layout-column id="ColumnLayout29" style="align-items: stretch">
+						        					<davinci-text-field id="TF_InputForwardDataInfo" type="text"
+								        				placeholder="DataInfo:"
+										        		title="DataInfo to be used as description for this signal. Can be used by other modules to give a hint what this signal is for.">
+												        <crown-edpws-binding property="value"
+        													name="CSK_DigitalIOManager/OnNewInputToForwardDataInfo"
+		        											update-on-resume>
+				        								</crown-edpws-binding>
+						        						<crown-binding event="change"
+								        					name="CSK_DigitalIOManager/setInputToForwardDataInfo"
+										        			path="param/args/info" auto-commit>
+												        </crown-binding>
+        											</davinci-text-field>
+		        									<davinci-button id="B_DeleteInputForward" type="primary"
+				        								icon-position="append">
+						        						<span>Delete</span>
+								        				<crown-binding event="submit"
+										        			name="CSK_DigitalIOManager/removeForwardEvent" auto-commit>
+												        </crown-binding>
+        											</davinci-button>
+		        								</layout-column>
+				        					</layout-row>
+						        			<curie-table id="DT_InputForwardEvents" selectable
+								        		select-mode="highlight_row">
+										        <curie-table-column id="FromInput" header="FromInput">
+        										</curie-table-column>
+		        								<curie-table-column id="TriggerEvent" header="TriggerEvent">
+				        						</curie-table-column>
+						        				<curie-table-column id="DataInfo" header="DataInfo">
+								        		</curie-table-column>
+										        <crown-edpws-binding property="data"
+        											name="CSK_DigitalIOManager/OnNewForwardTriggerList"
+		        									update-on-resume>
+				        						</crown-edpws-binding>
+						        				<crown-binding event="row-selected"
+								        			name="CSK_DigitalIOManager/selectForwardInputToEventPair"
+										        	path="param/args/selection" auto-commit>
+										        </crown-binding>
+        									</curie-table>
+		        						</layout-column>
+				        				<layout-column id="ColumnLayout27"
+						        			class="myCustomFrame_CSK_Module_DigitalIOManager"
+								        	style="align-items: stretch">
+									        <davinci-value-display id="VD_OutputTrigger"
+        										label="TriggerEvent -> Output"
+		        								value="INFO: Set the output as defined if the configured trigger is notified."
+				        						style="height: 60px">
+						        			</davinci-value-display>
+								        	<layout-row id="RowLayout13" style="justify-content: space-between">
+										        <layout-column id="ColumnLayout31" style="align-items: stretch">
+        											<davinci-text-field id="TF_TriggerName" type="text">
+		        										<crown-binding event="change"
+				        									name="CSK_DigitalIOManager/setTriggerEvent"
+						        							path="param/args/event" auto-commit>
+								        				</crown-binding>
+										        		<crown-edpws-binding property="value"
+												        	name="CSK_DigitalIOManager/OnNewTriggerEvent" update-on-resume>
+												        </crown-edpws-binding>
+        											</davinci-text-field>
+		        									<davinci-button id="B_AddOutputTrigger" type="primary"
+				        								icon-position="append">
+						        						<span>Set Event</span>
+								        				<crown-binding event="submit"
+										        			name="CSK_DigitalIOManager/addTriggerEvent" auto-commit>
+												        </crown-binding>
+        											</davinci-button>
+		        								</layout-column>
+				        						<layout-column id="ColumnLayout30" style="align-items: stretch">
+						        					<davinci-drop-down id="DD_OutputToTrigger">
+								        				<crown-binding event="change"
+										        			name="CSK_DigitalIOManager/setOutputToTrigger"
+												        	path="param/args/port" auto-commit>
+												        </crown-binding>
+        												<crown-edpws-binding property="data"
+        													name="CSK_DigitalIOManager/OnNewOutputPortList" update-on-resume
+		        											converter="convertToList">
+				        								</crown-edpws-binding>
+						        						<crown-edpws-binding property="value"
+								        					name="CSK_DigitalIOManager/OnNewOutputToTrigger" update-on-resume>
+										        		</crown-edpws-binding>
+											        </davinci-drop-down>
+        											<davinci-button id="B_DeleteOutputTrigger" type="primary"
+		        										icon-position="append">
+				        								<span>Delete</span>
+						        						<crown-binding event="submit"
+								        					name="CSK_DigitalIOManager/removeTriggerEvent" auto-commit>
+										        		</crown-binding>
+											        </davinci-button>
+        										</layout-column>
+		        							</layout-row>
+				        					<curie-table id="DT_OutputTriggers" selectable
+						        				select-mode="highlight_row">
+								        		<curie-table-column id="ListenEvent" header="ListenEvent">
+										        </curie-table-column>
+        										<curie-table-column id="SetOutput" header="SetOutput">
+		        								</curie-table-column>
+				        						<crown-edpws-binding property="data"
+						        					name="CSK_DigitalIOManager/OnNewSetOutputByEventList"
+								        			update-on-resume>
+										        </crown-edpws-binding>
+        										<crown-binding event="row-selected"
+		        									name="CSK_DigitalIOManager/selectOutputToSetByEventPair"
+				        							path="param/args/selection" auto-commit>
+						        				</crown-binding>
+								        	</curie-table>
+								        </layout-column>
+        							</layout-row>
+		        				</layout-column>
+				        	</layout-row>
+					        <layout-row id="RowLayout14">
+        						<layout-column id="Column_PersistentData"
+		        					class="myCustomFrame_CSK_Module_DigitalIOManager"
+				        			style="align-items: stretch">
+						        	<layout-row id="RowLayout41"
+								        style="justify-content: space-between; align-items: center">
+        								<layout-column id="ColumnLayout51" style="align-items: stretch">
+		        							<davinci-value-display id="VD_ParameterName" value="Parameter name:"
+				        						title="Name of the parameters within the CSK_PersistentData module to be used for this module.">
+						        			</davinci-value-display>
+								        </layout-column>
+        								<layout-column id="ColumnLayout62" style="align-items: stretch">
+		        							<davinci-text-field id="TF_ParameterName" type="text"
+				        						title="Name of the parameters within the CSK_PersistentData module to be used for this module.">
+						        				<crown-edpws-binding property="value"
+								        			name="CSK_DigitalIOManager/OnNewParameterName" update-on-resume>
+										        </crown-edpws-binding>
+        										<crown-binding event="change"
+		        									name="CSK_DigitalIOManager/setParameterName"
+				        							path="param/args/name" auto-commit>
+						        				</crown-binding>
+								        		<crown-edpws-binding property="disabled"
+										        	name="CSK_DigitalIOManager/OnPersistentDataModuleAvailable"
+											        update-on-resume converter="function(value) {return !value;}">
+        										</crown-edpws-binding>
+		        							</davinci-text-field>
+				        				</layout-column>
+						        	</layout-row>
+							        <layout-row id="RowLayout2"
+        								style="justify-content: space-between; align-items: center">
+		        						<davinci-value-display id="VD_LoadConfig"
+				        					value="Load config on app start:"
+						        			title="Load configured parameters from CSK_PersistentData on app start.">
+								        </davinci-value-display>
+        								<davinci-checkbox id="CB_LoadConfig"
+		        							title="Load configured parameters from CSK_PersistentData on app start.">
+				        					<span></span>
+						        			<crown-edpws-binding property="checked"
+								        		name="CSK_DigitalIOManager/OnNewStatusLoadParameterOnReboot"
+										        update-on-resume>
+        									</crown-edpws-binding>
+		        							<crown-edpws-binding property="disabled"
+				        						name="CSK_DigitalIOManager/OnPersistentDataModuleAvailable"
+						        				update-on-resume converter="function(value) {return !value;}">
+								        	</crown-edpws-binding>
+									        <crown-binding event="change"
+        										name="CSK_DigitalIOManager/setLoadOnReboot"
+		        								path="param/args/status" auto-commit>
+				        					</crown-binding>
+						        		</davinci-checkbox>
+							        </layout-row>
+        							<layout-row id="RowLayout3">
+		        						<layout-column id="ColumnLayout3" style="align-items: stretch">
+				        					<davinci-button id="B_LoadConfig" type="primary"
+						        				icon-position="append"
+								        		title="Load configured parameters from CSK_PersistentData module.">
+										        <span>Load Config</span>
+        										<crown-binding event="submit"
+		        									name="CSK_DigitalIOManager/loadParameters" auto-commit>
+				        						</crown-binding>
+						        				<crown-edpws-binding property="disabled"
+								        			name="CSK_DigitalIOManager/OnPersistentDataModuleAvailable"
+										        	update-on-resume converter="function(value) {return !value;}">
+										        </crown-edpws-binding>
+        									</davinci-button>
+		        						</layout-column>
+				        				<layout-column id="ColumnLayout4" style="align-items: stretch">
+						        			<davinci-button id="B_SaveConfig" type="primary"
+								        		icon-position="append"
+										        title="Save currently configured parameters of this module within CSK_PersistentData module.">
+        										<span>Save Config</span>
+		        								<crown-binding event="submit"
+				        							name="CSK_DigitalIOManager/sendParameters" auto-commit>
+						        				</crown-binding>
+								        		<crown-edpws-binding property="disabled"
+										        	name="CSK_DigitalIOManager/OnPersistentDataModuleAvailable"
+											        update-on-resume converter="function(value) {return !value;}">
+        										</crown-edpws-binding>
+		        							</davinci-button>
+				        				</layout-column>
+						        	</layout-row>
+							        <stacked-view id="SV_PageCalled">
+        								<crown-binding property="value" name="CSK_DigitalIOManager/pageCalled"
+		        							path="result/data/empty" auto-update="0" update-on-resume>
+				        				</crown-binding>
+						        	</stacked-view>
+						        </layout-column>
+        						<layout-column id="ColumnLayout34" style="align-items: stretch">
+		        				</layout-column>
+				        	</layout-row>
+				        </layout-column>
+        			</stacked-pane>
+		        	<stacked-pane id="SP_NotLoggedIn" value="false">
+				        <layout-column id="ColumnLayout32" style="align-items: stretch">
+					        <davinci-callout id="Callout1" type="info">
+        						<span>
+		        					Please login with minimum user level 'Maintenance' to see this page.
+				        		</span>
+					        </davinci-callout>
+        				</layout-column>
+		        	</stacked-pane>
+			        <crown-edpws-binding property="value"
+        				name="CSK_DigitalIOManager/OnUserLevelMaintenanceActive"
+		        		update-on-resume
+				        converter="function(value) {return value.toString();}">
+        			</crown-edpws-binding>
+        		</stacked-view>
+            </stacked-pane>
 			<stacked-pane id="SP_NoSupport" value="false">
 				<davinci-callout id="Callout31" type="warning">
-					<span>Module is not supported on this device...</span>
+					<span>Module is not supported on this device ...</span>
 				</davinci-callout>
+				<img id="UI_sample" src="assets/UI_sample.png" alt="UI sample">
 			</stacked-pane>
-			<stacked-pane id="SP_Empty" value="true"></stacked-pane>
 			<crown-edpws-binding property="value"
 				name="CSK_DigitalIOManager/OnNewStatusModuleIsActive"
 				update-on-resume
 				converter="function(value) {return value.toString();}">
 			</crown-edpws-binding>
 		</stacked-view>
-		<stacked-view id="SV_Login">
-			<stacked-pane id="SP_LoggedIn" value="true">
-				<layout-column id="ColumnLayout16" style="align-items: stretch">
-					<layout-row id="RowLayout6" style="justify-content: space-between">
-						<layout-column id="ColumnLayout1"
-							class="myCustomFrame_CSK_Module_DigitalIOManager"
-							style="align-items: stretch">
-							<layout-row id="RowLayout4" style="align-items: stretch">
-								<layout-column id="ColumnLayout9"
-									style="align-items: stretch; justify-content: space-between">
-									<davinci-value-display id="VD_InputSelected" value=""
-										label="Selected Input">
-									</davinci-value-display>
-									<layout-row id="RowLayout18" style="align-items: center">
-										<davinci-value-display id="VD_InputSelected2" value="">
-											<crown-edpws-binding property="label"
-												name="CSK_DigitalIOManager/OnNewInputSelection" update-on-resume>
-											</crown-edpws-binding>
-										</davinci-value-display>
-									</layout-row>
-								</layout-column>
-								<layout-column id="ColumnLayout5"
-									style="align-items: center; justify-content: space-between">
-									<davinci-value-display id="VD_InputActive" value="Active">
-									</davinci-value-display>
-									<layout-row id="RowLayout15" style="align-items: center">
-										<davinci-toggle-switch id="TS_InputActivate">
-											<crown-edpws-binding property="checked"
-												name="CSK_DigitalIOManager/OnNewActiveStatusInput"
-												update-on-resume>
-											</crown-edpws-binding>
-											<crown-binding event="change"
-												name="CSK_DigitalIOManager/setActiveStatusInput"
-												path="param/args/status" auto-commit>
-											</crown-binding>
-										</davinci-toggle-switch>
-									</layout-row>
-								</layout-column>
-								<layout-column id="ColumnLayout8" style="align-items: stretch">
-									<davinci-value-display id="VD_InputDebounceMode" value="DebounceMode">
-									</davinci-value-display>
-									<davinci-drop-down id="DD_InputDebounceMode">
-										<davinci-option id="Option1" value="TIME_MS">
-											<span>TIME_MS</span>
-										</davinci-option>
-										<davinci-option id="Option2" value="INCREMENT_TICK">
-											<span>INCREMENT_TICK</span>
-										</davinci-option>
-										<crown-edpws-binding property="value"
-											name="CSK_DigitalIOManager/OnNewDebounceMode" update-on-resume>
-										</crown-edpws-binding>
-										<crown-binding event="change"
-											name="CSK_DigitalIOManager/setDebounceMode" path="param/args/mode"
-											auto-commit>
-										</crown-binding>
-									</davinci-drop-down>
-								</layout-column>
-								<layout-column id="ColumnLayout7" style="align-items: stretch">
-									<davinci-value-display id="VD_InputDebounceValue"
-										value="DebounceValue">
-									</davinci-value-display>
-									<davinci-numeric-field id="NF__InputDebounceValue" type="outline"
-										min="0" max="1000" ticks="1" group-separator=","
-										decimal-separator="." format-pattern="0">
-										<crown-edpws-binding property="value"
-											name="CSK_DigitalIOManager/OnNewDebounceValue" update-on-resume>
-										</crown-edpws-binding>
-										<crown-binding event="change"
-											name="CSK_DigitalIOManager/setDebounceValue"
-											path="param/args/value" auto-commit>
-										</crown-binding>
-									</davinci-numeric-field>
-								</layout-column>
-								<layout-column id="ColumnLayout6" style="align-items: stretch">
-									<davinci-value-display id="VD_InputLogic" value="Logic">
-									</davinci-value-display>
-									<davinci-drop-down id="DD_InputLogic">
-										<davinci-option id="Option5" value="ACTIVE_HIGH">
-											<span>ACTIVE_HIGH</span>
-										</davinci-option>
-										<davinci-option id="Option4" value="ACTIVE_LOW">
-											<span>ACTIVE_LOW</span>
-										</davinci-option>
-										<crown-edpws-binding property="value"
-											name="CSK_DigitalIOManager/OnNewInputLogic" update-on-resume>
-										</crown-edpws-binding>
-										<crown-binding event="change"
-											name="CSK_DigitalIOManager/setInputLogic" path="param/args/logic"
-											auto-commit>
-										</crown-binding>
-									</davinci-drop-down>
-								</layout-column>
-							</layout-row>
-							<curie-table id="DT_Inputs" selectable select-mode="highlight_row">
-								<curie-table-column id="DigitalInput" header="DigitalInput">
-								</curie-table-column>
-								<curie-table-column id="InputActive" header="Active">
-								</curie-table-column>
-								<curie-table-column id="DebounceMode" header="DebounceMode">
-								</curie-table-column>
-								<curie-table-column id="DebounceValue" header="DebounceValue">
-								</curie-table-column>
-								<curie-table-column id="InputLogic" header="InputLogic">
-								</curie-table-column>
-								<curie-table-column id="ModeInput" header="Mode">
-								</curie-table-column>
-								<crown-edpws-binding property="data"
-									name="CSK_DigitalIOManager/OnNewInputPortTable" update-on-resume>
-								</crown-edpws-binding>
-								<crown-binding event="row-selected"
-									name="CSK_DigitalIOManager/selectInputInterface"
-									path="param/args/selection" auto-commit>
-								</crown-binding>
-							</curie-table>
-						</layout-column>
-						<layout-column id="ColumnLayout2"
-							class="myCustomFrame_CSK_Module_DigitalIOManager"
-							style="align-items: stretch">
-							<layout-row id="RowLayout5" style="align-items: stretch">
-								<layout-column id="ColumnLayout10"
-									style="align-items: stretch; justify-content: space-between">
-									<davinci-value-display id="VD_OutputSelected" value=""
-										label="Selected Output">
-									</davinci-value-display>
-									<layout-row id="RowLayout17" style="align-items: center">
-										<davinci-value-display id="VD_OutputSelected2" value="">
-											<crown-edpws-binding property="label"
-												name="CSK_DigitalIOManager/OnNewOutputSelection" update-on-resume>
-											</crown-edpws-binding>
-										</davinci-value-display>
-									</layout-row>
-								</layout-column>
-								<layout-column id="ColumnLayout11"
-									style="align-items: center; justify-content: space-between">
-									<davinci-value-display id="VD_OutputActive" value="Active">
-									</davinci-value-display>
-									<layout-row id="RowLayout16" style="align-items: center">
-										<davinci-toggle-switch id="TS_OutputActive">
-											<crown-edpws-binding property="checked"
-												name="CSK_DigitalIOManager/OnNewActiveStatusOutput"
-												update-on-resume>
-											</crown-edpws-binding>
-											<crown-binding event="change"
-												name="CSK_DigitalIOManager/setActiveStatusOutput"
-												path="param/args/status" auto-commit>
-											</crown-binding>
-										</davinci-toggle-switch>
-									</layout-row>
-								</layout-column>
-								<layout-column id="ColumnLayout12" style="align-items: stretch">
-									<davinci-value-display id="VD_OutputActivationMode"
-										value="ActivationMode">
-									</davinci-value-display>
-									<davinci-drop-down id="DD_OutputActivationMode">
-										<davinci-option id="Option6" value="TIME_MS">
-											<span>TIME_MS</span>
-										</davinci-option>
-										<davinci-option id="Option7" value="INCREMENT_TICK">
-											<span>INCREMENT_TICK</span>
-										</davinci-option>
-										<crown-edpws-binding property="value"
-											name="CSK_DigitalIOManager/OnNewActivationMode" update-on-resume>
-										</crown-edpws-binding>
-										<crown-binding event="change"
-											name="CSK_DigitalIOManager/setActivationMode"
-											path="param/args/mode" auto-commit>
-										</crown-binding>
-									</davinci-drop-down>
-								</layout-column>
-								<layout-column id="ColumnLayout13" style="align-items: stretch">
-									<davinci-value-display id="VD_OutputActivationValue"
-										value="ActivationValue">
-									</davinci-value-display>
-									<davinci-numeric-field id="NF_OutputActivationValue" type="outline"
-										min="0" max="1000" ticks="1" group-separator=","
-										decimal-separator="." format-pattern="0">
-										<crown-edpws-binding property="value"
-											name="CSK_DigitalIOManager/OnNewActivationValue" update-on-resume>
-										</crown-edpws-binding>
-										<crown-binding event="change"
-											name="CSK_DigitalIOManager/setActivationValue"
-											path="param/args/value" auto-commit>
-										</crown-binding>
-									</davinci-numeric-field>
-								</layout-column>
-								<layout-column id="ColumnLayout14" style="align-items: stretch">
-									<davinci-value-display id="VD_OutputLogic" value="Logic">
-									</davinci-value-display>
-									<davinci-drop-down id="DD_OutputLogic">
-										<davinci-option id="Option9" value="ACTIVE_HIGH">
-											<span>ACTIVE_HIGH</span>
-										</davinci-option>
-										<davinci-option id="Option10" value="ACTIVE_LOW">
-											<span>ACTIVE_LOW</span>
-										</davinci-option>
-										<crown-edpws-binding property="value"
-											name="CSK_DigitalIOManager/OnNewOutputLogic" update-on-resume>
-										</crown-edpws-binding>
-										<crown-binding event="change"
-											name="CSK_DigitalIOManager/setOutputLogic" path="param/args/logic"
-											auto-commit>
-										</crown-binding>
-									</davinci-drop-down>
-								</layout-column>
-								<layout-column id="ColumnLayout15" style="align-items: stretch">
-									<davinci-value-display id="VD_OutputMode" value="OutputMode">
-									</davinci-value-display>
-									<davinci-drop-down id="DD_OutputMode">
-										<davinci-option id="Option11" value="PUSH_PULL">
-											<span>PUSH_PULL</span>
-										</davinci-option>
-										<davinci-option id="Option12" value="HIGH_SIDE">
-											<span>HIGH_SIDE</span>
-										</davinci-option>
-										<davinci-option id="Option13" value="LOW_SIDE">
-											<span>LOW_SIDE</span>
-										</davinci-option>
-										<crown-edpws-binding property="value"
-											name="CSK_DigitalIOManager/OnNewOutputMode" update-on-resume>
-										</crown-edpws-binding>
-										<crown-binding event="change"
-											name="CSK_DigitalIOManager/setOutputMode" path="param/args/mode"
-											auto-commit>
-										</crown-binding>
-									</davinci-drop-down>
-								</layout-column>
-							</layout-row>
-							<curie-table id="DT_Outputs" selectable select-mode="highlight_row">
-								<curie-table-column id="DigitalOutput" header="DigitalOutput">
-								</curie-table-column>
-								<curie-table-column id="OutputActive" header="Active">
-								</curie-table-column>
-								<curie-table-column id="ActivationMode" header="ActivationMode">
-								</curie-table-column>
-								<curie-table-column id="ActivationValue" header="ActivationValue">
-								</curie-table-column>
-								<curie-table-column id="OutputLogic" header="OutputLogic">
-								</curie-table-column>
-								<curie-table-column id="OutputMode" header="OutputMode">
-								</curie-table-column>
-								<curie-table-column id="ModeOutput" header="Mode">
-								</curie-table-column>
-								<crown-edpws-binding property="data"
-									name="CSK_DigitalIOManager/OnNewOutputPortTable" update-on-resume>
-								</crown-edpws-binding>
-								<crown-binding event="row-selected"
-									name="CSK_DigitalIOManager/selectOutputInterface"
-									path="param/args/selection" auto-commit>
-								</crown-binding>
-							</curie-table>
-						</layout-column>
-					</layout-row>
-					<stacked-view id="SV_DynamicInternalMessages">
-						<stacked-pane id="SP_ShowMessage" value="true">
-							<layout-column id="ColumnLayout20" style="align-items: stretch">
-								<curie-callout id="DC_InternalMessages">
-									<crown-edpws-binding property="value"
-										name="CSK_DigitalIOManager/OnNewInternalMessage" update-on-resume>
-									</crown-edpws-binding>
-									<crown-edpws-binding property="type"
-										name="CSK_DigitalIOManager/OnNewMessageType" update-on-resume>
-									</crown-edpws-binding>
-								</curie-callout>
-							</layout-column>
-						</stacked-pane>
-						<stacked-pane id="SP_Empty2" value="false"></stacked-pane>
-						<crown-edpws-binding property="value"
-							name="CSK_DigitalIOManager/OnShowInternalMessages"
-							update-on-resume>
-						</crown-edpws-binding>
-					</stacked-view>
-					<layout-row id="RowLayout7">
-						<layout-column id="ColumnLayout17" style="align-items: stretch">
-							<layout-row id="RowLayout10">
-								<layout-column id="ColumnLayout24"
-									class="myCustomFrame_CSK_Module_DigitalIOManager"
-									style="align-items: stretch">
-									<davinci-value-display id="VD_SignalLinks"
-										value="INFO:Forward incoming signals from input to output port with optional delay. Will be processed as cFlow in FPGA."
-										label="Signal links">
-									</davinci-value-display>
-									<layout-row id="Placeholder"
-										class="myCustomPlaceholder10pxHeight_CSK_Module_DigitalIOManager">
-									</layout-row>
-									<layout-row id="RowLayout8">
-										<layout-column id="ColumnLayout18" style="align-items: stretch">
-											<davinci-value-display id="VD_LinkInput" value="Input">
-											</davinci-value-display>
-											<davinci-drop-down id="DD_LinkInput">
-												<crown-edpws-binding property="data"
-													name="CSK_DigitalIOManager/OnNewInputPortList" update-on-resume
-													converter="convertToList">
-												</crown-edpws-binding>
-												<crown-binding event="change"
-													name="CSK_DigitalIOManager/setInputForLink" path="param/args/port"
-													auto-commit>
-												</crown-binding>
-												<crown-edpws-binding property="value"
-													name="CSK_DigitalIOManager/OnNewInputForLinkSelected"
-													update-on-resume>
-												</crown-edpws-binding>
-											</davinci-drop-down>
-										</layout-column>
-										<layout-column id="ColumnLayout21" style="align-items: stretch">
-											<davinci-value-display id="VD_LinkOutput" value="Output">
-											</davinci-value-display>
-											<davinci-drop-down id="DD_LinkOutput">
-												<crown-edpws-binding property="data"
-													name="CSK_DigitalIOManager/OnNewOutputPortList" update-on-resume
-													converter="convertToList">
-												</crown-edpws-binding>
-												<crown-edpws-binding property="value"
-													name="CSK_DigitalIOManager/OnNewOutputForLinkSelected"
-													update-on-resume>
-												</crown-edpws-binding>
-												<crown-binding event="change"
-													name="CSK_DigitalIOManager/setOutputForLink"
-													path="param/args/port" auto-commit>
-												</crown-binding>
-											</davinci-drop-down>
-										</layout-column>
-										<layout-column id="ColumnLayout19" style="align-items: stretch">
-											<davinci-value-display id="VD_LinkDelay" value="Delay [ms]">
-											</davinci-value-display>
-											<davinci-numeric-field id="NF_LinkDelay" type="outline" min="0"
-												max="5000" ticks="1" group-separator="," decimal-separator="."
-												format-pattern="0">
-												<crown-binding event="change"
-													name="CSK_DigitalIOManager/setDelayForLink"
-													path="param/args/value" auto-commit>
-												</crown-binding>
-												<crown-edpws-binding property="value"
-													name="CSK_DigitalIOManager/OnNewLinkDelay" update-on-resume>
-												</crown-edpws-binding>
-											</davinci-numeric-field>
-										</layout-column>
-									</layout-row>
-									<layout-row id="RowLayout9">
-										<layout-column id="ColumnLayout22" style="align-items: stretch">
-											<davinci-button id="B_AddSignalLink" type="primary"
-												icon-position="append">
-												<span>ADD</span>
-												<crown-binding event="submit" name="CSK_DigitalIOManager/addLink"
-													auto-commit>
-												</crown-binding>
-											</davinci-button>
-										</layout-column>
-										<layout-column id="ColumnLayout23" style="align-items: stretch">
-											<davinci-button id="B_DeleteSignalLink" type="primary"
-												icon-position="append">
-												<span>DELETE</span>
-												<crown-binding event="submit" name="CSK_DigitalIOManager/removeLink"
-													auto-commit>
-												</crown-binding>
-											</davinci-button>
-										</layout-column>
-									</layout-row>
-									<curie-table id="DT_SignalLinks" selectable
-										select-mode="highlight_row">
-										<curie-table-column id="LinkNo" header="LinkNo">
-										</curie-table-column>
-										<curie-table-column id="Input" header="Input">
-										</curie-table-column>
-										<curie-table-column id="Output" header="Output">
-										</curie-table-column>
-										<curie-table-column id="Delay" header="Delay">
-										</curie-table-column>
-										<crown-edpws-binding property="data"
-											name="CSK_DigitalIOManager/OnNewLinkList" update-on-resume>
-										</crown-edpws-binding>
-										<crown-binding event="row-selected"
-											name="CSK_DigitalIOManager/selectLink" path="param/args/selection"
-											auto-commit>
-										</crown-binding>
-									</curie-table>
-								</layout-column>
-								<layout-column id="ColumnLayout25" style="align-items: stretch">
-								</layout-column>
-							</layout-row>
-							<layout-row id="RowLayout11" style="justify-content: space-between">
-								<layout-column id="ColumnLayout26"
-									class="myCustomFrame_CSK_Module_DigitalIOManager"
-									style="align-items: stretch">
-									<davinci-value-display id="VD_InputSignalEvent"
-										label="InputSignal -> Event"
-										value="INFO: If there is a change of the input state, forward this within an event to be used e.g. by other modules. DataInfo can be used as description what this signal is for. Event name will be generated automatically.">
-									</davinci-value-display>
-									<layout-row id="RowLayout12" style="justify-content: space-between">
-										<layout-column id="ColumnLayout28" style="align-items: stretch">
-											<davinci-drop-down id="DD_InputToForward">
-												<crown-binding event="change"
-													name="CSK_DigitalIOManager/setInputToForward"
-													path="param/args/port" auto-commit>
-												</crown-binding>
-												<crown-edpws-binding property="data"
-													name="CSK_DigitalIOManager/OnNewInputPortList" update-on-resume
-													converter="convertToList">
-												</crown-edpws-binding>
-												<crown-edpws-binding property="value"
-													name="CSK_DigitalIOManager/OnNewInputToForward" update-on-resume>
-												</crown-edpws-binding>
-											</davinci-drop-down>
-											<davinci-button id="B_AddInputForwardEvent" type="primary"
-												icon-position="append">
-												<span>Set Event</span>
-												<crown-binding event="submit"
-													name="CSK_DigitalIOManager/addForwardEvent" auto-commit>
-												</crown-binding>
-											</davinci-button>
-										</layout-column>
-										<layout-column id="ColumnLayout29" style="align-items: stretch">
-											<davinci-text-field id="TF_InputForwardDataInfo" type="text"
-												placeholder="DataInfo:"
-												title="DataInfo to be used as description for this signal. Can be used by other modules to give a hint what this signal is for.">
-												<crown-edpws-binding property="value"
-													name="CSK_DigitalIOManager/OnNewInputToForwardDataInfo"
-													update-on-resume>
-												</crown-edpws-binding>
-												<crown-binding event="change"
-													name="CSK_DigitalIOManager/setInputToForwardDataInfo"
-													path="param/args/info" auto-commit>
-												</crown-binding>
-											</davinci-text-field>
-											<davinci-button id="B_DeleteInputForward" type="primary"
-												icon-position="append">
-												<span>Delete</span>
-												<crown-binding event="submit"
-													name="CSK_DigitalIOManager/removeForwardEvent" auto-commit>
-												</crown-binding>
-											</davinci-button>
-										</layout-column>
-									</layout-row>
-									<curie-table id="DT_InputForwardEvents" selectable
-										select-mode="highlight_row">
-										<curie-table-column id="FromInput" header="FromInput">
-										</curie-table-column>
-										<curie-table-column id="TriggerEvent" header="TriggerEvent">
-										</curie-table-column>
-										<curie-table-column id="DataInfo" header="DataInfo">
-										</curie-table-column>
-										<crown-edpws-binding property="data"
-											name="CSK_DigitalIOManager/OnNewForwardTriggerList"
-											update-on-resume>
-										</crown-edpws-binding>
-										<crown-binding event="row-selected"
-											name="CSK_DigitalIOManager/selectForwardInputToEventPair"
-											path="param/args/selection" auto-commit>
-										</crown-binding>
-									</curie-table>
-								</layout-column>
-								<layout-column id="ColumnLayout27"
-									class="myCustomFrame_CSK_Module_DigitalIOManager"
-									style="align-items: stretch">
-									<davinci-value-display id="VD_OutputTrigger"
-										label="TriggerEvent -> Output"
-										value="INFO: Set the output as defined if the configured trigger is notified.">
-									</davinci-value-display>
-									<layout-row id="RowLayout13" style="justify-content: space-between">
-										<layout-column id="ColumnLayout31" style="align-items: stretch">
-											<davinci-text-field id="TF_TriggerName" type="text">
-												<crown-binding event="change"
-													name="CSK_DigitalIOManager/setTriggerEvent"
-													path="param/args/event" auto-commit>
-												</crown-binding>
-												<crown-edpws-binding property="value"
-													name="CSK_DigitalIOManager/OnNewTriggerEvent" update-on-resume>
-												</crown-edpws-binding>
-											</davinci-text-field>
-											<davinci-button id="B_AddOutputTrigger" type="primary"
-												icon-position="append">
-												<span>Set Event</span>
-												<crown-binding event="submit"
-													name="CSK_DigitalIOManager/addTriggerEvent" auto-commit>
-												</crown-binding>
-											</davinci-button>
-										</layout-column>
-										<layout-column id="ColumnLayout30" style="align-items: stretch">
-											<davinci-drop-down id="DD_OutputToTrigger">
-												<crown-binding event="change"
-													name="CSK_DigitalIOManager/setOutputToTrigger"
-													path="param/args/port" auto-commit>
-												</crown-binding>
-												<crown-edpws-binding property="data"
-													name="CSK_DigitalIOManager/OnNewOutputPortList" update-on-resume
-													converter="convertToList">
-												</crown-edpws-binding>
-												<crown-edpws-binding property="value"
-													name="CSK_DigitalIOManager/OnNewOutputToTrigger" update-on-resume>
-												</crown-edpws-binding>
-											</davinci-drop-down>
-											<davinci-button id="B_DeleteOutputTrigger" type="primary"
-												icon-position="append">
-												<span>Delete</span>
-												<crown-binding event="submit"
-													name="CSK_DigitalIOManager/removeTriggerEvent" auto-commit>
-												</crown-binding>
-											</davinci-button>
-										</layout-column>
-									</layout-row>
-									<curie-table id="DT_OutputTriggers" selectable
-										select-mode="highlight_row">
-										<curie-table-column id="ListenEvent" header="ListenEvent">
-										</curie-table-column>
-										<curie-table-column id="SetOutput" header="SetOutput">
-										</curie-table-column>
-										<crown-edpws-binding property="data"
-											name="CSK_DigitalIOManager/OnNewSetOutputByEventList"
-											update-on-resume>
-										</crown-edpws-binding>
-										<crown-binding event="row-selected"
-											name="CSK_DigitalIOManager/selectOutputToSetByEventPair"
-											path="param/args/selection" auto-commit>
-										</crown-binding>
-									</curie-table>
-								</layout-column>
-							</layout-row>
-						</layout-column>
-					</layout-row>
-					<layout-row id="RowLayout14">
-						<layout-column id="Column_PersistentData"
-							class="myCustomFrame_CSK_Module_DigitalIOManager"
-							style="align-items: stretch">
-							<layout-row id="RowLayout41"
-								style="justify-content: space-between; align-items: center">
-								<layout-column id="ColumnLayout51" style="align-items: stretch">
-									<davinci-value-display id="VD_ParameterName" value="Parameter name:"
-										title="Name of the parameters within the CSK_PersistentData module to be uses for this module.">
-									</davinci-value-display>
-								</layout-column>
-								<layout-column id="ColumnLayout62" style="align-items: stretch">
-									<davinci-text-field id="TF_ParameterName" type="text"
-										title="Name of the parameters within the CSK_PersistentData module to be uses for this module.">
-										<crown-edpws-binding property="value"
-											name="CSK_DigitalIOManager/OnNewParameterName" update-on-resume>
-										</crown-edpws-binding>
-										<crown-binding event="change"
-											name="CSK_DigitalIOManager/setParameterName"
-											path="param/args/name" auto-commit>
-										</crown-binding>
-										<crown-edpws-binding property="disabled"
-											name="CSK_DigitalIOManager/OnPersistentDataModuleAvailable"
-											update-on-resume converter="function(value) {return !value;}">
-										</crown-edpws-binding>
-									</davinci-text-field>
-								</layout-column>
-							</layout-row>
-							<layout-row id="RowLayout2"
-								style="justify-content: space-between; align-items: center">
-								<davinci-value-display id="VD_LoadConfig"
-									value="Load config on app start:"
-									title="Load configured parameters from CSK_PersistentData on app start.">
-								</davinci-value-display>
-								<davinci-checkbox id="CB_LoadConfig"
-									title="Load configured parameters from CSK_PersistentData on app start.">
-									<span></span>
-									<crown-edpws-binding property="checked"
-										name="CSK_DigitalIOManager/OnNewStatusLoadParameterOnReboot"
-										update-on-resume>
-									</crown-edpws-binding>
-									<crown-edpws-binding property="disabled"
-										name="CSK_DigitalIOManager/OnPersistentDataModuleAvailable"
-										update-on-resume converter="function(value) {return !value;}">
-									</crown-edpws-binding>
-									<crown-binding event="change"
-										name="CSK_DigitalIOManager/setLoadOnReboot"
-										path="param/args/status" auto-commit>
-									</crown-binding>
-								</davinci-checkbox>
-							</layout-row>
-							<layout-row id="RowLayout3">
-								<layout-column id="ColumnLayout3" style="align-items: stretch">
-									<davinci-button id="B_LoadConfig" type="primary"
-										icon-position="append"
-										title="Load configured parameters from CSK_PersistentData module.">
-										<span>Load Config</span>
-										<crown-binding event="submit"
-											name="CSK_DigitalIOManager/loadParameters" auto-commit>
-										</crown-binding>
-										<crown-edpws-binding property="disabled"
-											name="CSK_DigitalIOManager/OnPersistentDataModuleAvailable"
-											update-on-resume converter="function(value) {return !value;}">
-										</crown-edpws-binding>
-									</davinci-button>
-								</layout-column>
-								<layout-column id="ColumnLayout4" style="align-items: stretch">
-									<davinci-button id="B_SaveConfig" type="primary"
-										icon-position="append"
-										title="Save current configured parameters of this module within CSK_PersistentData module.">
-										<span>Save Config</span>
-										<crown-binding event="submit"
-											name="CSK_DigitalIOManager/sendParameters" auto-commit>
-										</crown-binding>
-										<crown-edpws-binding property="disabled"
-											name="CSK_DigitalIOManager/OnPersistentDataModuleAvailable"
-											update-on-resume converter="function(value) {return !value;}">
-										</crown-edpws-binding>
-									</davinci-button>
-								</layout-column>
-							</layout-row>
-							<stacked-view id="SV_PageCalled">
-								<crown-binding property="value" name="CSK_DigitalIOManager/pageCalled"
-									path="result/data/empty" auto-update="0" update-on-resume>
-								</crown-binding>
-							</stacked-view>
-						</layout-column>
-						<layout-column id="ColumnLayout34" style="align-items: stretch">
-						</layout-column>
-					</layout-row>
-				</layout-column>
-			</stacked-pane>
-			<stacked-pane id="SP_NotLoggedIn" value="false">
-				<layout-column id="ColumnLayout32" style="align-items: stretch">
-					<davinci-callout id="Callout1" type="info">
-						<span>
-							Please login with minimum user level Maintenance to see this page.
-						</span>
-					</davinci-callout>
-				</layout-column>
-			</stacked-pane>
-			<crown-edpws-binding property="value"
-				name="CSK_DigitalIOManager/OnUserLevelMaintenanceActive"
-				update-on-resume
-				converter="function(value) {return value.toString();}">
-			</crown-edpws-binding>
-		</stacked-view>
 	</layout-column>
-  
 </layout-row>

@@ -1,23 +1,31 @@
+--[[
+++============================================================================++
+||                                                                            ||
+||  Inside of this script, you will find helper functions.                    ||
+||                                                                            ||
+++============================================================================++
+]]--
 ---@diagnostic disable: undefined-global, redundant-parameter, missing-parameter
---*****************************************************************
--- Inside of this script, you will find helper functions
---*****************************************************************
 
---**************************************************************************
---**********************Start Global Scope *********************************
---**************************************************************************
+--[[ ********************************************************************** ]]--
+--[[ ************************ Start of Global Scope *********************** ]]--
+--[[ ********************************************************************** ]]--
 
 local funcs = {}
--- Providing standard JSON functions
-funcs.json = require('Configuration/DigitalIOManager/helper/Json')
+-- Providing access to standard JSON functions.
+funcs.json = require( "Configuration/DigitalIOManager/helper/Json" )
 
---**************************************************************************
---********************** End Global Scope **********************************
---**************************************************************************
---**********************Start Function Scope *******************************
---**************************************************************************
+--[[ ********************************************************************** ]]--
+--[[ ************************* End of Global Scope ************************ ]]--
+--[[ ********************************************************************** ]]--
 
---- Create JSON list for dynamic table
+--[[ :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: ]]--
+--[[ :::::::::::::::::: Start of Function and Event Scope ::::::::::::::::: ]]--
+--[[ :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: ]]--
+
+--[[ ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ ]]--
+
+--- Create JSON list for dynamic table.
 ---@param portType string Type of port
 ---@param contentA string Name of 'DigitalInput' or 'DigitalOutput' or 'Links'
 ---@param contentB string State of 'InputActive' or 'OutputActive' or 'TriggerEvent' or 'ListenEvent'
@@ -26,8 +34,9 @@ funcs.json = require('Configuration/DigitalIOManager/helper/Json')
 ---@param contentE string State of 'InputLogic' or 'OutputLogic'
 ---@param contentF string State of 'OutputMode'
 ---@param contentG string State of 'ModeInput' or 'ModeOutput'
+---@param contentH string 'SensorStatus' of sensors measurement
 ---@return string jsonstring JSON string
-local function createJsonList(portType, contentA, contentB, contentC, contentD, contentE, contentF, contentG)
+local function createJsonList(portType, contentA, contentB, contentC, contentD, contentE, contentF, contentG, contentH)
   local orderedTable = {}
   local connectorList = {}
 
@@ -38,18 +47,18 @@ local function createJsonList(portType, contentA, contentB, contentC, contentD, 
     table.sort(orderedTable)
 
     for _, value in ipairs(orderedTable) do
-      if portType == 'input' then
-        table.insert(connectorList, {DigitalInput = value, InputActive = contentB[value], DebounceMode = contentC[value], DebounceValue = contentD[value], InputLogic = contentE[value], ModeInput = contentG[value]})
-      elseif portType == 'output' then
+      if portType == "input" then
+        table.insert(connectorList, {DigitalInput = value, InputActive = contentB[value], DebounceMode = contentC[value], DebounceValue = contentD[value], InputLogic = contentE[value], ModeInput = contentG[value], SensorStatus = contentH[value]})
+      elseif portType == "output" then
         table.insert(connectorList, {DigitalOutput = value, OutputActive = contentB[value], ActivationMode = contentC[value], ActivationValue = contentD[value], OutputLogic = contentE[value], OutputMode = contentF[value], ModeOutput = contentG[value]})
-      elseif portType == 'links' then
-        table.insert(connectorList, {LinkNo = tostring(value), Input = contentA[value]['input'], Output = contentA[value]['output'], Delay = contentA[value]['delay']})
-      elseif portType == 'forwardTrigger' then
-        if contentB[value] then
+      elseif portType == "links" then
+        table.insert(connectorList, {LinkNo = tostring(value), Input = contentA[value]["input"], Output = contentA[value]["output"], Delay = contentA[value]["delay"]})
+      elseif portType == "forwardTrigger" then
+        if contentB[value] ~= nil then
           table.insert(connectorList, {FromInput = value, TriggerEvent = contentB[value], DataInfo = contentC[value]})
         end
-      elseif portType == 'outputByEvent' then
-        if contentB[value] then
+      elseif portType == "outputByEvent" then
+        if contentB[value] ~= nil then
           table.insert(connectorList, {ListenEvent = contentB[value], SetOutput = value})
         end
       end
@@ -57,120 +66,134 @@ local function createJsonList(portType, contentA, contentB, contentC, contentD, 
   end
 
   if #connectorList == 0 then
-    if portType == 'input' then
-      connectorList = {{DigitalInput = '-', InputActive = '-', DebounceMode = '-', DebounceValue = '-', InputLogic = '-', ModeInput = '-'},}
-    elseif portType == 'output' then
-      connectorList = {{DigitalOutput = '-', OutputActive = '-', ActivationMode = '-', ActivationValue = '-', OutputLogic = '-', OutputMode = '-', ModeOutput = '-'},}
-    elseif portType == 'links' then
-      connectorList = {{LinkNo = '-', Input = '-', Output = '-', Delay = '-'},}
-    elseif portType == 'forwardTrigger' then
-      connectorList = {{ForwardNo = '-', FromInput = '-', TriggerEvent = '-', DataInfo = '-'},}
-    elseif portType == 'outputByEvent' then
-      connectorList = {{TriggerNo = '-', ListenEvent = '-', SetOutput = '-'},}
+    if portType == "input" then
+      connectorList = {{DigitalInput = "-", InputActive = "-", DebounceMode = "-", DebounceValue = "-", InputLogic = "-", ModeInput = "-", SensorStatus = "-"},}
+    elseif portType == "output" then
+      connectorList = {{DigitalOutput = "-", OutputActive = "-", ActivationMode = "-", ActivationValue = "-", OutputLogic = "-", OutputMode = "-", ModeOutput = "-"},}
+    elseif portType == "links" then
+      connectorList = {{LinkNo = "-", Input = "-", Output = "-", Delay = "-"},}
+    elseif portType == "forwardTrigger" then
+      connectorList = {{ForwardNo = "-", FromInput = "-", TriggerEvent = "-", DataInfo = "-"},}
+    elseif portType == "outputByEvent" then
+      connectorList = {{TriggerNo = "-", ListenEvent = "-", SetOutput = "-"},}
     end
   end
 
-  local jsonstring = funcs.json.encode(connectorList)
-  return jsonstring
+  local jsonString = funcs.json.encode(connectorList)
+
+  return jsonString
 end
 funcs.createJsonList = createJsonList
 
---- Function to convert a table into a Container object
----@param content auto[] Lua Table to convert to Container
----@return Container cont Created Container
-local function convertTable2Container(content)
-  local cont = Container.create()
-  for key, value in pairs(content) do
-    if type(value) == 'table' then
-      cont:add(key, convertTable2Container(value), nil)
+--[[ ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ ]]--
+--- Convert a table into a 'Container' object.
+---@param inContent auto[] Lua table to convert to 'Container'
+---@return Container outContainer Created 'Container'
+local function convertTable2Container(inContent)
+  local outContainer = Container.create()
+  for key, value in pairs(inContent) do
+    if type(value) == "table" then
+      outContainer:add(key, convertTable2Container(value), nil)
     else
-      cont:add(key, value, nil)
+      outContainer:add(key, value, nil)
     end
   end
-  return cont
+
+  return outContainer
 end
 funcs.convertTable2Container = convertTable2Container
 
---- Function to convert a Container into a table
----@param cont Container Container to convert to Lua table
----@return auto[] data Created Lua table
-local function convertContainer2Table(cont)
-  local data = {}
-  local containerList = Container.list(cont)
+
+--[[ ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ ]]--
+--- Convert a 'Container' object into a table.
+---@param inContainer Container 'Container' to convert to Lua table
+---@return auto[] outData Created Lua table
+local function convertContainer2Table(inContainer)
+  local outData = {}
+  local containerList = Container.list(inContainer)
   local containerCheck = false
-  if tonumber(containerList[1]) then
+  if tonumber(containerList[1]) ~= nil then
     containerCheck = true
   end
-  for i=1, #containerList do
-
+  for i = 1, #containerList, 1 do
     local subContainer
 
-    if containerCheck then
-      subContainer = Container.get(cont, tostring(i) .. '.00')
+    if containerCheck == true then
+      subContainer = Container.get(inContainer, tostring(i) .. ".00")
     else
-      subContainer = Container.get(cont, containerList[i])
+      subContainer = Container.get(inContainer, containerList[i])
     end
-    if type(subContainer) == 'userdata' then
+    if type(subContainer) == "userdata" then
       if Object.getType(subContainer) == "Container" then
 
-        if containerCheck then
-          table.insert(data, convertContainer2Table(subContainer))
+        if containerCheck == true then
+          table.insert(outData, convertContainer2Table(subContainer))
         else
-          data[containerList[i]] = convertContainer2Table(subContainer)
+          outData[containerList[i]] = convertContainer2Table(subContainer)
         end
 
       else
-        if containerCheck then
-          table.insert(data, subContainer)
+        if containerCheck == true then
+          table.insert(outData, subContainer)
         else
-          data[containerList[i]] = subContainer
+          outData[containerList[i]] = subContainer
         end
       end
     else
-      if containerCheck then
-        table.insert(data, subContainer)
+      if containerCheck == true then
+        table.insert(outData, subContainer)
       else
-        data[containerList[i]] = subContainer
+        outData[containerList[i]] = subContainer
       end
     end
   end
-  return data
+
+  return outData
 end
 funcs.convertContainer2Table = convertContainer2Table
 
---- Function to get content list out of table
----@param data string[] Table with data entries
----@return string sortedTable Sorted entries as string, internally seperated by ','
-local function createContentList(data)
+--[[ ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ ]]--
+--- Get a content list out of a table.
+---@param inData string[] Table with data entries
+---@return string sortedTable Sorted entries as string, internally separated by ','
+local function createContentList(inData)
   local sortedTable = {}
-  for key, _ in pairs(data) do
+  for key, _ in pairs(inData) do
     table.insert(sortedTable, key)
   end
   table.sort(sortedTable)
-  return table.concat(sortedTable, ',')
+
+  return table.concat( sortedTable, "," )
 end
 funcs.createContentList = createContentList
 
---- Function to create a list from table
----@param content string[] Table with data entries
----@return string list String list
-local function createStringListBySimpleTable(content)
-  local list = "["
-  if #content >= 1 then
-    list = list .. '"' .. content[1] .. '"'
-  end
-  if #content >= 2 then
-    for i=2, #content do
-      list = list .. ', ' .. '"' .. content[i] .. '"'
+--[[ ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ ]]--
+--- Create a string of all elements of a table.
+---@param inData string[] Table with data entries
+---@return string list List of data entries
+local function createStringListBySimpleTable(inData)
+  if inData ~= nil then
+    local list = "["
+    if #inData >= 1 then
+      list = list .. '"' .. inData[1] .. '"'
     end
+    if #inData >= 2 then
+      for i=2, #inData, 1 do
+        list = list .. ', ' .. '"' .. inData[i] .. '"'
+      end
+    end
+    list = list .. "]"
+
+    return list
+  else
+
+    return ''
   end
-  list = list .. "]"
-  return list
 end
 funcs.createStringListBySimpleTable = createStringListBySimpleTable
 
 return funcs
 
---**************************************************************************
---**********************End Function Scope *********************************
---**************************************************************************
+--[[ :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: ]]--
+--[[ ::::::::::::::::::: End of Function and Event Scope :::::::::::::::::: ]]--
+--[[ :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: ]]--
