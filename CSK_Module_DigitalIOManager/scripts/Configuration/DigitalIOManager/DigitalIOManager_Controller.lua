@@ -43,9 +43,11 @@ Script.serveEvent("CSK_DigitalIOManager.OnNewFlowInputStateENUM", "DigitalIOMana
 
 -- Real events
 --------------------------------------------------
+Script.serveEvent('CSK_DigitalIOManager.OnNewStatusModuleVersion', 'DigitalIOManager_OnNewStatusModuleVersion')
+Script.serveEvent('CSK_DigitalIOManager.OnNewStatusCSKStyle', 'DigitalIOManager_OnNewStatusCSKStyle')
 Script.serveEvent('CSK_DigitalIOManager.OnNewStatusModuleIsActive', 'DigitalIOManager_OnNewStatusModuleIsActive')
-Script.serveEvent("CSK_DigitalIOManager.OnNewEventList", "DigitalIOManager_OnNewEventList")
 
+Script.serveEvent("CSK_DigitalIOManager.OnNewEventList", "DigitalIOManager_OnNewEventList")
 Script.serveEvent("CSK_DigitalIOManager.OnShowInternalMessages", "DigitalIOManager_OnShowInternalMessages")
 Script.serveEvent("CSK_DigitalIOManager.OnNewMessageType", "DigitalIOManager_OnNewMessageType")
 Script.serveEvent("CSK_DigitalIOManager.OnNewInternalMessage", "DigitalIOManager_OnNewInternalMessage")
@@ -93,6 +95,7 @@ Script.serveEvent("CSK_DigitalIOManager.OnUserLevelMaintenanceActive", "DigitalI
 Script.serveEvent("CSK_DigitalIOManager.OnUserLevelServiceActive", "DigitalIOManager_OnUserLevelServiceActive")
 Script.serveEvent("CSK_DigitalIOManager.OnUserLevelAdminActive", "DigitalIOManager_OnUserLevelAdminActive")
 
+Script.serveEvent('CSK_DigitalIOManager.OnNewStatusFlowConfigPriority', 'DigitalIOManager_OnNewStatusFlowConfigPriority')
 Script.serveEvent("CSK_DigitalIOManager.OnNewStatusLoadParameterOnReboot", "DigitalIOManager_OnNewStatusLoadParameterOnReboot")
 Script.serveEvent("CSK_DigitalIOManager.OnPersistentDataModuleAvailable", "DigitalIOManager_OnPersistentDataModuleAvailable")
 Script.serveEvent("CSK_DigitalIOManager.OnDataLoadedOnReboot", "DigitalIOManager_OnDataLoadedOnReboot")
@@ -163,13 +166,15 @@ end
 --- Function to send all relevant values to UI on resume
 local function handleOnExpiredTmrDigitalIOManager()
 
+  Script.notifyEvent("DigitalIOManager_OnNewStatusModuleVersion", 'v' .. digitalIOManager_Model.version)
+  Script.notifyEvent("DigitalIOManager_OnNewStatusCSKStyle", digitalIOManager_Model.styleForUI)
+  Script.notifyEvent("DigitalIOManager_OnNewStatusModuleIsActive", _G.availableAPIs.specific and _G.availableAPIs.specific)
+
   updateUserLevel()
 
   selectedLink = ''
   selectedForwardEventPair = ''
   selectedTriggerEventPair = ''
-
-  Script.notifyEvent("DigitalIOManager_OnNewStatusModuleIsActive", digitalIOManager_Model.moduleActive)
 
   Script.notifyEvent("DigitalIOManager_OnNewStatusTrackInputSignalStatus", digitalIOManager_Model.trackStatus)
 
@@ -211,6 +216,7 @@ local function handleOnExpiredTmrDigitalIOManager()
 
   Script.notifyEvent("DigitalIOManager_OnNewOutputToTrigger", selectedOutputToTrigger)
 
+  Script.notifyEvent("DigitalIOManager_OnNewStatusFlowConfigPriority", digitalIOManager_Model.parameters.flowConfigPriority)
   Script.notifyEvent("DigitalIOManager_OnNewStatusLoadParameterOnReboot", digitalIOManager_Model.parameterLoadOnReboot)
   Script.notifyEvent("DigitalIOManager_OnPersistentDataModuleAvailable", digitalIOManager_Model.persistentModuleAvailable)
   Script.notifyEvent("DigitalIOManager_OnNewParameterName", digitalIOManager_Model.parametersName)
@@ -258,7 +264,7 @@ local function selectInputInterface(selection)
   else
     selectedInputInterface = setSelection(selection, '"DigitalInput":"')
   end
-  _G.logger:info(nameOfModule .. ": Selected DigitalIO interface = " .. tostring(selectedInputInterface))
+  _G.logger:fine(nameOfModule .. ": Selected DigitalIO interface = " .. tostring(selectedInputInterface))
   if digitalIOManager_Model.initialized then
     handleOnExpiredTmrDigitalIOManager()
   end
@@ -271,7 +277,7 @@ local function selectOutputInterface(selection)
   else
     selectedOutputInterface = setSelection(selection, '"DigitalOutput":"')
   end
-  _G.logger:info(nameOfModule .. ": Selected DigitalIO interface = " .. tostring(selectedOutputInterface))
+  _G.logger:fine(nameOfModule .. ": Selected DigitalIO interface = " .. tostring(selectedOutputInterface))
   if digitalIOManager_Model.initialized then
     handleOnExpiredTmrDigitalIOManager()
   end
@@ -336,7 +342,7 @@ local function setActiveStatusInput(status)
       Script.notifyEvent('DigitalIOManager_OnShowInternalMessages', 'false')
     end
 
-    _G.logger:info(nameOfModule .. ": Set active status to " .. tostring(status))
+    _G.logger:fine(nameOfModule .. ": Set active status to " .. tostring(status))
     digitalIOManager_Model.parameters.active[selectedInputInterface] = status
     activateNewSetup()
   end
@@ -344,21 +350,21 @@ end
 Script.serveFunction("CSK_DigitalIOManager.setActiveStatusInput", setActiveStatusInput)
 
 local function setDebounceMode(mode)
-  _G.logger:info(nameOfModule .. ": Set debounce mode to " .. tostring(mode))
+  _G.logger:fine(nameOfModule .. ": Set debounce mode to " .. tostring(mode))
   digitalIOManager_Model.parameters.inDebounceMode[selectedInputInterface] = mode
   activateNewSetup()
 end
 Script.serveFunction("CSK_DigitalIOManager.setDebounceMode", setDebounceMode)
 
 local function setDebounceValue(value)
-  _G.logger:info(nameOfModule .. ": Set debounce value to " .. tostring(value))
+  _G.logger:fine(nameOfModule .. ": Set debounce value to " .. tostring(value))
   digitalIOManager_Model.parameters.inDebounceValue[selectedInputInterface] = value
   activateNewSetup()
 end
 Script.serveFunction("CSK_DigitalIOManager.setDebounceValue", setDebounceValue)
 
 local function setInputLogic(logic)
-  _G.logger:info(nameOfModule .. ": Set input logic to " .. tostring(logic))
+  _G.logger:fine(nameOfModule .. ": Set input logic to " .. tostring(logic))
   digitalIOManager_Model.parameters.inputLogic[selectedInputInterface] = logic
   activateNewSetup()
 end
@@ -389,7 +395,7 @@ local function setActiveStatusOutput(status)
       Script.notifyEvent('DigitalIOManager_OnShowInternalMessages', 'false')
     end
 
-    _G.logger:info(nameOfModule .. ": Set active status to " .. tostring(status))
+    _G.logger:fine(nameOfModule .. ": Set active status to " .. tostring(status))
     digitalIOManager_Model.parameters.active[selectedOutputInterface] = status
     activateNewSetup()
   end
@@ -397,35 +403,35 @@ end
 Script.serveFunction("CSK_DigitalIOManager.setActiveStatusOutput", setActiveStatusOutput)
 
 local function setActivationMode(mode)
-  _G.logger:info(nameOfModule .. ": Set activation mode to " .. tostring(mode))
+  _G.logger:fine(nameOfModule .. ": Set activation mode to " .. tostring(mode))
   digitalIOManager_Model.parameters.outActivationMode[selectedOutputInterface] = mode
   activateNewSetup()
 end
 Script.serveFunction("CSK_DigitalIOManager.setActivationMode", setActivationMode)
 
 local function setActivationValue(value)
-  _G.logger:info(nameOfModule .. ": Set activation value to " .. tostring(value))
+  _G.logger:fine(nameOfModule .. ": Set activation value to " .. tostring(value))
   digitalIOManager_Model.parameters.outActivationValue[selectedOutputInterface] = value
   activateNewSetup()
 end
 Script.serveFunction("CSK_DigitalIOManager.setActivationValue", setActivationValue)
 
 local function setOutputLogic(logic)
-  _G.logger:info(nameOfModule .. ": Set output logic to " .. tostring(logic))
+  _G.logger:fine(nameOfModule .. ": Set output logic to " .. tostring(logic))
   digitalIOManager_Model.parameters.outputLogic[selectedOutputInterface] = logic
   activateNewSetup()
 end
 Script.serveFunction("CSK_DigitalIOManager.setOutputLogic", setOutputLogic)
 
 local function setOutputMode(mode)
-  _G.logger:info(nameOfModule .. ": Set output mode to " .. tostring(mode))
+  _G.logger:fine(nameOfModule .. ": Set output mode to " .. tostring(mode))
   digitalIOManager_Model.parameters.outputMode[selectedOutputInterface] = mode
   activateNewSetup()
 end
 Script.serveFunction("CSK_DigitalIOManager.setOutputMode", setOutputMode)
 
 local function setOutput(newState)
-  _G.logger:info(nameOfModule .. ": Set output to " .. tostring(newState))
+  _G.logger:fine(nameOfModule .. ": Set output to " .. tostring(newState))
   Connector.DigitalOut.set(digitalIOManager_Model.handles[selectedOutputInterface], newState)
 end
 Script.serveFunction("CSK_DigitalIOManager.setOutput", setOutput)
@@ -437,7 +443,7 @@ Script.serveFunction("CSK_DigitalIOManager.setOutput", setOutput)
 local function selectLink(selection)
   selectedLink = setSelection(selection, '"LinkNo":"')
   if tonumber(selectedLink) then
-    _G.logger:info(nameOfModule .. ": Select link no. " .. tostring(selectedLink))
+    _G.logger:fine(nameOfModule .. ": Select link no. " .. tostring(selectedLink))
     selectedInputForLink = digitalIOManager_Model.parameters.links[tonumber(selectedLink)].input
     selectedOutputForLink = digitalIOManager_Model.parameters.links[tonumber(selectedLink)].output
     presetDelay = digitalIOManager_Model.parameters.links[tonumber(selectedLink)].delay
@@ -450,13 +456,13 @@ end
 Script.serveFunction("CSK_DigitalIOManager.selectLink", selectLink)
 
 local function setInputForLink(port)
-  _G.logger:info(nameOfModule .. ": Select input for link: " .. tostring(port))
+  _G.logger:fine(nameOfModule .. ": Select input for link: " .. tostring(port))
   selectedInputForLink = port
 end
 Script.serveFunction("CSK_DigitalIOManager.setInputForLink", setInputForLink)
 
 local function setOutputForLink(port)
-  _G.logger:info(nameOfModule .. ": Select output for link: " .. tostring(port))
+  _G.logger:fine(nameOfModule .. ": Select output for link: " .. tostring(port))
   selectedOutputForLink = port
 end
 Script.serveFunction("CSK_DigitalIOManager.setOutputForLink", setOutputForLink)
@@ -465,7 +471,7 @@ local function addLink()
 
   if checkConfig(selectedInputForLink, selectedOutputForLink) == true and checkConfig(selectedInputForLink) == true and checkConfig(selectedOutputForLink) == true then
 
-    _G.logger:info(nameOfModule .. ": Add link.")
+    _G.logger:fine(nameOfModule .. ": Add link.")
     local tempLink = {}
     tempLink.input = selectedInputForLink
     tempLink.output = selectedOutputForLink
@@ -495,7 +501,7 @@ Script.serveFunction("CSK_DigitalIOManager.addLink", addLink)
 local function removeLink()
   if tonumber(selectedLink) then
 
-    _G.logger:info(nameOfModule .. ": Remove link")
+    _G.logger:fine(nameOfModule .. ": Remove link")
 
     local input = digitalIOManager_Model.parameters.links[tonumber(selectedLink)].input
     local output = digitalIOManager_Model.parameters.links[tonumber(selectedLink)].output
@@ -514,7 +520,7 @@ local function removeLink()
       digitalIOManager_Model.parameters.active[output] = false
     end
     activateNewSetup()
-
+    handleOnExpiredTmrDigitalIOManager()
   else
     _G.logger:warning(nameOfModule .. ": No link to remove.")
   end
@@ -523,7 +529,7 @@ Script.serveFunction("CSK_DigitalIOManager.removeLink", removeLink)
 
 local function setDelayForLink(value)
   presetDelay = value
-  _G.logger:info(nameOfModule .. ": Set new delay for link: " .. tostring(value))
+  _G.logger:fine(nameOfModule .. ": Set new delay for link: " .. tostring(value))
 
   if tonumber(selectedLink) then
     removeLink()
@@ -538,7 +544,7 @@ local function selectForwardInputToEventPair(selection)
   else
     selectedForwardEventPair = setSelection(selection, '"FromInput":"')
   end
-  _G.logger:info(nameOfModule .. ": Select input to forward via event: " .. tostring(selectedForwardEventPair))
+  _G.logger:fine(nameOfModule .. ": Select input to forward via event: " .. tostring(selectedForwardEventPair))
 end
 Script.serveFunction("CSK_DigitalIOManager.selectForwardInputToEventPair", selectForwardInputToEventPair)
 
@@ -548,7 +554,7 @@ local function selectOutputToSetByEventPair(selection)
   else
     selectedTriggerEventPair = setSelection(selection, '"SetOutput":"')
   end
-  _G.logger:info(nameOfModule .. ": Select output to set by event: " .. tostring(selectedTriggerEventPair))
+  _G.logger:fine(nameOfModule .. ": Select output to set by event: " .. tostring(selectedTriggerEventPair))
 end
 Script.serveFunction("CSK_DigitalIOManager.selectOutputToSetByEventPair", selectOutputToSetByEventPair)
 
@@ -570,7 +576,7 @@ Script.serveFunction("CSK_DigitalIOManager.getForwardEventList", getForwardEvent
 
 local function addForwardEvent()
   if selectedInputToForward ~= '' and digitalIOManager_Model.parameters.mode[selectedInputToForward] == 'SCRIPT' then
-    _G.logger:info(nameOfModule .. ": Add forward event.")
+    _G.logger:fine(nameOfModule .. ": Add forward event.")
     digitalIOManager_Model.parameters.forwardEvent[selectedInputToForward] = 'CSK_DigitalIOManager.OnNewInputState' .. selectedInputToForward
     digitalIOManager_Model.parameters.forwardEventDataInfo[selectedInputToForward] = inputToForwardDataInfo
 
@@ -579,95 +585,115 @@ local function addForwardEvent()
 
     activateNewSetup()
   else
-    _G.logger:warning(nameOfModule .. ": No correct config of ports to add event ...")
+    _G.logger:warning(nameOfModule .. ": No correct config of ports to add event...")
   end
 end
 Script.serveFunction("CSK_DigitalIOManager.addForwardEvent", addForwardEvent)
 
 local function addTriggerEvent()
   if selectedOutputToTrigger ~= '' and triggerEvent ~= '' and digitalIOManager_Model.parameters.mode[selectedOutputToTrigger] == 'SCRIPT' then
-    _G.logger:info(nameOfModule .. ": Add trigger event.")
+    _G.logger:fine(nameOfModule .. ": Add trigger event.")
     digitalIOManager_Model.parameters.triggerEvent[selectedOutputToTrigger] = triggerEvent
     activateNewSetup()
   else
-    _G.logger:warning(nameOfModule .. ": No correct config of ports to add event ...")
+    _G.logger:warning(nameOfModule .. ": No correct config of ports to add event...")
   end
 end
 Script.serveFunction("CSK_DigitalIOManager.addTriggerEvent", addTriggerEvent)
 
-local function removeTriggerEvent()
-  if selectedTriggerEventPair ~= '' and selectedTriggerEventPair ~= '-' then
-    _G.logger:info(nameOfModule .. ": Remove trigger event.")
-    Script.deregister(digitalIOManager_Model.parameters.triggerEvent[selectedTriggerEventPair], digitalIOManager_Model.triggerFunctions[selectedTriggerEventPair])
-    digitalIOManager_Model.parameters.triggerEvent[selectedTriggerEventPair] = nil
+local function removeTriggerEvent(event)
+  if digitalIOManager_Model.parameters.triggerEvent[event] ~= '' then
+    _G.logger:fine(nameOfModule .. ": Remove trigger event.")
+
+    Script.deregister(digitalIOManager_Model.parameters.triggerEvent[event], digitalIOManager_Model.triggerFunctions[event])
+
+    digitalIOManager_Model.parameters.triggerEvent[event] = nil
     activateNewSetup()
   else
-    _G.logger:warning(nameOfModule .. ": No trigger event to remove.")
+    _G.logger:info(nameOfModule .. ": No trigger event to remove.")
   end
 end
 Script.serveFunction("CSK_DigitalIOManager.removeTriggerEvent", removeTriggerEvent)
 
-local function removeForwardEvent()
-  if selectedForwardEventPair ~= '' then
-    _G.logger:info(nameOfModule .. ": Remove forward event.")
-    digitalIOManager_Model.parameters.forwardEvent[selectedForwardEventPair] = nil
-    digitalIOManager_Model.parameters.forwardEventDataInfo[selectedForwardEventPair] = nil
+local function removeTriggerEventViaUI()
+  if selectedTriggerEventPair ~= '' then
+    removeTriggerEvent(selectedTriggerEventPair)
+  else
+    _G.logger:info(nameOfModule .. ": No trigger event to remove.")
+  end
+end
+Script.serveFunction("CSK_DigitalIOManager.removeTriggerEventViaUI", removeTriggerEventViaUI)
+
+local function removeForwardEvent(event)
+  if digitalIOManager_Model.parameters.forwardEvent[event] then
+    _G.logger:fine(nameOfModule .. ": Remove forward event.")
+    digitalIOManager_Model.parameters.forwardEvent[event] = nil
+    digitalIOManager_Model.parameters.forwardEventDataInfo[event] = nil
     activateNewSetup()
   else
-    _G.logger:warning(nameOfModule .. ": No trigger event to remove.")
+    _G.logger:info(nameOfModule .. ": No trigger event to remove.")
   end
 end
 Script.serveFunction("CSK_DigitalIOManager.removeForwardEvent", removeForwardEvent)
 
+local function removeForwardEventViaUI()
+  if selectedForwardEventPair ~= '' then
+    removeForwardEvent(selectedForwardEventPair)
+  else
+    _G.logger:info(nameOfModule .. ": No trigger event to remove.")
+  end
+end
+Script.serveFunction("CSK_DigitalIOManager.removeForwardEventViaUI", removeForwardEventViaUI)
+
 local function setTriggerEvent(event)
-  _G.logger:info(nameOfModule .. ": Set trigger event to: " .. tostring(event))
+  _G.logger:fine(nameOfModule .. ": Set trigger event to: " .. tostring(event))
   triggerEvent = event
 end
 Script.serveFunction("CSK_DigitalIOManager.setTriggerEvent", setTriggerEvent)
 
 local function setInputToForward(port)
-  _G.logger:info(nameOfModule .. ": Set input to forward: " .. tostring(port))
+  _G.logger:fine(nameOfModule .. ": Set input to forward: " .. tostring(port))
   selectedInputToForward = port
 end
 Script.serveFunction("CSK_DigitalIOManager.setInputToForward", setInputToForward)
 
 local function setInputToForwardDataInfo(info)
-  _G.logger:info(nameOfModule .. ": Set input to forward dataInfo: " .. tostring(port))
+  _G.logger:fine(nameOfModule .. ": Set input to forward dataInfo: " .. tostring(port))
   inputToForwardDataInfo = info
 end
 Script.serveFunction("CSK_DigitalIOManager.setInputToForwardDataInfo", setInputToForwardDataInfo)
 
 local function setOutputToTrigger(port)
-  _G.logger:info(nameOfModule .. ": Set output to trigger: " .. tostring(port))
+  _G.logger:fine(nameOfModule .. ": Set output to trigger: " .. tostring(port))
   selectedOutputToTrigger = port
 end
 Script.serveFunction("CSK_DigitalIOManager.setOutputToTrigger", setOutputToTrigger)
 
 local function blockSensorPort(port)
-  _G.logger:info(nameOfModule .. ": Block port " .. port .. " to use in other app.")
+  _G.logger:fine(nameOfModule .. ": Block port ".. port .. " to use in other app.")
   if digitalIOManager_Model.parameters.mode[port] then
     digitalIOManager_Model.parameters.mode[port] = 'BLOCKED'
     activateNewSetup()
     return true
   else
-    _G.logger:info(nameOfModule .. ": Port " .. port .. " is not available.")
+    _G.logger:warning(nameOfModule .. ": Port ".. port .. " is not available.")
     return false
   end
 end
 Script.serveFunction('CSK_DigitalIOManager.blockSensorPort', blockSensorPort)
 
 local function freeSensorPort(port)
-  _G.logger:info(nameOfModule .. ": Free port " .. port .. " to use in other app.")
+  _G.logger:fine(nameOfModule .. ": Free port ".. port .. " to use in other app.")
   if digitalIOManager_Model.parameters.mode[port] then
     if digitalIOManager_Model.parameters.mode[port] == 'BLOCKED' then
       digitalIOManager_Model.parameters.mode[port] = 'SCRIPT'
       activateNewSetup()
       return true
     else
-      _G.logger:info(nameOfModule .. ": Port was not blocked. No need to free it.")
+      _G.logger:fine(nameOfModule .. ": Port was not blocked. No need to free it.")
     end
   else
-    _G.logger:info(nameOfModule .. ": Port is not available.")
+    _G.logger:warning(nameOfModule .. ": Port is not available.")
     return false
   end
 end
@@ -684,24 +710,60 @@ local function setInputTracking(status)
 end
 Script.serveFunction('CSK_DigitalIOManager.setInputTracking', setInputTracking)
 
+local function getStatusModuleActive()
+  return _G.availableAPIs.default and _G.availableAPIs.specific
+end
+Script.serveFunction('CSK_DigitalIOManager.getStatusModuleActive', getStatusModuleActive)
+
+local function clearFlowConfigRelevantConfiguration()
+  if _G.availableAPIs.default and _G.availableAPIs.specific then
+    for key, value in pairs(digitalIOManager_Model.parameters.triggerEvent) do
+      removeTriggerEvent(key)
+      selectOutputInterface(key)
+      setActiveStatusOutput(false)
+    end
+    for key, value in pairs(digitalIOManager_Model.parameters.forwardEvent) do
+      removeForwardEvent(key)
+      selectInputInterface(key)
+      setActiveStatusInput(false)
+    end
+    for key, value in ipairs(digitalIOManager_Model.parameters.links) do
+      selectedLink = key
+      removeLink()
+    end
+  end
+end
+Script.serveFunction('CSK_DigitalIOManager.clearFlowConfigRelevantConfiguration', clearFlowConfigRelevantConfiguration)
+
+local function getParameters()
+  return digitalIOManager_Model.helperFuncs.json.encode(digitalIOManager_Model.parameters)
+end
+Script.serveFunction('CSK_DigitalIOManager.getParameters', getParameters)
+
 -- *****************************************************************
 -- Following function can be adapted for CSK_PersistentData module usage
 -- *****************************************************************
 
 local function setParameterName(name)
-  _G.logger:info(nameOfModule .. ": Set parameter name: " .. tostring(name))
+  _G.logger:fine(nameOfModule .. ": Set parameter name: " .. tostring(name))
   digitalIOManager_Model.parametersName = name
 end
 Script.serveFunction("CSK_DigitalIOManager.setParameterName", setParameterName)
 
-local function sendParameters()
-  if digitalIOManager_Model.persistentModuleAvailable then
-    CSK_PersistentData.addParameter(digitalIOManager_Model.helperFuncs.convertTable2Container(digitalIOManager_Model.parameters), digitalIOManager_Model.parametersName)
-    CSK_PersistentData.setModuleParameterName(nameOfModule, digitalIOManager_Model.parametersName, digitalIOManager_Model.parameterLoadOnReboot)
-    _G.logger:info(nameOfModule .. ": Send DigitalIOManager parameters with name '" .. digitalIOManager_Model.parametersName .. "' to CSK_PersistentData module.")
-    CSK_PersistentData.saveData()
+local function sendParameters(noDataSave)
+  if _G.availableAPIs.default and _G.availableAPIs.specific then
+    if digitalIOManager_Model.persistentModuleAvailable then
+      CSK_PersistentData.addParameter(digitalIOManager_Model.helperFuncs.convertTable2Container(digitalIOManager_Model.parameters), digitalIOManager_Model.parametersName)
+      CSK_PersistentData.setModuleParameterName(nameOfModule, digitalIOManager_Model.parametersName, digitalIOManager_Model.parameterLoadOnReboot)
+      _G.logger:fine(nameOfModule .. ": Send DigitalIOManager parameters with name '" .. digitalIOManager_Model.parametersName .. "' to CSK_PersistentData module.")
+      if not noDataSave then
+        CSK_PersistentData.saveData()
+      end
+    else
+      _G.logger:warning(nameOfModule .. ": CSK_PersistentData module not available.")
+    end
   else
-    _G.logger:warning(nameOfModule .. ": CSK_PersistentData module not available.")
+    _G.logger:info(nameOfModule .. ": Module is not supported. Will not send parameters.")
   end
 end
 Script.serveFunction("CSK_DigitalIOManager.sendParameters", sendParameters)
@@ -713,46 +775,72 @@ local function loadParameters()
       _G.logger:info(nameOfModule .. ": Loaded parameters from CSK_PersistentData module.")
       digitalIOManager_Model.parameters = digitalIOManager_Model.helperFuncs.convertContainer2Table(data)
       activateNewSetup()
+      return true
     else
       _G.logger:warning(nameOfModule .. ": Loading parameters from CSK_PersistentData module did not work.")
+      return false
     end
   else
     _G.logger:warning(nameOfModule .. ": CSK_PersistentData module not available.")
+    return false
   end
 end
 Script.serveFunction("CSK_DigitalIOManager.loadParameters", loadParameters)
 
 local function setLoadOnReboot(status)
   digitalIOManager_Model.parameterLoadOnReboot = status
-  _G.logger:info(nameOfModule .. ": Set new status to load settings on reboot: " .. tostring(status))
+  _G.logger:fine(nameOfModule .. ": Set new status to load setting on reboot: " .. tostring(status))
+  Script.notifyEvent("DigitalIOManager_OnNewStatusLoadParameterOnReboot", status)
 end
 Script.serveFunction("CSK_DigitalIOManager.setLoadOnReboot", setLoadOnReboot)
+
+local function setFlowConfigPriority(status)
+  digitalIOManager_Model.parameters.flowConfigPriority = status
+  _G.logger:fine(nameOfModule .. ": Set new status of FlowConfig priority: " .. tostring(status))
+  Script.notifyEvent("DigitalIOManager_OnNewStatusFlowConfigPriority", digitalIOManager_Model.parameters.flowConfigPriority)
+end
+Script.serveFunction('CSK_DigitalIOManager.setFlowConfigPriority', setFlowConfigPriority)
 
 --- Function to react on initial load of persistent parameters
 local function handleOnInitialDataLoaded()
 
-  _G.logger:info(nameOfModule .. ': Try to initially load parameter from CSK_PersistentData module.')
-  if string.sub(CSK_PersistentData.getVersion(), 1, 1) == '1' then
+  if _G.availableAPIs.default and _G.availableAPIs.specific then
+    _G.logger:fine(nameOfModule .. ': Try to initially load parameter from CSK_PersistentData module.')
+    if string.sub(CSK_PersistentData.getVersion(), 1, 1) == '1' then
 
-    _G.logger:warning(nameOfModule .. ': CSK_PersistentData module is too old and will not work. Please update CSK_PersistentData module.')
+      _G.logger:warning(nameOfModule .. ': CSK_PersistentData module is too old and will not work. Please update CSK_PersistentData module.')
 
-    digitalIOManager_Model.persistentModuleAvailable = false
-  else
+      digitalIOManager_Model.persistentModuleAvailable = false
+    else
 
-    local parameterName, loadOnReboot = CSK_PersistentData.getModuleParameterName(nameOfModule)
+      local parameterName, loadOnReboot = CSK_PersistentData.getModuleParameterName(nameOfModule)
 
-    if parameterName then
-      digitalIOManager_Model.parametersName = parameterName
-      digitalIOManager_Model.parameterLoadOnReboot = loadOnReboot
+      if parameterName then
+        digitalIOManager_Model.parametersName = parameterName
+        digitalIOManager_Model.parameterLoadOnReboot = loadOnReboot
+      end
+
+      if digitalIOManager_Model.parameterLoadOnReboot then
+        loadParameters()
+      end
     end
-
-    if digitalIOManager_Model.parameterLoadOnReboot then
-      loadParameters()
-    end
+    Script.notifyEvent('DigitalIOManager_OnDataLoadedOnReboot')
   end
-  Script.notifyEvent('DigitalIOManager_OnDataLoadedOnReboot')
 end
 Script.register("CSK_PersistentData.OnInitialDataLoaded", handleOnInitialDataLoaded)
+
+local function resetModule()
+  if _G.availableAPIs.default and _G.availableAPIs.specific then
+    clearFlowConfigRelevantConfiguration()
+    for key, _ in pairs(digitalIOManager_Model.parameters.active) do
+      digitalIOManager_Model.parameters.active[key] = false
+    end
+    activateNewSetup()
+    pageCalled()
+  end
+end
+Script.serveFunction('CSK_DigitalIOManager.resetModule', resetModule)
+Script.register("CSK_PersistentData.OnResetAllModules", resetModule)
 
 -- *************************************************
 -- END of functions for CSK_PersistentData module usage

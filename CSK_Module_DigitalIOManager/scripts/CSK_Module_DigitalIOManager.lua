@@ -42,6 +42,11 @@ _G.logHandle:applyConfig()
 -- Loading script regarding DigitalIOManager_Model
 -- Check this script regarding DigitalIOManager_Model parameters and functions
 _G.digitalIOManager_Model = require('Configuration/DigitalIOManager/DigitalIOManager_Model')
+require('Configuration/DigitalIOManager/FlowConfig/DigitalIOManager_FlowConfig')
+
+if _G.availableAPIs.default == false or _G.availableAPIs.specific == false then
+  _G.logger:warning("CSK_DigitalIOManager: Relevant CROWN(s) not available on device. Module is not supported...")
+end
 
 --**************************************************************************
 --**********************End Global Scope ***********************************
