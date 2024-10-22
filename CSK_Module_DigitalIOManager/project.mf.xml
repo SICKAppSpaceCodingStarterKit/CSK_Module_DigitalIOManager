@@ -457,7 +457,7 @@ INFO: Recommended to leave it switched off, if not essentially required!</desc>
                     <function name="create">
                         <trait>released</trait>
                         <desc>Internally used CSK_FlowConfig create function.</desc>
-                        <param desc="Port to use." multiplicity="1" name="DigitalInPorts" ref="CSK_DigitalIOManager_FC.DigitalInPorts" type="enum"/>
+                        <param desc="Port to use." multiplicity="1" name="DigitalInPorts" ref="DigitalIOManager_FC.DigitalInPorts" type="enum"/>
                         <return desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
                     </function>
                     <function name="register">
@@ -475,7 +475,7 @@ INFO: Recommended to leave it switched off, if not essentially required!</desc>
                 <serves>
                     <function name="create">
                         <desc>Internally used CSK_FlowConfig create function.</desc>
-                        <param desc="Port to use." multiplicity="1" name="DigitalOutPorts" ref="CSK_DigitalIOManager_FC.DigitalOutPorts" type="enum"/>
+                        <param desc="Port to use." multiplicity="1" name="DigitalOutPorts" ref="DigitalIOManager_FC.DigitalOutPorts" type="enum"/>
                         <return desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
                     </function>
                     <function name="set">

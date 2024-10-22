@@ -38,7 +38,6 @@ end
 --*************************************************************
 --*************************************************************
 
---@create(int):Container
 local function create(instance)
 
   if nil ~= instanceTable[instance] then
