@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.12">
 <meta name="author" content="SICK AG">
-<title>Documentation - CSK_Module_DigitalIOManager 3.9.0</title>
+<title>Documentation - CSK_Module_DigitalIOManager 4.0.0</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 /* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
@@ -615,11 +615,11 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Documentation - CSK_Module_DigitalIOManager 3.9.0</h1>
+<h1>Documentation - CSK_Module_DigitalIOManager 4.0.0</h1>
 <div class="details">
 <span id="author" class="author">SICK AG</span><br>
-<span id="revnumber">version 3.9.0,</span>
-<span id="revdate">2024-02-02</span>
+<span id="revnumber">version 4.0.0,</span>
+<span id="revdate">2024-08-14</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -637,14 +637,20 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 <li><a href="#API:Function:CSK_DigitalIOManager.addLink"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">addLink()</span></a></li>
 <li><a href="#API:Function:CSK_DigitalIOManager.addTriggerEvent"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">addTriggerEvent()</span></a></li>
 <li><a href="#API:Function:CSK_DigitalIOManager.blockSensorPort"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">blockSensorPort()</span></a></li>
+<li><a href="#API:Function:CSK_DigitalIOManager.clearFlowConfigRelevantConfiguration"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">clearFlowConfigRelevantConfiguration()</span></a></li>
 <li><a href="#API:Function:CSK_DigitalIOManager.freeSensorPort"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">freeSensorPort()</span></a></li>
 <li><a href="#API:Function:CSK_DigitalIOManager.getForwardEventList"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">getForwardEventList()</span></a></li>
 <li><a href="#API:Function:CSK_DigitalIOManager.getInputState"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">getInputState()</span></a></li>
+<li><a href="#API:Function:CSK_DigitalIOManager.getParameters"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">getParameters()</span></a></li>
+<li><a href="#API:Function:CSK_DigitalIOManager.getStatusModuleActive"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">getStatusModuleActive()</span></a></li>
 <li><a href="#API:Function:CSK_DigitalIOManager.loadParameters"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">loadParameters()</span></a></li>
 <li><a href="#API:Function:CSK_DigitalIOManager.pageCalled"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">pageCalled()</span></a></li>
 <li><a href="#API:Function:CSK_DigitalIOManager.removeForwardEvent"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">removeForwardEvent()</span></a></li>
+<li><a href="#API:Function:CSK_DigitalIOManager.removeForwardEventViaUI"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">removeForwardEventViaUI()</span></a></li>
 <li><a href="#API:Function:CSK_DigitalIOManager.removeLink"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">removeLink()</span></a></li>
 <li><a href="#API:Function:CSK_DigitalIOManager.removeTriggerEvent"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">removeTriggerEvent()</span></a></li>
+<li><a href="#API:Function:CSK_DigitalIOManager.removeTriggerEventViaUI"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">removeTriggerEventViaUI()</span></a></li>
+<li><a href="#API:Function:CSK_DigitalIOManager.resetModule"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">resetModule()</span></a></li>
 <li><a href="#API:Function:CSK_DigitalIOManager.selectForwardInputToEventPair"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">selectForwardInputToEventPair()</span></a></li>
 <li><a href="#API:Function:CSK_DigitalIOManager.selectInputInterface"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">selectInputInterface()</span></a></li>
 <li><a href="#API:Function:CSK_DigitalIOManager.selectLink"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">selectLink()</span></a></li>
@@ -658,6 +664,7 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 <li><a href="#API:Function:CSK_DigitalIOManager.setDebounceMode"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setDebounceMode()</span></a></li>
 <li><a href="#API:Function:CSK_DigitalIOManager.setDebounceValue"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setDebounceValue()</span></a></li>
 <li><a href="#API:Function:CSK_DigitalIOManager.setDelayForLink"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setDelayForLink()</span></a></li>
+<li><a href="#API:Function:CSK_DigitalIOManager.setFlowConfigPriority"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setFlowConfigPriority()</span></a></li>
 <li><a href="#API:Function:CSK_DigitalIOManager.setInputForLink"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setInputForLink()</span></a></li>
 <li><a href="#API:Function:CSK_DigitalIOManager.setInputLogic"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setInputLogic()</span></a></li>
 <li><a href="#API:Function:CSK_DigitalIOManager.setInputToForward"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setInputToForward()</span></a></li>
@@ -708,8 +715,11 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 <li><a href="#API:Event:CSK_DigitalIOManager.OnNewOutputToTrigger"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewOutputToTrigger</span></a></li>
 <li><a href="#API:Event:CSK_DigitalIOManager.OnNewParameterName"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewParameterName</span></a></li>
 <li><a href="#API:Event:CSK_DigitalIOManager.OnNewSetOutputByEventList"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewSetOutputByEventList</span></a></li>
+<li><a href="#API:Event:CSK_DigitalIOManager.OnNewStatusCSKStyle"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewStatusCSKStyle</span></a></li>
+<li><a href="#API:Event:CSK_DigitalIOManager.OnNewStatusFlowConfigPriority"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewStatusFlowConfigPriority</span></a></li>
 <li><a href="#API:Event:CSK_DigitalIOManager.OnNewStatusLoadParameterOnReboot"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewStatusLoadParameterOnReboot</span></a></li>
 <li><a href="#API:Event:CSK_DigitalIOManager.OnNewStatusModuleIsActive"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewStatusModuleIsActive</span></a></li>
+<li><a href="#API:Event:CSK_DigitalIOManager.OnNewStatusModuleVersion"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewStatusModuleVersion</span></a></li>
 <li><a href="#API:Event:CSK_DigitalIOManager.OnNewStatusTrackInputSignalStatus"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewStatusTrackInputSignalStatus</span></a></li>
 <li><a href="#API:Event:CSK_DigitalIOManager.OnNewTriggerEvent"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewTriggerEvent</span></a></li>
 <li><a href="#API:Event:CSK_DigitalIOManager.OnPersistentDataModuleAvailable"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnPersistentDataModuleAvailable</span></a></li>
@@ -724,7 +734,42 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 </li>
 <li><a href="#API:Crown:CSK_Module_DigitalIOManager"><span class="api-crown">CSK_Module_DigitalIOManager</span></a>
 <ul class="sectlevel3">
-<li><a href="#_short_description_83">Short description</a></li>
+<li><a href="#_short_description_93">Short description</a></li>
+</ul>
+</li>
+<li><a href="#API:Crown:DigitalIOManager_FC"><span class="api-crown">DigitalIOManager_FC</span></a>
+<ul class="sectlevel3">
+<li><a href="#_short_description_94">Short description</a></li>
+<li><a href="#_overview_2">Overview</a></li>
+</ul>
+</li>
+<li><a href="#API:Crown:DigitalIOManager_FC.OnNewInputState"><span class="api-crown">DigitalIOManager_FC.OnNewInputState</span></a>
+<ul class="sectlevel3">
+<li><a href="#_short_description_95">Short description</a></li>
+<li><a href="#_overview_3">Overview</a></li>
+<li><a href="#_functions_2">Functions</a>
+<ul class="sectlevel4">
+<li><a href="#API:Function:DigitalIOManager_FC.OnNewInputState.create"><span class="breadcrumb">DigitalIOManager_FC.OnNewInputState.</span><span class="api-function">create()</span></a></li>
+<li><a href="#API:Function:DigitalIOManager_FC.OnNewInputState.register"><span class="breadcrumb">DigitalIOManager_FC.OnNewInputState.</span><span class="api-function">register()</span></a></li>
+</ul>
+</li>
+<li><a href="#_events_2">Events</a>
+<ul class="sectlevel4">
+<li><a href="#API:Event:DigitalIOManager_FC.OnNewInputState.OnNewInputState"><span class="breadcrumb">DigitalIOManager_FC.OnNewInputState.</span><span class="api-event">OnNewInputState</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#API:Crown:DigitalIOManager_FC.Set"><span class="api-crown">DigitalIOManager_FC.Set</span></a>
+<ul class="sectlevel3">
+<li><a href="#_short_description_99">Short description</a></li>
+<li><a href="#_overview_4">Overview</a></li>
+<li><a href="#_functions_3">Functions</a>
+<ul class="sectlevel4">
+<li><a href="#API:Function:DigitalIOManager_FC.Set.create"><span class="breadcrumb">DigitalIOManager_FC.Set.</span><span class="api-function">create()</span></a></li>
+<li><a href="#API:Function:DigitalIOManager_FC.Set.set"><span class="breadcrumb">DigitalIOManager_FC.Set.</span><span class="api-function">set()</span></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -756,11 +801,11 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Version</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3.9.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.0.0</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Date</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2024-02-02</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2024-08-14</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Author</p></th>
@@ -784,6 +829,22 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 </li>
 <li>
 <p><a href="#API:Crown:CSK_Module_DigitalIOManager">CSK_Module_DigitalIOManager</a></p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">D</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#API:Crown:DigitalIOManager_FC">DigitalIOManager_FC</a></p>
+</li>
+<li>
+<p><a href="#API:Crown:DigitalIOManager_FC.OnNewInputState">DigitalIOManager_FC.OnNewInputState</a></p>
+</li>
+<li>
+<p><a href="#API:Crown:DigitalIOManager_FC.Set">DigitalIOManager_FC.Set</a></p>
 </li>
 </ul>
 </div>
@@ -852,6 +913,9 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <p><a href="#API:Function:CSK_DigitalIOManager.blockSensorPort">blockSensorPort()</a></p>
 </li>
 <li>
+<p><a href="#API:Function:CSK_DigitalIOManager.clearFlowConfigRelevantConfiguration">clearFlowConfigRelevantConfiguration()</a></p>
+</li>
+<li>
 <p><a href="#API:Function:CSK_DigitalIOManager.freeSensorPort">freeSensorPort()</a></p>
 </li>
 <li>
@@ -859,6 +923,12 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </li>
 <li>
 <p><a href="#API:Function:CSK_DigitalIOManager.getInputState">getInputState()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_DigitalIOManager.getParameters">getParameters()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_DigitalIOManager.getStatusModuleActive">getStatusModuleActive()</a></p>
 </li>
 <li>
 <p><a href="#API:Function:CSK_DigitalIOManager.loadParameters">loadParameters()</a></p>
@@ -870,10 +940,19 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <p><a href="#API:Function:CSK_DigitalIOManager.removeForwardEvent">removeForwardEvent()</a></p>
 </li>
 <li>
+<p><a href="#API:Function:CSK_DigitalIOManager.removeForwardEventViaUI">removeForwardEventViaUI()</a></p>
+</li>
+<li>
 <p><a href="#API:Function:CSK_DigitalIOManager.removeLink">removeLink()</a></p>
 </li>
 <li>
 <p><a href="#API:Function:CSK_DigitalIOManager.removeTriggerEvent">removeTriggerEvent()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_DigitalIOManager.removeTriggerEventViaUI">removeTriggerEventViaUI()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_DigitalIOManager.resetModule">resetModule()</a></p>
 </li>
 <li>
 <p><a href="#API:Function:CSK_DigitalIOManager.selectForwardInputToEventPair">selectForwardInputToEventPair()</a></p>
@@ -913,6 +992,9 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </li>
 <li>
 <p><a href="#API:Function:CSK_DigitalIOManager.setDelayForLink">setDelayForLink()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_DigitalIOManager.setFlowConfigPriority">setFlowConfigPriority()</a></p>
 </li>
 <li>
 <p><a href="#API:Function:CSK_DigitalIOManager.setInputForLink">setInputForLink()</a></p>
@@ -1053,10 +1135,19 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <p><a href="#API:Event:CSK_DigitalIOManager.OnNewSetOutputByEventList">OnNewSetOutputByEventList</a></p>
 </li>
 <li>
+<p><a href="#API:Event:CSK_DigitalIOManager.OnNewStatusCSKStyle">OnNewStatusCSKStyle</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_DigitalIOManager.OnNewStatusFlowConfigPriority">OnNewStatusFlowConfigPriority</a></p>
+</li>
+<li>
 <p><a href="#API:Event:CSK_DigitalIOManager.OnNewStatusLoadParameterOnReboot">OnNewStatusLoadParameterOnReboot</a></p>
 </li>
 <li>
 <p><a href="#API:Event:CSK_DigitalIOManager.OnNewStatusModuleIsActive">OnNewStatusModuleIsActive</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_DigitalIOManager.OnNewStatusModuleVersion">OnNewStatusModuleVersion</a></p>
 </li>
 <li>
 <p><a href="#API:Event:CSK_DigitalIOManager.OnNewStatusTrackInputSignalStatus">OnNewStatusTrackInputSignalStatus</a></p>
@@ -1210,9 +1301,26 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </div>
 </div>
 <div class="sect4">
-<h5 id="API:Function:CSK_DigitalIOManager.freeSensorPort"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">freeSensorPort()</span></h5>
+<h5 id="API:Function:CSK_DigitalIOManager.clearFlowConfigRelevantConfiguration"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">clearFlowConfigRelevantConfiguration()</span></h5>
 <div class="sect5">
 <h6 id="_short_description_6">Short description</h6>
+<div class="paragraph">
+<p>Function to clear FlowConfig relevant configurations.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_5">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.clearFlowConfigRelevantConfiguration()</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_DigitalIOManager.freeSensorPort"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">freeSensorPort()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_7">Short description</h6>
 <div class="paragraph">
 <p>Function to free a blocked sensor port to be available again for this module.</p>
 </div>
@@ -1272,7 +1380,7 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_5">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_6">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">success = CSK_DigitalIOManager.freeSensorPort(port)</code></pre>
@@ -1283,7 +1391,7 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.getForwardEventList"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">getForwardEventList()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_7">Short description</h6>
+<h6 id="_short_description_8">Short description</h6>
 <div class="paragraph">
 <p>Return lists of configured forward events and related data information texts (see "addForwardEvent").</p>
 </div>
@@ -1322,7 +1430,7 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_6">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_7">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">eventList, infoTexts = CSK_DigitalIOManager.getForwardEventList()</code></pre>
@@ -1333,7 +1441,7 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.getInputState"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">getInputState()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_8">Short description</h6>
+<h6 id="_short_description_9">Short description</h6>
 <div class="paragraph">
 <p>Get current status of preselected input interface.</p>
 </div>
@@ -1366,7 +1474,7 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_7">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_8">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">state = CSK_DigitalIOManager.getInputState()</code></pre>
@@ -1375,18 +1483,133 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </div>
 </div>
 <div class="sect4">
+<h5 id="API:Function:CSK_DigitalIOManager.getParameters"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">getParameters()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_10">Short description</h6>
+<div class="paragraph">
+<p>Function to get all parameters of the client in JSON format.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_return_values_5">Return values</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jsonParameters</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JSON string with all parameters.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_9">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">jsonParameters = CSK_DigitalIOManager.getParameters()</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_DigitalIOManager.getStatusModuleActive"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">getStatusModuleActive()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_11">Short description</h6>
+<div class="paragraph">
+<p>Function to get status if module is active.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_return_values_6">Return values</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_10">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">status = CSK_DigitalIOManager.getStatusModuleActive()</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.loadParameters"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">loadParameters()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_9">Short description</h6>
+<h6 id="_short_description_12">Short description</h6>
 <div class="paragraph">
 <p>Load parameters for this module from the CSK_PersistentData module if possible and use them.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_8">Sample (auto-generated)</h6>
+<h6 id="_return_values_7">Return values</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Success to load parameters.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_11">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.loadParameters()</code></pre>
+<pre class="CodeRay highlight"><code data-lang="lua">success = CSK_DigitalIOManager.loadParameters()</code></pre>
 </div>
 </div>
 </div>
@@ -1394,13 +1617,13 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.pageCalled"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">pageCalled()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_10">Short description</h6>
+<h6 id="_short_description_13">Short description</h6>
 <div class="paragraph">
 <p>Function to register "OnResume" of the module UI (only as helper function).</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_return_values_5">Return values</h6>
+<h6 id="_return_values_8">Return values</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1427,7 +1650,7 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_9">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_12">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">empty = CSK_DigitalIOManager.pageCalled()</code></pre>
@@ -1438,16 +1661,60 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.removeForwardEvent"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">removeForwardEvent()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_11">Short description</h6>
+<h6 id="_short_description_14">Short description</h6>
 <div class="paragraph">
 <p>Remove event to forward an incoming digital input signal.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_10">Sample (auto-generated)</h6>
+<h6 id="_parameters_3">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">event</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Eventname</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_13">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.removeForwardEvent()</code></pre>
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.removeForwardEvent(event)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_DigitalIOManager.removeForwardEventViaUI"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">removeForwardEventViaUI()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_15">Short description</h6>
+<div class="paragraph">
+<p>Remove preselected event to not forward incoming digital input signals anymore.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_14">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.removeForwardEventViaUI()</code></pre>
 </div>
 </div>
 </div>
@@ -1455,13 +1722,13 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.removeLink"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">removeLink()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_12">Short description</h6>
+<h6 id="_short_description_16">Short description</h6>
 <div class="paragraph">
 <p>Remove preselected link (from cFlow).</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_11">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_15">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.removeLink()</code></pre>
@@ -1472,16 +1739,77 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.removeTriggerEvent"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">removeTriggerEvent()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_13">Short description</h6>
+<h6 id="_short_description_17">Short description</h6>
 <div class="paragraph">
 <p>Remove event to trigger a digital output signal.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_12">Sample (auto-generated)</h6>
+<h6 id="_parameters_4">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">event</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Eventname</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_16">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.removeTriggerEvent()</code></pre>
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.removeTriggerEvent(event)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_DigitalIOManager.removeTriggerEventViaUI"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">removeTriggerEventViaUI()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_18">Short description</h6>
+<div class="paragraph">
+<p>Remove preselected event to not trigger digital output anymore.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_17">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.removeTriggerEventViaUI()</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_DigitalIOManager.resetModule"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">resetModule()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_19">Short description</h6>
+<div class="paragraph">
+<p>Function to reset main configuration of module.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_18">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.resetModule()</code></pre>
 </div>
 </div>
 </div>
@@ -1489,13 +1817,13 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.selectForwardInputToEventPair"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">selectForwardInputToEventPair()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_14">Short description</h6>
+<h6 id="_short_description_20">Short description</h6>
 <div class="paragraph">
 <p>Select Input2Event-pair.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_3">Parameters</h6>
+<h6 id="_parameters_5">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1522,7 +1850,7 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_13">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_19">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.selectForwardInputToEventPair(selection)</code></pre>
@@ -1533,13 +1861,13 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.selectInputInterface"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">selectInputInterface()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_15">Short description</h6>
+<h6 id="_short_description_21">Short description</h6>
 <div class="paragraph">
 <p>Select input interface to configure settings (e.g. in UI table).</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_4">Parameters</h6>
+<h6 id="_parameters_6">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1566,7 +1894,7 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_14">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_20">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.selectInputInterface(selection)</code></pre>
@@ -1577,13 +1905,13 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.selectLink"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">selectLink()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_16">Short description</h6>
+<h6 id="_short_description_22">Short description</h6>
 <div class="paragraph">
 <p>Select link (e.g. in UI table).</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_5">Parameters</h6>
+<h6 id="_parameters_7">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1610,7 +1938,7 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_15">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_21">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.selectLink(selection)</code></pre>
@@ -1621,13 +1949,13 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.selectOutputInterface"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">selectOutputInterface()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_17">Short description</h6>
+<h6 id="_short_description_23">Short description</h6>
 <div class="paragraph">
 <p>Select output interface to configure settings (e.g. in UI table).</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_6">Parameters</h6>
+<h6 id="_parameters_8">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1654,7 +1982,7 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_16">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_22">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.selectOutputInterface(selection)</code></pre>
@@ -1665,13 +1993,13 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.selectOutputToSetByEventPair"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">selectOutputToSetByEventPair()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_18">Short description</h6>
+<h6 id="_short_description_24">Short description</h6>
 <div class="paragraph">
 <p>Select Event2Trigger-pair.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_7">Parameters</h6>
+<h6 id="_parameters_9">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1698,7 +2026,7 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_17">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_23">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.selectOutputToSetByEventPair(selection)</code></pre>
@@ -1709,16 +2037,43 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.sendParameters"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">sendParameters()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_19">Short description</h6>
+<h6 id="_short_description_25">Short description</h6>
 <div class="paragraph">
 <p>Send parameters to CSK_PersistentData module if possible to save them.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_18">Sample (auto-generated)</h6>
+<h6 id="_parameters_10">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">noDataSave</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[Optional] Set to TRUE if the data should NOT be saved immediately after sending.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_24">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.sendParameters()</code></pre>
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.sendParameters(noDataSave)</code></pre>
 </div>
 </div>
 </div>
@@ -1726,13 +2081,13 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.setActivationMode"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setActivationMode()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_20">Short description</h6>
+<h6 id="_short_description_26">Short description</h6>
 <div class="paragraph">
 <p>Set activation mode of selected output interface.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_8">Parameters</h6>
+<h6 id="_parameters_11">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1760,7 +2115,7 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_19">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_25">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.setActivationMode(mode)</code></pre>
@@ -1771,13 +2126,13 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.setActivationValue"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setActivationValue()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_21">Short description</h6>
+<h6 id="_short_description_27">Short description</h6>
 <div class="paragraph">
 <p>Set activation value of selected output interface in milliseconds / ticks.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_9">Parameters</h6>
+<h6 id="_parameters_12">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1804,7 +2159,7 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_20">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_26">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.setActivationValue(value)</code></pre>
@@ -1815,13 +2170,13 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.setActiveStatusInput"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setActiveStatusInput()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_22">Short description</h6>
+<h6 id="_short_description_28">Short description</h6>
 <div class="paragraph">
 <p>Set if selected input interface should be active.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_10">Parameters</h6>
+<h6 id="_parameters_13">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1848,7 +2203,7 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_21">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_27">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.setActiveStatusInput(status)</code></pre>
@@ -1859,13 +2214,13 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.setActiveStatusOutput"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setActiveStatusOutput()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_23">Short description</h6>
+<h6 id="_short_description_29">Short description</h6>
 <div class="paragraph">
 <p>Set if selected output interface should be active.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_11">Parameters</h6>
+<h6 id="_parameters_14">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1892,7 +2247,7 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_22">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_28">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.setActiveStatusOutput(status)</code></pre>
@@ -1903,13 +2258,13 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.setDebounceMode"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setDebounceMode()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_24">Short description</h6>
+<h6 id="_short_description_30">Short description</h6>
 <div class="paragraph">
 <p>Set debounce mode of selected input interface.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_12">Parameters</h6>
+<h6 id="_parameters_15">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1937,7 +2292,7 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_23">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_29">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.setDebounceMode(mode)</code></pre>
@@ -1948,13 +2303,13 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.setDebounceValue"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setDebounceValue()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_25">Short description</h6>
+<h6 id="_short_description_31">Short description</h6>
 <div class="paragraph">
 <p>Set debounce value of selected input interface in milliseconds / ticks.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_13">Parameters</h6>
+<h6 id="_parameters_16">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1981,7 +2336,7 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_24">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_30">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.setDebounceValue(value)</code></pre>
@@ -1992,13 +2347,13 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.setDelayForLink"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setDelayForLink()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_26">Short description</h6>
+<h6 id="_short_description_32">Short description</h6>
 <div class="paragraph">
 <p>Set optional delay for link in cFlow.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_14">Parameters</h6>
+<h6 id="_parameters_17">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -2025,7 +2380,7 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_25">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_31">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.setDelayForLink(value)</code></pre>
@@ -2034,15 +2389,59 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </div>
 </div>
 <div class="sect4">
+<h5 id="API:Function:CSK_DigitalIOManager.setFlowConfigPriority"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setFlowConfigPriority()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_33">Short description</h6>
+<div class="paragraph">
+<p>Function to configure if FlowConfig should have priority for FlowConfig relevant configuration.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_18">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_32">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.setFlowConfigPriority(status)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.setInputForLink"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setInputForLink()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_27">Short description</h6>
+<h6 id="_short_description_34">Short description</h6>
 <div class="paragraph">
 <p>Preset input interface to use for new link (see "addLink").</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_15">Parameters</h6>
+<h6 id="_parameters_19">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -2069,7 +2468,7 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_26">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_33">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.setInputForLink(port)</code></pre>
@@ -2080,13 +2479,13 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.setInputLogic"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setInputLogic()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_28">Short description</h6>
+<h6 id="_short_description_35">Short description</h6>
 <div class="paragraph">
 <p>Set signal logic of selected input interface.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_16">Parameters</h6>
+<h6 id="_parameters_20">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -2114,7 +2513,7 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_27">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_34">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.setInputLogic(logic)</code></pre>
@@ -2125,13 +2524,13 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.setInputToForward"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setInputToForward()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_29">Short description</h6>
+<h6 id="_short_description_36">Short description</h6>
 <div class="paragraph">
 <p>Set input interface to forward as event (see "addForwardEvent").</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_17">Parameters</h6>
+<h6 id="_parameters_21">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -2158,7 +2557,7 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_28">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_35">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.setInputToForward(port)</code></pre>
@@ -2169,13 +2568,13 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.setInputToForwardDataInfo"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setInputToForwardDataInfo()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_30">Short description</h6>
+<h6 id="_short_description_37">Short description</h6>
 <div class="paragraph">
 <p>Set data information text of selected input interface to forward "OnChange" status as event (see "addForwardEvent").</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_18">Parameters</h6>
+<h6 id="_parameters_22">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -2202,7 +2601,7 @@ To remove this link, you need to select this link via "selectLink" and then to c
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_29">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_36">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.setInputToForwardDataInfo(info)</code></pre>
@@ -2213,14 +2612,14 @@ To remove this link, you need to select this link via "selectLink" and then to c
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.setInputTracking"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setInputTracking()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_31">Short description</h6>
+<h6 id="_short_description_38">Short description</h6>
 <div class="paragraph">
 <p>Function to set if digital input signals should be tracked to show their states in UI.<br>
 INFO: Recommended to leave it switched off, if not essentially required!</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_19">Parameters</h6>
+<h6 id="_parameters_23">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -2247,7 +2646,7 @@ INFO: Recommended to leave it switched off, if not essentially required!</p>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_30">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_37">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.setInputTracking(status)</code></pre>
@@ -2258,13 +2657,13 @@ INFO: Recommended to leave it switched off, if not essentially required!</p>
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.setLoadOnReboot"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setLoadOnReboot()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_32">Short description</h6>
+<h6 id="_short_description_39">Short description</h6>
 <div class="paragraph">
 <p>Configure if this module should load its saved parameters at app / device boot up</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_20">Parameters</h6>
+<h6 id="_parameters_24">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -2291,7 +2690,7 @@ INFO: Recommended to leave it switched off, if not essentially required!</p>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_31">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_38">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.setLoadOnReboot(status)</code></pre>
@@ -2302,13 +2701,13 @@ INFO: Recommended to leave it switched off, if not essentially required!</p>
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.setOutput"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setOutput()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_33">Short description</h6>
+<h6 id="_short_description_40">Short description</h6>
 <div class="paragraph">
 <p>Set status of currently selected output port.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_21">Parameters</h6>
+<h6 id="_parameters_25">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -2335,7 +2734,7 @@ INFO: Recommended to leave it switched off, if not essentially required!</p>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_32">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_39">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.setOutput(newState)</code></pre>
@@ -2346,13 +2745,13 @@ INFO: Recommended to leave it switched off, if not essentially required!</p>
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.setOutputForLink"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setOutputForLink()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_34">Short description</h6>
+<h6 id="_short_description_41">Short description</h6>
 <div class="paragraph">
 <p>Set output interface to forward as event (see "addForwardEvent").</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_22">Parameters</h6>
+<h6 id="_parameters_26">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -2379,7 +2778,7 @@ INFO: Recommended to leave it switched off, if not essentially required!</p>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_33">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_40">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.setOutputForLink(port)</code></pre>
@@ -2390,13 +2789,13 @@ INFO: Recommended to leave it switched off, if not essentially required!</p>
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.setOutputLogic"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setOutputLogic()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_35">Short description</h6>
+<h6 id="_short_description_42">Short description</h6>
 <div class="paragraph">
 <p>Set signal logic of selected output interface.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_23">Parameters</h6>
+<h6 id="_parameters_27">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -2424,7 +2823,7 @@ INFO: Recommended to leave it switched off, if not essentially required!</p>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_34">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_41">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.setOutputLogic(logic)</code></pre>
@@ -2435,13 +2834,13 @@ INFO: Recommended to leave it switched off, if not essentially required!</p>
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.setOutputMode"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setOutputMode()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_36">Short description</h6>
+<h6 id="_short_description_43">Short description</h6>
 <div class="paragraph">
 <p>Set output mode of selected output interface.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_24">Parameters</h6>
+<h6 id="_parameters_28">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -2469,7 +2868,7 @@ INFO: Recommended to leave it switched off, if not essentially required!</p>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_35">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_42">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.setOutputMode(mode)</code></pre>
@@ -2480,13 +2879,13 @@ INFO: Recommended to leave it switched off, if not essentially required!</p>
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.setOutputToTrigger"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setOutputToTrigger()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_37">Short description</h6>
+<h6 id="_short_description_44">Short description</h6>
 <div class="paragraph">
 <p>Preset output interface to set if registered triggerEvent (see "addTriggerEvent").</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_25">Parameters</h6>
+<h6 id="_parameters_29">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -2513,7 +2912,7 @@ INFO: Recommended to leave it switched off, if not essentially required!</p>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_36">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_43">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.setOutputToTrigger(port)</code></pre>
@@ -2524,13 +2923,13 @@ INFO: Recommended to leave it switched off, if not essentially required!</p>
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.setParameterName"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setParameterName()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_38">Short description</h6>
+<h6 id="_short_description_45">Short description</h6>
 <div class="paragraph">
 <p>Function to set the name of the parameters if saved/loaded via the CSK_PersistentData module.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_26">Parameters</h6>
+<h6 id="_parameters_30">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -2557,7 +2956,7 @@ INFO: Recommended to leave it switched off, if not essentially required!</p>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_37">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_44">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.setParameterName(name)</code></pre>
@@ -2568,13 +2967,13 @@ INFO: Recommended to leave it switched off, if not essentially required!</p>
 <div class="sect4">
 <h5 id="API:Function:CSK_DigitalIOManager.setTriggerEvent"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-function">setTriggerEvent()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_39">Short description</h6>
+<h6 id="_short_description_46">Short description</h6>
 <div class="paragraph">
 <p>Preset event name to listen to (see "addTriggerEvent").</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_27">Parameters</h6>
+<h6 id="_parameters_31">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -2601,7 +3000,7 @@ INFO: Recommended to leave it switched off, if not essentially required!</p>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_38">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_45">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_DigitalIOManager.setTriggerEvent(event)</code></pre>
@@ -2615,13 +3014,13 @@ INFO: Recommended to leave it switched off, if not essentially required!</p>
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnDataLoadedOnReboot"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnDataLoadedOnReboot</span></h5>
 <div class="sect5">
-<h6 id="_short_description_40">Short description</h6>
+<h6 id="_short_description_47">Short description</h6>
 <div class="paragraph">
 <p>Event to call if module tried to load parameters and should be ready.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_39">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_46">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnDataLoadedOnReboot</span>()
@@ -2636,7 +3035,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewActivationMode"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewActivationMode</span></h5>
 <div class="sect5">
-<h6 id="_short_description_41">Short description</h6>
+<h6 id="_short_description_48">Short description</h6>
 <div class="paragraph">
 <p>Notify activation mode of currently selected output port.</p>
 </div>
@@ -2669,7 +3068,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_40">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_47">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewActivationMode</span>(mode)
@@ -2684,7 +3083,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewActivationValue"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewActivationValue</span></h5>
 <div class="sect5">
-<h6 id="_short_description_42">Short description</h6>
+<h6 id="_short_description_49">Short description</h6>
 <div class="paragraph">
 <p>Notify activation value of currently selected output port in milliseconds / ticks.</p>
 </div>
@@ -2717,7 +3116,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_41">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_48">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewActivationValue</span>(value)
@@ -2732,7 +3131,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewActiveStatusInput"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewActiveStatusInput</span></h5>
 <div class="sect5">
-<h6 id="_short_description_43">Short description</h6>
+<h6 id="_short_description_50">Short description</h6>
 <div class="paragraph">
 <p>Notify activation status of currently selected input port.</p>
 </div>
@@ -2765,7 +3164,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_42">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_49">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewActiveStatusInput</span>(status)
@@ -2780,7 +3179,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewActiveStatusOutput"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewActiveStatusOutput</span></h5>
 <div class="sect5">
-<h6 id="_short_description_44">Short description</h6>
+<h6 id="_short_description_51">Short description</h6>
 <div class="paragraph">
 <p>Notify activation status of currently selected output port.</p>
 </div>
@@ -2813,7 +3212,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_43">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_50">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewActiveStatusOutput</span>(status)
@@ -2828,7 +3227,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewDebounceMode"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewDebounceMode</span></h5>
 <div class="sect5">
-<h6 id="_short_description_45">Short description</h6>
+<h6 id="_short_description_52">Short description</h6>
 <div class="paragraph">
 <p>Notify debounce mode of currently selected input port.</p>
 </div>
@@ -2861,7 +3260,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_44">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_51">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewDebounceMode</span>(mode)
@@ -2876,7 +3275,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewDebounceValue"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewDebounceValue</span></h5>
 <div class="sect5">
-<h6 id="_short_description_46">Short description</h6>
+<h6 id="_short_description_53">Short description</h6>
 <div class="paragraph">
 <p>Notify debounce value of currently selected input port in milliseconds / ticks.</p>
 </div>
@@ -2909,7 +3308,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_45">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_52">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewDebounceValue</span>(value)
@@ -2924,7 +3323,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewEventList"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewEventList</span></h5>
 <div class="sect5">
-<h6 id="_short_description_47">Short description</h6>
+<h6 id="_short_description_54">Short description</h6>
 <div class="paragraph">
 <p>Notify lists of configured forward events and related data information texts (see "addForwardEvent").</p>
 </div>
@@ -2963,7 +3362,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_46">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_53">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewEventList</span>(events, infoTexts)
@@ -2978,7 +3377,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewFlowInputStateENUM"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewFlowInputStateENUM</span></h5>
 <div class="sect5">
-<h6 id="_short_description_48">Short description</h6>
+<h6 id="_short_description_55">Short description</h6>
 <div class="paragraph">
 <p>Example for dynamically created event to forward an incoming digital input signal if used within a link (see "addLink").<br>
 "ENUM" is replaced by DigitalInPort ENUM (e.g. 'CSK_DigitalIOManager.OnNewFlowInputStateS1DI1').<br>
@@ -2987,7 +3386,7 @@ INFO: As this event will be created dynamically, there is no auto completion wit
 </div>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_47">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_54">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewFlowInputStateENUM</span>()
@@ -3002,7 +3401,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewForwardEvent"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewForwardEvent</span></h5>
 <div class="sect5">
-<h6 id="_short_description_49">Short description</h6>
+<h6 id="_short_description_56">Short description</h6>
 <div class="paragraph">
 <p>Notify current event name to use for forwarding a digital input signal (currently not used, default eventnames are used like 'CSK_DigitalIOManager.OnNewInputState[portName]').</p>
 </div>
@@ -3035,7 +3434,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_48">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_55">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewForwardEvent</span>(parametername)
@@ -3050,7 +3449,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewForwardTriggerList"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewForwardTriggerList</span></h5>
 <div class="sect5">
-<h6 id="_short_description_50">Short description</h6>
+<h6 id="_short_description_57">Short description</h6>
 <div class="paragraph">
 <p>Notify list of configured input interfaces and their related events to call.</p>
 </div>
@@ -3083,7 +3482,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_49">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_56">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewForwardTriggerList</span>(list)
@@ -3098,7 +3497,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewInputForLinkSelected"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewInputForLinkSelected</span></h5>
 <div class="sect5">
-<h6 id="_short_description_51">Short description</h6>
+<h6 id="_short_description_58">Short description</h6>
 <div class="paragraph">
 <p>Notify currently selected input interface to use for new links (see "addLink").</p>
 </div>
@@ -3131,7 +3530,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_50">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_57">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewInputForLinkSelected</span>(selection)
@@ -3146,7 +3545,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewInputLogic"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewInputLogic</span></h5>
 <div class="sect5">
-<h6 id="_short_description_52">Short description</h6>
+<h6 id="_short_description_59">Short description</h6>
 <div class="paragraph">
 <p>Notify signal logic of currently selected input port.</p>
 </div>
@@ -3179,7 +3578,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_51">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_58">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewInputLogic</span>(logic)
@@ -3194,7 +3593,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewInputPortList"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewInputPortList</span></h5>
 <div class="sect5">
-<h6 id="_short_description_53">Short description</h6>
+<h6 id="_short_description_60">Short description</h6>
 <div class="paragraph">
 <p>Notify list of available input interfaces.</p>
 </div>
@@ -3227,7 +3626,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_52">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_59">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewInputPortList</span>(list)
@@ -3242,7 +3641,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewInputPortTable"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewInputPortTable</span></h5>
 <div class="sect5">
-<h6 id="_short_description_54">Short description</h6>
+<h6 id="_short_description_61">Short description</h6>
 <div class="paragraph">
 <p>Notify list of available input interfaces and the according settings (used for the UI table).</p>
 </div>
@@ -3275,7 +3674,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_53">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_60">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewInputPortTable</span>(inputList)
@@ -3290,7 +3689,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewInputSelection"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewInputSelection</span></h5>
 <div class="sect5">
-<h6 id="_short_description_55">Short description</h6>
+<h6 id="_short_description_62">Short description</h6>
 <div class="paragraph">
 <p>Notify currently selected input interface.</p>
 </div>
@@ -3323,7 +3722,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_54">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_61">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewInputSelection</span>(selection)
@@ -3338,7 +3737,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewInputStateENUM"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewInputStateENUM</span></h5>
 <div class="sect5">
-<h6 id="_short_description_56">Short description</h6>
+<h6 id="_short_description_63">Short description</h6>
 <div class="paragraph">
 <p>Example for dynamically created event to forward an incoming digital input signal if configured (see "addForwardEvent").<br>
 "ENUM" is replaced by DigitalInPort ENUM (e.g. 'CSK_DigitalIOManager.OnNewInputStateS1DI1').<br>
@@ -3373,7 +3772,7 @@ INFO: As this event will be created dynamically, there is no auto completion wit
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_55">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_62">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewInputStateENUM</span>(newState)
@@ -3388,7 +3787,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewInputToForward"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewInputToForward</span></h5>
 <div class="sect5">
-<h6 id="_short_description_57">Short description</h6>
+<h6 id="_short_description_64">Short description</h6>
 <div class="paragraph">
 <p>Notify selected input port to forward "OnChange" status via event.</p>
 </div>
@@ -3421,7 +3820,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_56">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_63">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewInputToForward</span>(port)
@@ -3436,7 +3835,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewInputToForwardDataInfo"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewInputToForwardDataInfo</span></h5>
 <div class="sect5">
-<h6 id="_short_description_58">Short description</h6>
+<h6 id="_short_description_65">Short description</h6>
 <div class="paragraph">
 <p>Notify data information text of selected input port to forward "OnChange" status via event.</p>
 </div>
@@ -3469,7 +3868,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_57">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_64">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewInputToForwardDataInfo</span>(info)
@@ -3484,7 +3883,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewInternalMessage"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewInternalMessage</span></h5>
 <div class="sect5">
-<h6 id="_short_description_59">Short description</h6>
+<h6 id="_short_description_66">Short description</h6>
 <div class="paragraph">
 <p>Notify internal messages.</p>
 </div>
@@ -3517,7 +3916,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_58">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_65">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewInternalMessage</span>(message)
@@ -3532,7 +3931,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewLinkDelay"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewLinkDelay</span></h5>
 <div class="sect5">
-<h6 id="_short_description_60">Short description</h6>
+<h6 id="_short_description_67">Short description</h6>
 <div class="paragraph">
 <p>Notify delay time of currently selected link in milliseconds.</p>
 </div>
@@ -3565,7 +3964,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_59">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_66">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewLinkDelay</span>(delay)
@@ -3580,7 +3979,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewLinkList"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewLinkList</span></h5>
 <div class="sect5">
-<h6 id="_short_description_61">Short description</h6>
+<h6 id="_short_description_68">Short description</h6>
 <div class="paragraph">
 <p>Notify list of currently active links (cFlow) (e.g. for UI table).</p>
 </div>
@@ -3613,7 +4012,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_60">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_67">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewLinkList</span>(list)
@@ -3628,7 +4027,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewLinkSelected"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewLinkSelected</span></h5>
 <div class="sect5">
-<h6 id="_short_description_62">Short description</h6>
+<h6 id="_short_description_69">Short description</h6>
 <div class="paragraph">
 <p>Notify selected link in UI table list.</p>
 </div>
@@ -3661,7 +4060,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_61">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_68">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewLinkSelected</span>(selection)
@@ -3676,7 +4075,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewMessageType"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewMessageType</span></h5>
 <div class="sect5">
-<h6 id="_short_description_63">Short description</h6>
+<h6 id="_short_description_70">Short description</h6>
 <div class="paragraph">
 <p>Notify current message type of UI callout.</p>
 </div>
@@ -3709,7 +4108,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_62">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_69">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewMessageType</span>(<span class="predefined">type</span>)
@@ -3724,7 +4123,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewOutputForLinkSelected"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewOutputForLinkSelected</span></h5>
 <div class="sect5">
-<h6 id="_short_description_64">Short description</h6>
+<h6 id="_short_description_71">Short description</h6>
 <div class="paragraph">
 <p>Notify currently selected output interface to use for new links (see "addLink").</p>
 </div>
@@ -3757,7 +4156,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_63">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_70">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewOutputForLinkSelected</span>(selection)
@@ -3772,7 +4171,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewOutputLogic"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewOutputLogic</span></h5>
 <div class="sect5">
-<h6 id="_short_description_65">Short description</h6>
+<h6 id="_short_description_72">Short description</h6>
 <div class="paragraph">
 <p>Notify signal logic of currently selected output port.</p>
 </div>
@@ -3805,7 +4204,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_64">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_71">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewOutputLogic</span>(logic)
@@ -3820,7 +4219,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewOutputMode"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewOutputMode</span></h5>
 <div class="sect5">
-<h6 id="_short_description_66">Short description</h6>
+<h6 id="_short_description_73">Short description</h6>
 <div class="paragraph">
 <p>Notify output mode of currently selected output port.</p>
 </div>
@@ -3853,7 +4252,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_65">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_72">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewOutputMode</span>(mode)
@@ -3868,7 +4267,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewOutputPortList"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewOutputPortList</span></h5>
 <div class="sect5">
-<h6 id="_short_description_67">Short description</h6>
+<h6 id="_short_description_74">Short description</h6>
 <div class="paragraph">
 <p>Notify list of available output interfaces.</p>
 </div>
@@ -3901,7 +4300,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_66">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_73">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewOutputPortList</span>(list)
@@ -3916,7 +4315,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewOutputPortTable"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewOutputPortTable</span></h5>
 <div class="sect5">
-<h6 id="_short_description_68">Short description</h6>
+<h6 id="_short_description_75">Short description</h6>
 <div class="paragraph">
 <p>Notify list of available output interfaces and the according settings (used for the UI table).</p>
 </div>
@@ -3949,7 +4348,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_67">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_74">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewOutputPortTable</span>(jsonList)
@@ -3964,7 +4363,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewOutputSelection"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewOutputSelection</span></h5>
 <div class="sect5">
-<h6 id="_short_description_69">Short description</h6>
+<h6 id="_short_description_76">Short description</h6>
 <div class="paragraph">
 <p>Notify currently selected output interface.</p>
 </div>
@@ -3997,7 +4396,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_68">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_75">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewOutputSelection</span>(selection)
@@ -4012,7 +4411,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewOutputToTrigger"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewOutputToTrigger</span></h5>
 <div class="sect5">
-<h6 id="_short_description_70">Short description</h6>
+<h6 id="_short_description_77">Short description</h6>
 <div class="paragraph">
 <p>Notify currently preselected output interface to use (set) for a trigger event (see "addTriggerEvent").</p>
 </div>
@@ -4045,7 +4444,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_69">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_76">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewOutputToTrigger</span>(port)
@@ -4060,7 +4459,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewParameterName"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewParameterName</span></h5>
 <div class="sect5">
-<h6 id="_short_description_71">Short description</h6>
+<h6 id="_short_description_78">Short description</h6>
 <div class="paragraph">
 <p>Notify name of persistent data parameter.</p>
 </div>
@@ -4093,7 +4492,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_70">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_77">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewParameterName</span>(name)
@@ -4108,7 +4507,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewSetOutputByEventList"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewSetOutputByEventList</span></h5>
 <div class="sect5">
-<h6 id="_short_description_72">Short description</h6>
+<h6 id="_short_description_79">Short description</h6>
 <div class="paragraph">
 <p>Notify list of triggerEvents (triggerEvent names + related digital output signals to be set), e.g. for table in UI.</p>
 </div>
@@ -4141,7 +4540,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_71">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_78">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewSetOutputByEventList</span>(list)
@@ -4154,11 +4553,11 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </div>
 </div>
 <div class="sect4">
-<h5 id="API:Event:CSK_DigitalIOManager.OnNewStatusLoadParameterOnReboot"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewStatusLoadParameterOnReboot</span></h5>
+<h5 id="API:Event:CSK_DigitalIOManager.OnNewStatusCSKStyle"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewStatusCSKStyle</span></h5>
 <div class="sect5">
-<h6 id="_short_description_73">Short description</h6>
+<h6 id="_short_description_80">Short description</h6>
 <div class="paragraph">
-<p>Notify status if parameters should be loaded on app / device boot up.</p>
+<p>Notify UI style to use for CSK modules.</p>
 </div>
 </div>
 <div class="sect5">
@@ -4180,33 +4579,33 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">theme</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UI style</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_72">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_79">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusLoadParameterOnReboot</span>(status)
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusCSKStyle</span>(theme)
   <span class="comment">-- Do something</span>
 <span class="keyword">end</span>
 
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_DigitalIOManager.OnNewStatusLoadParameterOnReboot</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusLoadParameterOnReboot</span><span class="delimiter">&quot;</span></span>)</code></pre>
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_DigitalIOManager.OnNewStatusCSKStyle</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusCSKStyle</span><span class="delimiter">&quot;</span></span>)</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="API:Event:CSK_DigitalIOManager.OnNewStatusModuleIsActive"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewStatusModuleIsActive</span></h5>
+<h5 id="API:Event:CSK_DigitalIOManager.OnNewStatusFlowConfigPriority"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewStatusFlowConfigPriority</span></h5>
 <div class="sect5">
-<h6 id="_short_description_74">Short description</h6>
+<h6 id="_short_description_81">Short description</h6>
 <div class="paragraph">
-<p>Notify if module can be used on device.</p>
+<p>Notify if FlowConfig should have priority for FlowConfig relevant configurations.</p>
 </div>
 </div>
 <div class="sect5">
@@ -4237,24 +4636,24 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_73">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_80">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusModuleIsActive</span>(status)
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusFlowConfigPriority</span>(status)
   <span class="comment">-- Do something</span>
 <span class="keyword">end</span>
 
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_DigitalIOManager.OnNewStatusModuleIsActive</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusModuleIsActive</span><span class="delimiter">&quot;</span></span>)</code></pre>
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_DigitalIOManager.OnNewStatusFlowConfigPriority</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusFlowConfigPriority</span><span class="delimiter">&quot;</span></span>)</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="API:Event:CSK_DigitalIOManager.OnNewStatusTrackInputSignalStatus"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewStatusTrackInputSignalStatus</span></h5>
+<h5 id="API:Event:CSK_DigitalIOManager.OnNewStatusLoadParameterOnReboot"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewStatusLoadParameterOnReboot</span></h5>
 <div class="sect5">
-<h6 id="_short_description_75">Short description</h6>
+<h6 id="_short_description_82">Short description</h6>
 <div class="paragraph">
-<p>Notify if status of digital input signals should be tracked for UI.</p>
+<p>Notify status if parameters should be loaded on app / device boot up.</p>
 </div>
 </div>
 <div class="sect5">
@@ -4285,7 +4684,151 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_74">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_81">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusLoadParameterOnReboot</span>(status)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_DigitalIOManager.OnNewStatusLoadParameterOnReboot</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusLoadParameterOnReboot</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_DigitalIOManager.OnNewStatusModuleIsActive"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewStatusModuleIsActive</span></h5>
+<div class="sect5">
+<h6 id="_short_description_83">Short description</h6>
+<div class="paragraph">
+<p>Notify if module can be used on device.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_35">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_82">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusModuleIsActive</span>(status)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_DigitalIOManager.OnNewStatusModuleIsActive</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusModuleIsActive</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_DigitalIOManager.OnNewStatusModuleVersion"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewStatusModuleVersion</span></h5>
+<div class="sect5">
+<h6 id="_short_description_84">Short description</h6>
+<div class="paragraph">
+<p>Notify version of module.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_36">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_83">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusModuleVersion</span>(version)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_DigitalIOManager.OnNewStatusModuleVersion</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusModuleVersion</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_DigitalIOManager.OnNewStatusTrackInputSignalStatus"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewStatusTrackInputSignalStatus</span></h5>
+<div class="sect5">
+<h6 id="_short_description_85">Short description</h6>
+<div class="paragraph">
+<p>Notify if status of digital input signals should be tracked for UI.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_37">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_84">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusTrackInputSignalStatus</span>(status)
@@ -4300,13 +4843,13 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnNewTriggerEvent"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnNewTriggerEvent</span></h5>
 <div class="sect5">
-<h6 id="_short_description_76">Short description</h6>
+<h6 id="_short_description_86">Short description</h6>
 <div class="paragraph">
 <p>Notify current eventname to be set for listening to set related output interface (see "addTriggerEvent").</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_callback_arguments_35">Callback arguments</h6>
+<h6 id="_callback_arguments_38">Callback arguments</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -4333,7 +4876,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_75">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_85">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewTriggerEvent</span>(event)
@@ -4348,153 +4891,9 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_DigitalIOManager.OnPersistentDataModuleAvailable"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnPersistentDataModuleAvailable</span></h5>
 <div class="sect5">
-<h6 id="_short_description_77">Short description</h6>
+<h6 id="_short_description_87">Short description</h6>
 <div class="paragraph">
 <p>Notify status if features of CSK_PersistentData module are available.</p>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_callback_arguments_36">Callback arguments</h6>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 12.5%;">
-<col style="width: 37.5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Multiplicity</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_sample_auto_generated_76">Sample (auto-generated)</h6>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnPersistentDataModuleAvailable</span>(status)
-  <span class="comment">-- Do something</span>
-<span class="keyword">end</span>
-
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_DigitalIOManager.OnPersistentDataModuleAvailable</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnPersistentDataModuleAvailable</span><span class="delimiter">&quot;</span></span>)</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="API:Event:CSK_DigitalIOManager.OnShowInternalMessages"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnShowInternalMessages</span></h5>
-<div class="sect5">
-<h6 id="_short_description_78">Short description</h6>
-<div class="paragraph">
-<p>Notify if internal message should be shown.</p>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_callback_arguments_37">Callback arguments</h6>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 12.5%;">
-<col style="width: 37.5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Multiplicity</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_sample_auto_generated_77">Sample (auto-generated)</h6>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnShowInternalMessages</span>(status)
-  <span class="comment">-- Do something</span>
-<span class="keyword">end</span>
-
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_DigitalIOManager.OnShowInternalMessages</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnShowInternalMessages</span><span class="delimiter">&quot;</span></span>)</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="API:Event:CSK_DigitalIOManager.OnUserLevelAdminActive"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnUserLevelAdminActive</span></h5>
-<div class="sect5">
-<h6 id="_short_description_79">Short description</h6>
-<div class="paragraph">
-<p>Status of Admin userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_callback_arguments_38">Callback arguments</h6>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 12.5%;">
-<col style="width: 37.5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Multiplicity</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_sample_auto_generated_78">Sample (auto-generated)</h6>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelAdminActive</span>(status)
-  <span class="comment">-- Do something</span>
-<span class="keyword">end</span>
-
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_DigitalIOManager.OnUserLevelAdminActive</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnUserLevelAdminActive</span><span class="delimiter">&quot;</span></span>)</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="API:Event:CSK_DigitalIOManager.OnUserLevelMaintenanceActive"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnUserLevelMaintenanceActive</span></h5>
-<div class="sect5">
-<h6 id="_short_description_80">Short description</h6>
-<div class="paragraph">
-<p>Status of Maintenance userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
 </div>
 </div>
 <div class="sect5">
@@ -4525,24 +4924,24 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_79">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_86">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelMaintenanceActive</span>(status)
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnPersistentDataModuleAvailable</span>(status)
   <span class="comment">-- Do something</span>
 <span class="keyword">end</span>
 
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_DigitalIOManager.OnUserLevelMaintenanceActive</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnUserLevelMaintenanceActive</span><span class="delimiter">&quot;</span></span>)</code></pre>
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_DigitalIOManager.OnPersistentDataModuleAvailable</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnPersistentDataModuleAvailable</span><span class="delimiter">&quot;</span></span>)</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="API:Event:CSK_DigitalIOManager.OnUserLevelOperatorActive"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnUserLevelOperatorActive</span></h5>
+<h5 id="API:Event:CSK_DigitalIOManager.OnShowInternalMessages"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnShowInternalMessages</span></h5>
 <div class="sect5">
-<h6 id="_short_description_81">Short description</h6>
+<h6 id="_short_description_88">Short description</h6>
 <div class="paragraph">
-<p>Status of Operator userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
+<p>Notify if internal message should be shown.</p>
 </div>
 </div>
 <div class="sect5">
@@ -4565,7 +4964,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
 </tr>
@@ -4573,24 +4972,24 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_80">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_87">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelOperatorActive</span>(status)
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnShowInternalMessages</span>(status)
   <span class="comment">-- Do something</span>
 <span class="keyword">end</span>
 
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_DigitalIOManager.OnUserLevelOperatorActive</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnUserLevelOperatorActive</span><span class="delimiter">&quot;</span></span>)</code></pre>
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_DigitalIOManager.OnShowInternalMessages</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnShowInternalMessages</span><span class="delimiter">&quot;</span></span>)</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="API:Event:CSK_DigitalIOManager.OnUserLevelServiceActive"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnUserLevelServiceActive</span></h5>
+<h5 id="API:Event:CSK_DigitalIOManager.OnUserLevelAdminActive"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnUserLevelAdminActive</span></h5>
 <div class="sect5">
-<h6 id="_short_description_82">Short description</h6>
+<h6 id="_short_description_89">Short description</h6>
 <div class="paragraph">
-<p>Status of Service userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
+<p>Status of Admin userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
 </div>
 </div>
 <div class="sect5">
@@ -4621,7 +5020,151 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_81">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_88">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelAdminActive</span>(status)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_DigitalIOManager.OnUserLevelAdminActive</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnUserLevelAdminActive</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_DigitalIOManager.OnUserLevelMaintenanceActive"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnUserLevelMaintenanceActive</span></h5>
+<div class="sect5">
+<h6 id="_short_description_90">Short description</h6>
+<div class="paragraph">
+<p>Status of Maintenance userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_42">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_89">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelMaintenanceActive</span>(status)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_DigitalIOManager.OnUserLevelMaintenanceActive</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnUserLevelMaintenanceActive</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_DigitalIOManager.OnUserLevelOperatorActive"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnUserLevelOperatorActive</span></h5>
+<div class="sect5">
+<h6 id="_short_description_91">Short description</h6>
+<div class="paragraph">
+<p>Status of Operator userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_43">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_90">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelOperatorActive</span>(status)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_DigitalIOManager.OnUserLevelOperatorActive</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnUserLevelOperatorActive</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_DigitalIOManager.OnUserLevelServiceActive"><span class="breadcrumb">CSK_DigitalIOManager.</span><span class="api-event">OnUserLevelServiceActive</span></h5>
+<div class="sect5">
+<h6 id="_short_description_92">Short description</h6>
+<div class="paragraph">
+<p>Status of Service userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_44">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_91">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelServiceActive</span>(status)
@@ -4638,9 +5181,411 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect2">
 <h3 id="API:Crown:CSK_Module_DigitalIOManager"><span class="api-crown">CSK_Module_DigitalIOManager</span></h3>
 <div class="sect3">
-<h4 id="_short_description_83">Short description</h4>
+<h4 id="_short_description_93">Short description</h4>
 <div class="paragraph">
 <p>This is an automatically generated CROWN (description not necessary)</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="API:Crown:DigitalIOManager_FC"><span class="api-crown">DigitalIOManager_FC</span></h3>
+<div class="sect3">
+<h4 id="_short_description_94">Short description</h4>
+<div class="paragraph">
+<p>Crown to provide CSK_FlowConfig relevant features.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_overview_2">Overview</h4>
+
+</div>
+</div>
+<div class="sect2">
+<h3 id="API:Crown:DigitalIOManager_FC.OnNewInputState"><span class="api-crown">DigitalIOManager_FC.OnNewInputState</span></h3>
+<div class="sect3">
+<h4 id="_short_description_95">Short description</h4>
+<div class="paragraph">
+<p>Provide digital input states.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_overview_3">Overview</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#API:Function:DigitalIOManager_FC.OnNewInputState.create">create()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:DigitalIOManager_FC.OnNewInputState.register">register()</a></p>
+</li>
+<li>
+<p><a href="#API:Event:DigitalIOManager_FC.OnNewInputState.OnNewInputState">OnNewInputState</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_functions_2">Functions</h4>
+<div class="sect4">
+<h5 id="API:Function:DigitalIOManager_FC.OnNewInputState.create"><span class="breadcrumb">DigitalIOManager_FC.OnNewInputState.</span><span class="api-function">create()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_96">Short description</h6>
+<div class="paragraph">
+<p>Internally used CSK_FlowConfig create function.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_32">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DigitalInPorts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ENUM<br>
+<a href="#API:Invalid">CSK_DigitalIOManager_FC.DigitalInPorts</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port to use.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_return_values_9">Return values</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">handle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HANDLE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Handle to internally used FlowConfig instance.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_92">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">handle = DigitalIOManager_FC.OnNewInputState.create(DigitalInPorts)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:DigitalIOManager_FC.OnNewInputState.register"><span class="breadcrumb">DigitalIOManager_FC.OnNewInputState.</span><span class="api-function">register()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_97">Short description</h6>
+<div class="paragraph">
+<p>Internally used CSK_FlowConfig register function.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_33">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">handle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HANDLE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Handle to internally used FlowConfig instance.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">eventname</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal parameter (not used).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">callback</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internally used callback function.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_return_values_10">Return values</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Success of register process.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_93">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">success = DigitalIOManager_FC.OnNewInputState.register(handle, eventname, callback)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_events_2">Events</h4>
+<div class="sect4">
+<h5 id="API:Event:DigitalIOManager_FC.OnNewInputState.OnNewInputState"><span class="breadcrumb">DigitalIOManager_FC.OnNewInputState.</span><span class="api-event">OnNewInputState</span></h5>
+<div class="sect5">
+<h6 id="_short_description_98">Short description</h6>
+<div class="paragraph">
+<p>Provide digital input states.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_45">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">handle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HANDLE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Handle to internally used FlowConfig instance.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OnNewInputState</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'CSK_DigitalIOManager.OnNewInputState[PORT]'
+Parameter:
+1: State of the input signal (BOOL)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_94">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewInputState</span>(handle, OnNewInputState)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">DigitalIOManager_FC.OnNewInputState.OnNewInputState</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewInputState</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="API:Crown:DigitalIOManager_FC.Set"><span class="api-crown">DigitalIOManager_FC.Set</span></h3>
+<div class="sect3">
+<h4 id="_short_description_99">Short description</h4>
+<div class="paragraph">
+<p>Set source to set state of digital output.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_overview_4">Overview</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#API:Function:DigitalIOManager_FC.Set.create">create()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:DigitalIOManager_FC.Set.set">set()</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_functions_3">Functions</h4>
+<div class="sect4">
+<h5 id="API:Function:DigitalIOManager_FC.Set.create"><span class="breadcrumb">DigitalIOManager_FC.Set.</span><span class="api-function">create()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_100">Short description</h6>
+<div class="paragraph">
+<p>Internally used CSK_FlowConfig create function.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_34">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DigitalOutPorts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ENUM<br>
+<a href="#API:Invalid">CSK_DigitalIOManager_FC.DigitalOutPorts</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port to use.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_return_values_11">Return values</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">handle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HANDLE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Handle to internally used FlowConfig instance.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_95">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">handle = DigitalIOManager_FC.Set.create(DigitalOutPorts)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:DigitalIOManager_FC.Set.set"><span class="breadcrumb">DigitalIOManager_FC.Set.</span><span class="api-function">set()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_101">Short description</h6>
+<div class="paragraph">
+<p>Set source to set state of digital output.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_35">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">handle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HANDLE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Handle to internally used FlowConfig instance.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">source</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Source to set state (BOOL).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_96">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">DigitalIOManager_FC.Set.set(handle, source)</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -4814,8 +5759,8 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 3.9.0<br>
-Last updated 2024-02-02 10:55:09 +0100
+Version 4.0.0<br>
+Last updated 2024-08-14 13:44:48 +0200
 </div>
 </div>
 <script type="text/javascript">

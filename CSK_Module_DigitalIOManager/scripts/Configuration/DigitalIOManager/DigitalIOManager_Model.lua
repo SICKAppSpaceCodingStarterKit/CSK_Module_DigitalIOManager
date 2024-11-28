@@ -22,19 +22,6 @@ digitalIOManager_Model.persistentModuleAvailable = CSK_PersistentData ~= nil or 
 digitalIOManager_Model.parametersName = 'CSK_DigitalIOManager_Parameter' -- name of parameter dataset to be used for this module
 digitalIOManager_Model.parameterLoadOnReboot = false -- Status if parameter dataset should be loaded on app/device reboot
 
-digitalIOManager_Model.moduleActive = true
-
--- check if needed CROWN is available on device
-if Connector == nil then
-  digitalIOManager_Model.moduleActive = false
-  _G.logger:warning(nameOfModule .. ': CROWN is not available. Module is not supported ...')
-else
-  if Connector.DigitalIn == nil then
-    digitalIOManager_Model.moduleActive = false
-    _G.logger:warning(nameOfModule .. ': CROWN is not available. Module is not supported ...')
-  end
-end
-
 -- Load script to communicate with the DigitalIOManager_Model interface and give access
 -- to the DigitalIOManager_Model object.
 -- Check / edit this script to see / edit functions which communicate with the UI
@@ -58,13 +45,30 @@ digitalIOManager_Model.trackingFunctions = {} -- List of functions to be used to
 
 -- Create parameters / instances for this module
 digitalIOManager_Model.parameters = {}
+digitalIOManager_Model.parameters.flowConfigPriority = CSK_FlowConfig ~= nil or false -- Status if FlowConfig should have priority for FlowConfig relevant configurations
 digitalIOManager_Model.parameters.links = {} -- .input / .output / .delay
+
+digitalIOManager_Model.styleForUI = 'None' -- Optional parameter to set UI style
+digitalIOManager_Model.version = Engine.getCurrentAppVersion() -- Version of module
+
+--**************************************************************************
+--********************** End Global Scope **********************************
+--**************************************************************************
+--**********************Start Function Scope *******************************
+--**************************************************************************
+
+--- Function to react on UI style change
+local function handleOnStyleChanged(theme)
+  digitalIOManager_Model.styleForUI = theme
+  Script.notifyEvent("DigitalIOManager_OnNewStatusCSKStyle", digitalIOManager_Model.styleForUI)
+end
+Script.register('CSK_PersistentData.OnNewStatusCSKStyle', handleOnStyleChanged)
 
 --- Functions to forward incoming trigger via DigitalInput as event
 ---@param status boolean Status of port to forward
 ---@param source string Name of port
 local function forwardInputToEvent(status, source)
-  _G.logger:info(nameOfModule .. ': Notify event ' .. tostring(digitalIOManager_Model.parameters.forwardEvent[source]) .. ' .. with status: ' .. tostring(status))
+  _G.logger:fine(nameOfModule .. ': Notify event ' .. tostring(digitalIOManager_Model.parameters.forwardEvent[source]) .. ' with status: ' .. tostring(status))
   Script.notifyEvent(digitalIOManager_Model.parameters.forwardEvent[source], status)
 end
 
@@ -80,14 +84,14 @@ end
 ---@param newState boolean Status of port
 ---@param port string Name of port
 local function setOutputViaEvent(newState, port)
-  _G.logger:info(nameOfModule .. ': Set digital output ' .. tostring(port))
+  _G.logger:fine(nameOfModule .. ': Set digital output ' .. tostring(port))
   Connector.DigitalOut.set(digitalIOManager_Model.handles[port], newState)
   if newState and digitalIOManager_Model.parameters.outActivationValue[port] ~= 0 then
     Connector.DigitalOut.set(digitalIOManager_Model.handles[port], not newState)
   end
 end
 
-if digitalIOManager_Model.moduleActive then
+if _G.availableAPIs.specific then
 
   digitalIOManager_Model.flow = Flow.create() -- Flow to be used for direct wiring signals from DigitalInput to DigitalOutput
   digitalIOManager_Model.flow:setType('CFLOW')
@@ -124,15 +128,9 @@ end
 
 ----------------------------------------------------------------
 
---**************************************************************************
---********************** End Global Scope **********************************
---**************************************************************************
---**********************Start Function Scope *******************************
---**************************************************************************
-
 --- Function to initialize the DigitalIO ports
 local function initialize()
-  _G.logger:info(nameOfModule .. ': Initialize digital IO ports.')
+  _G.logger:fine(nameOfModule .. ': Initialize digital IO ports.')
   digitalIOManager_Model.parameters.active = {} -- Status if port is active to process
   digitalIOManager_Model.parameters.mode = {} -- Port is used by 'SCRIPT', 'FLOW' or 'BLOCKED'
   digitalIOManager_Model.sensorStatus = {} -- Status of sensor's measurement
@@ -191,7 +189,9 @@ local function clearAll()
   Script.releaseObject(digitalIOManager_Model.handles)
   digitalIOManager_Model.handles = nil
 
-  Script.releaseObject(digitalIOManager_Model.flow)
+  if digitalIOManager_Model.flow then
+    Script.releaseObject(digitalIOManager_Model.flow)
+  end
   digitalIOManager_Model.flow = nil
 
   collectgarbage()
@@ -296,7 +296,7 @@ local function setupAll()
         digitalIOManager_Model.flow:addLink('Delay'..input..output..':delayedSignal', 'DigitalOut'..output..':newState')
       end
     else
-      _G.logger:info(nameOfModule .. ': Problem with configured links ...')
+      _G.logger:warning(nameOfModule .. ': Problem with configured links...')
     end
 
   end
@@ -307,7 +307,7 @@ end
 digitalIOManager_Model.setupAll = setupAll
 
 -- Initialize and setup digital IO configuration
-if digitalIOManager_Model.moduleActive then
+if _G.availableAPIs.specific then
   initialize()
   setupAll()
   digitalIOManager_Model.initialized = true

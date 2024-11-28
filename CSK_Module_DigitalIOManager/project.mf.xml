@@ -243,15 +243,25 @@ INFO: As this event will be created dynamically, there is no auto completion wit
                     <desc>Notify if status of digital input signals should be tracked for UI.</desc>
                     <param desc="Status" multiplicity="1" name="status" type="bool"/>
                 </event>
+                <event name="OnNewStatusFlowConfigPriority">
+                    <desc>Notify if FlowConfig should have priority for FlowConfig relevant configurations.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
+                <event name="OnNewStatusCSKStyle">
+                    <desc>Notify UI style to use for CSK modules.</desc>
+                    <param desc="UI style" multiplicity="1" name="theme" type="string"/>
+                </event>
+                <event name="OnNewStatusModuleVersion">
+                    <desc>Notify version of module.</desc>
+                    <param desc="Version" multiplicity="1" name="version" type="string"/>
+                </event>
                 <function name="setParameterName">
                     <desc>Function to set the name of the parameters if saved/loaded via the CSK_PersistentData module.</desc>
                     <param desc="Name of the parameter." multiplicity="1" name="name" type="string"/>
                 </function>
                 <function name="sendParameters">
                     <desc>Send parameters to CSK_PersistentData module if possible to save them.</desc>
-                </function>
-                <function name="loadParameters">
-                    <desc>Load parameters for this module from the CSK_PersistentData module if possible and use them.</desc>
+                    <param desc="[Optional] Set to TRUE if the data should NOT be saved immediately after sending." multiplicity="?" name="noDataSave" type="bool"/>
                 </function>
                 <function name="setLoadOnReboot">
                     <desc>Configure if this module should load its saved parameters at app / device boot up</desc>
@@ -355,9 +365,11 @@ INFO: As this event will be created dynamically, there is no auto completion wit
                 </function>
                 <function name="removeTriggerEvent">
                     <desc>Remove event to trigger a digital output signal.</desc>
+                    <param desc="Eventname" multiplicity="1" name="event" type="string"/>
                 </function>
                 <function name="removeForwardEvent">
                     <desc>Remove event to forward an incoming digital input signal.</desc>
+                    <param desc="Eventname" multiplicity="1" name="event" type="string"/>
                 </function>
                 <function name="setOutput">
                     <desc>Set status of currently selected output port.</desc>
@@ -391,10 +403,92 @@ INFO: As this event will be created dynamically, there is no auto completion wit
 INFO: Recommended to leave it switched off, if not essentially required!</desc>
                     <param desc="Status to set." multiplicity="1" name="status" type="bool"/>
                 </function>
+                <function name="setFlowConfigPriority">
+                    <desc>Function to configure if FlowConfig should have priority for FlowConfig relevant configuration.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </function>
+                <function name="clearFlowConfigRelevantConfiguration">
+                    <desc>Function to clear FlowConfig relevant configurations.</desc>
+                </function>
+                <function name="removeForwardEventViaUI">
+                    <desc>Remove preselected event to not forward incoming digital input signals anymore.</desc>
+                </function>
+                <function name="removeTriggerEventViaUI">
+                    <desc>Remove preselected event to not trigger digital output anymore.</desc>
+                </function>
+                <function name="getStatusModuleActive">
+                    <desc>Function to get status if module is active.</desc>
+                    <return desc="Status" multiplicity="1" name="status" type="bool"/>
+                </function>
+                <function name="loadParameters">
+                    <desc>Load parameters for this module from the CSK_PersistentData module if possible and use them.</desc>
+                    <return desc="Success to load parameters." multiplicity="1" name="success" type="bool"/>
+                </function>
+                <function name="getParameters">
+                    <trait>released</trait>
+                    <desc>Function to get all parameters of the client in JSON format.</desc>
+                    <return desc="JSON string with all parameters." multiplicity="1" name="jsonParameters" type="string"/>
+                </function>
+                <function name="resetModule">
+                    <desc>Function to reset main configuration of module.</desc>
+                </function>
             </serves>
         </crown>
+        <crown name="DigitalIOManager_FC">
+            <trait>released</trait>
+            <desc>Crown to provide CSK_FlowConfig relevant features.</desc>
+            <enum name="DigitalOutPorts" trait="released">
+                <desc>Placeholder for dynamic created output list.</desc>
+            </enum>
+            <enum name="DigitalInPorts" trait="released">
+                <desc>Placeholder for dynamic created input list.</desc>
+            </enum>
+            <serves/>
+            <crown name="OnNewInputState">
+                <trait>released</trait>
+                <desc>Provide digital input states.</desc>
+                <serves>
+                    <event name="OnNewInputState">
+                        <include>data-flow</include>
+                        <desc>Provide digital input states.</desc>
+                        <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                        <param desc="'CSK_DigitalIOManager.OnNewInputState[PORT]'&#10;&#10;Parameter:&#10;1: State of the input signal (BOOL)" multiplicity="1" name="OnNewInputState" type="string"/>
+                    </event>
+                    <function name="create">
+                        <trait>released</trait>
+                        <desc>Internally used CSK_FlowConfig create function.</desc>
+                        <param desc="Port to use." multiplicity="1" name="DigitalInPorts" ref="DigitalIOManager_FC.DigitalInPorts" type="enum"/>
+                        <return desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                    </function>
+                    <function name="register">
+                        <trait>released</trait>
+                        <desc>Internally used CSK_FlowConfig register function.</desc>
+                        <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                        <param desc="Internal parameter (not used)." multiplicity="1" name="eventname" type="string"/>
+                        <param desc="Internally used callback function." multiplicity="1" name="callback" type="string"/>
+                        <return desc="Success of register process." multiplicity="1" name="success" type="bool"/>
+                    </function>
+                </serves>
+            </crown>
+            <crown name="Set">
+                <desc>Set source to set state of digital output.</desc>
+                <serves>
+                    <function name="create">
+                        <desc>Internally used CSK_FlowConfig create function.</desc>
+                        <param desc="Port to use." multiplicity="1" name="DigitalOutPorts" ref="DigitalIOManager_FC.DigitalOutPorts" type="enum"/>
+                        <return desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                    </function>
+                    <function name="set">
+                        <include>data-flow</include>
+                        <desc>Set source to set state of digital output.</desc>
+                        <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                        <param desc="Source to set state (BOOL)." multiplicity="1" name="source" type="string"/>
+                    </function>
+                </serves>
+            </crown>
+        </crown>
         <meta key="author">SICK AG</meta>
-        <meta key="version">3.9.0</meta>
+        <meta key="version">4.0.0</meta>
         <meta key="priority">low</meta>
         <meta key="copy-protected">false</meta>
         <meta key="read-protected">false</meta>

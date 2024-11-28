@@ -5,6 +5,7 @@
 
 local availableAPIs = {}
 
+-- Function to load all default APIs
 local function loadAPIs()
   CSK_DigitalIOManager = require 'API.CSK_DigitalIOManager'
 
@@ -14,7 +15,6 @@ local function loadAPIs()
 
   Container = require 'API.Container'
   Engine = require 'API.Engine'
-  Flow = require 'API.Flow'
   Object = require 'API.Object'
   Timer = require 'API.Timer'
 
@@ -25,11 +25,15 @@ local function loadAPIs()
       CSK_PersistentData = require 'API.CSK_PersistentData'
     elseif appList[i] == 'CSK_Module_UserManagement' then
       CSK_UserManagement = require 'API.CSK_UserManagement'
+    elseif appList[i] == 'CSK_Module_FlowConfig' then
+      CSK_FlowConfig = require 'API.CSK_FlowConfig'
     end
   end
 end
 
+-- Function to load specific APIs
 local function loadSpecificAPIs()
+  Flow = require 'API.Flow'
   if not Connector then
     Connector = {}
   end
