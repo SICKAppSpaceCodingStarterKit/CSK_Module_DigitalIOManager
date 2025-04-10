@@ -12,7 +12,7 @@ local function setStatus(handle, source)
   local port = Container.get(handle, 'Port')
   local eventToLink, endPos = string.find(source, 'CSK_DigitalIOManager.OnNewInputState')
 
-  if eventToLink then
+  if eventToLink and _G.availableAPIs.signalLinkSupport then
     local inputPort = string.sub(source, endPos+1, #source)
     CSK_DigitalIOManager.setInputForLink(inputPort)
     CSK_DigitalIOManager.setOutputForLink(port)

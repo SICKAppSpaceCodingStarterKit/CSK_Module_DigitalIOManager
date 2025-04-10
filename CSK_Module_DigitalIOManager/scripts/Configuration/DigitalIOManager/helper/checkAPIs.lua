@@ -27,6 +27,8 @@ local function loadAPIs()
       CSK_UserManagement = require 'API.CSK_UserManagement'
     elseif appList[i] == 'CSK_Module_FlowConfig' then
       CSK_FlowConfig = require 'API.CSK_FlowConfig'
+    elseif appList[i] == 'CSK_Module_MultiIOLinkSMI' then
+      CSK_MultiIOLinkSMI = require 'API.CSK_MultiIOLinkSMI'
     end
   end
 end
@@ -41,8 +43,21 @@ local function loadSpecificAPIs()
   Connector.DigitalOut = require 'API.Connector.DigitalOut'
 end
 
+-- Function to check signal link feature (cFlow IO handling)
+local function checkSignalLinkSupport()
+  local deviceName = Engine.getTypeName()
+  local isSIM300 = string.find(deviceName, 'SIG300') or string.find(deviceName, 'SIM300')
+  if isSIM300 then
+    return false
+  else
+    return true
+  end
+end
+
 availableAPIs.default = xpcall(loadAPIs, debug.traceback) -- TRUE if all default APIs were loaded correctly
 availableAPIs.specific = xpcall(loadSpecificAPIs, debug.traceback) -- TRUE if all specific APIs were loaded correctly
+availableAPIs.signalLinkSupport = checkSignalLinkSupport() -- TRUE if device supports signal link feature (cFlow IO handling)
+availableAPIs.SGI = xpcall(loadSGIAPIs, debug.traceback) -- TRUE if SGI CROWN exists
 
 return availableAPIs
 --**************************************************************************

@@ -87,7 +87,9 @@ local function setOutputViaEvent(newState, port)
   _G.logger:fine(nameOfModule .. ': Set digital output ' .. tostring(port))
   Connector.DigitalOut.set(digitalIOManager_Model.handles[port], newState)
   if newState and digitalIOManager_Model.parameters.outActivationValue[port] ~= 0 then
-    Connector.DigitalOut.set(digitalIOManager_Model.handles[port], not newState)
+    if _G.availableAPIs.signalLinkSupport then
+      Connector.DigitalOut.set(digitalIOManager_Model.handles[port], not newState)
+    end
   end
 end
 

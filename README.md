@@ -20,6 +20,7 @@ Only after that single trigger it will consider a configured delay.
 Tested on  
 |Device|Firmware version|Module version|
 |--|--|--|
+|SIM1012|V2.4.2|V4.1.0|
 |SIM1012|V2.4.2|V4.0.0|
 |SIM1012|v2.4.1|v3.9.0|
 |SIM1012|v2.3.0|v3.9.0|

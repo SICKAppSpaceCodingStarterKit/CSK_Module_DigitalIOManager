@@ -61,6 +61,7 @@ Script.serveEvent("CSK_DigitalIOManager.OnNewInputSelection", "DigitalIOManager_
 Script.serveEvent("CSK_DigitalIOManager.OnNewOutputSelection", "DigitalIOManager_OnNewOutputSelection")
 
 -- Links
+Script.serveEvent('CSK_DigitalIOManager.OnNewStatusSignalLinksSupport', 'DigitalIOManager_OnNewStatusSignalLinksSupport')
 Script.serveEvent("CSK_DigitalIOManager.OnNewLinkList", "DigitalIOManager_OnNewLinkList")
 Script.serveEvent("CSK_DigitalIOManager.OnNewLinkSelected", "DigitalIOManager_DigitalIOManager_OnNewLinkSelected")
 Script.serveEvent("CSK_DigitalIOManager.OnNewInputPortList", "DigitalIOManager_OnNewInputPortList")
@@ -188,6 +189,7 @@ local function handleOnExpiredTmrDigitalIOManager()
   Script.notifyEvent("DigitalIOManager_OnNewOutputForLinkSelected", selectedOutputForLink)
   Script.notifyEvent("DigitalIOManager_OnNewLinkDelay", presetDelay)
 
+  Script.notifyEvent("DigitalIOManager_OnNewStatusSignalLinksSupport", _G.availableAPIs.signalLinkSupport)
   Script.notifyEvent("DigitalIOManager_OnNewLinkList", digitalIOManager_Model.helperFuncs.createJsonList('links', digitalIOManager_Model.parameters.links))
 
   Script.notifyEvent("DigitalIOManager_OnNewInputSelection", selectedInputInterface)
@@ -468,32 +470,36 @@ end
 Script.serveFunction("CSK_DigitalIOManager.setOutputForLink", setOutputForLink)
 
 local function addLink()
+  if _G.availableAPIs.signalLinkSupport then
 
-  if checkConfig(selectedInputForLink, selectedOutputForLink) == true and checkConfig(selectedInputForLink) == true and checkConfig(selectedOutputForLink) == true then
+    if checkConfig(selectedInputForLink, selectedOutputForLink) == true and checkConfig(selectedInputForLink) == true and checkConfig(selectedOutputForLink) == true then
 
-    _G.logger:fine(nameOfModule .. ": Add link.")
-    local tempLink = {}
-    tempLink.input = selectedInputForLink
-    tempLink.output = selectedOutputForLink
-    tempLink.delay = presetDelay
+      _G.logger:fine(nameOfModule .. ": Add link.")
+      local tempLink = {}
+      tempLink.input = selectedInputForLink
+      tempLink.output = selectedOutputForLink
+      tempLink.delay = presetDelay
 
-    table.insert(digitalIOManager_Model.parameters.links, tempLink)
+      table.insert(digitalIOManager_Model.parameters.links, tempLink)
 
-    digitalIOManager_Model.parameters.mode[selectedInputForLink] = 'FLOW'
-    digitalIOManager_Model.parameters.mode[selectedOutputForLink] = 'FLOW'
+      digitalIOManager_Model.parameters.mode[selectedInputForLink] = 'FLOW'
+      digitalIOManager_Model.parameters.mode[selectedOutputForLink] = 'FLOW'
 
-    digitalIOManager_Model.parameters.active[selectedInputForLink] = true
-    digitalIOManager_Model.parameters.active[selectedOutputForLink] = true
+      digitalIOManager_Model.parameters.active[selectedInputForLink] = true
+      digitalIOManager_Model.parameters.active[selectedOutputForLink] = true
 
-    digitalIOManager_Model.helperFuncs.createJsonList('links', digitalIOManager_Model.parameters.links)
+      digitalIOManager_Model.helperFuncs.createJsonList('links', digitalIOManager_Model.parameters.links)
 
-    Script.notifyEvent('DigitalIOManager_OnShowInternalMessages', 'false')
-    activateNewSetup()
+      Script.notifyEvent('DigitalIOManager_OnShowInternalMessages', 'false')
+      activateNewSetup()
+    else
+      Script.notifyEvent('DigitalIOManager_OnShowInternalMessages', 'true')
+      Script.notifyEvent('DigitalIOManager_OnNewMessageType', 'warning')
+      Script.notifyEvent('DigitalIOManager_OnNewInternalMessage', 'Current setting of (optional) ports not correct. Please check first')
+      _G.logger:warning(nameOfModule .. ": Current setting of (optional) ports not correct. Please check first.")
+    end
   else
-    Script.notifyEvent('DigitalIOManager_OnShowInternalMessages', 'true')
-    Script.notifyEvent('DigitalIOManager_OnNewMessageType', 'warning')
-    Script.notifyEvent('DigitalIOManager_OnNewInternalMessage', 'Current setting of (optional) ports not correct. Please check first')
-    _G.logger:warning(nameOfModule .. ": Current setting of (optional) ports not correct. Please check first.")
+    _G.logger:info(nameOfModule .. ": Signal link feature not available on device (no cFlow IO handling support).")
   end
 end
 Script.serveFunction("CSK_DigitalIOManager.addLink", addLink)
