@@ -733,8 +733,8 @@ local function clearFlowConfigRelevantConfiguration()
       selectInputInterface(key)
       setActiveStatusInput(false)
     end
-    for key, value in ipairs(digitalIOManager_Model.parameters.links) do
-      selectedLink = key
+    for currentLink=#digitalIOManager_Model.parameters.links, 1, -1  do
+      selectedLink = tostring(currentLink)
       removeLink()
     end
   end
