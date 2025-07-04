@@ -42,6 +42,7 @@ digitalIOManager_Model.sensorStatus = {} -- Status of sensor's measurement
 digitalIOManager_Model.forwardFunctions = {} -- List of functions to be used to forward incoming trigger via DigitalIn as events
 digitalIOManager_Model.triggerFunctions = {} -- List of functions to be used to forward incoming events to trigger DigitalOut
 digitalIOManager_Model.trackingFunctions = {} -- List of functions to be used to track input states of signal links
+digitalIOManager_Model.forwardLinksFunctions = {} -- List of functions to be used to forward status of DigitalIn used in signal links
 
 -- Create parameters / instances for this module
 digitalIOManager_Model.parameters = {}
@@ -80,6 +81,15 @@ local function trackInputState(status, source)
   Script.notifyEvent("DigitalIOManager_OnNewInputPortTable", digitalIOManager_Model.helperFuncs.createJsonList('input', digitalIOManager_Model.parameters.inDebounceMode, digitalIOManager_Model.parameters.active, digitalIOManager_Model.parameters.inDebounceMode, digitalIOManager_Model.parameters.inDebounceValue, digitalIOManager_Model.parameters.inputLogic, nil, digitalIOManager_Model.parameters.mode, digitalIOManager_Model.sensorStatus))
 end
 
+--- Function to forward input states of signal links
+---@param status boolean Status of input port to track
+---@param source string Name of input port
+local function forwardSignalLinkInputState(status, source)
+  if digitalIOManager_Model.parameters.forwardEvent[source] ~= nil and digitalIOManager_Model.parameters.forwardEvent[source] ~= '' then
+    Script.notifyEvent(digitalIOManager_Model.parameters.forwardEvent[source], status)
+  end
+end
+
 --- Function to set DigitalOutputs if received related event
 ---@param newState boolean Status of port
 ---@param port string Name of port
@@ -87,7 +97,9 @@ local function setOutputViaEvent(newState, port)
   _G.logger:fine(nameOfModule .. ': Set digital output ' .. tostring(port))
   Connector.DigitalOut.set(digitalIOManager_Model.handles[port], newState)
   if newState and digitalIOManager_Model.parameters.outActivationValue[port] ~= 0 then
-    Connector.DigitalOut.set(digitalIOManager_Model.handles[port], not newState)
+    if _G.availableAPIs.signalLinkSupport then
+      Connector.DigitalOut.set(digitalIOManager_Model.handles[port], not newState)
+    end
   end
 end
 
@@ -115,6 +127,11 @@ if _G.availableAPIs.specific then
       trackInputState(status,value)
     end
     digitalIOManager_Model.trackingFunctions[value] = trackInput
+
+    local function forwardSignalLinkInput(status)
+      forwardSignalLinkInputState(status,value)
+    end
+    digitalIOManager_Model.forwardLinksFunctions[value] = forwardSignalLinkInput
   end
 
   -- Create functions to set DigitalOutputs if received related event
@@ -265,6 +282,8 @@ local function setupAll()
       if not digitalIOManager_Model.flow:hasBlock('DigitalInEvent'..input) then
         digitalIOManager_Model.flow:addConsumerBlock('DigitalInEvent'..input, 'Engine.Event.notify')
         digitalIOManager_Model.flow:setInitialParameter('DigitalInEvent'..input, 'EventName', "CSK_DigitalIOManager.OnNewFlowInputState" .. input)
+
+        Script.register("CSK_DigitalIOManager.OnNewFlowInputState" .. input, digitalIOManager_Model.forwardLinksFunctions[input])
 
         -- Optionally track input state of signal links to e.g. show them on UI
         if digitalIOManager_Model.trackStatus then
